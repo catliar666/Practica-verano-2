@@ -1,0 +1,12 @@
+/*ERRORES ESTILOS*/
+.text-red{
+    display: inline-flex;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #a04ae3;
+    padding: 1%;
+    margin: auto;
+    border-radius: 15px;
+}
+/*FIN DE LOS ESTILOS DE ERRORES*/

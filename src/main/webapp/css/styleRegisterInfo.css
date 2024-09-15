@@ -1,0 +1,112 @@
+/*FIN DE BARRA DE NAVEGACIÓN*/
+
+body {
+    background-color: #0b0217;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+}
+
+/*COMIENZO DEL ESTILO DEL QUESTION-CONTAINER*/
+
+main{
+    padding: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-question{
+    width: 50%;
+    display: flex;
+    background: rgba(250, 251, 255, 0.2);
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+.container-question .option-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.container-question a{
+    text-align: center;
+    align-self: center;
+    font-size: 2rem;
+    padding: 2%;
+    text-decoration: none;
+    color: #ffffff;
+}
+/* Estilos para los botones dentro de la segunda columna */
+
+.container-register {
+    width: 50%;
+    display: flex;
+    background: rgba(250, 251, 255, 0.2);
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+.info-container {
+    padding: 1.5% 1.5% 1.5% 0;
+}
+
+.info-container h3 {
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+
+.info-container input {
+    width: 100%; /* Para que el input se ajuste al contenido si se establece dinámicamente */
+    padding: 5px;
+    color: #dfdede;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #525D76;
+}
+
+.container-question .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+
+.container-question h3 {
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.container-register .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+
+.container-register h2 {
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.container-register .button-form{
+    grid-column: span 2; /* Hacer que el botón ocupe toda la fila en el grid */
+    text-align: center;
+}
+
+.container-register .button-form button{
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.container-register .button-form button:hover{
+    background: #662D91;
+    cursor: pointer;
+}
