@@ -1,6 +1,7 @@
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="dataclass.InfoShipmentDataClass" %>
-<%@ page import="models.Shipment" %><%--
+<%@ page import="models.Shipment" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 28/08/2024
@@ -18,7 +19,7 @@
     String numSeguimientoParam = request.getParameter("numSeguimiento");
 
 // Verificar si el parámetro es nulo o vacío
-    if (numSeguimientoParam == null || numSeguimientoParam.isEmpty()) {
+    if (numSeguimientoParam == null || numSeguimientoParam.isEmpty() || Utils.VerEtiquetas(numSeguimientoParam)) {
         session.setAttribute("numSeguimientoNull", "No introducido");
         response.sendRedirect("seguimientoEnvio.jsp");
         return;

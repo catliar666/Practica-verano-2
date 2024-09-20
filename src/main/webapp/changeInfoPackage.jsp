@@ -1,4 +1,5 @@
 <%@ page import="appcontroller.AppController" %>
+<%@ page import="utils.Utils" %>
 
 <%
     AppController controller = new AppController();
@@ -9,15 +10,15 @@
 
     int fails = 0;
 
-    if (street == null || street.trim().isEmpty()) {
+    if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
         session.setAttribute("streetNull", "No hay direccion");
         fails++;
     }
-    if (city == null || city.trim().isEmpty()) {
+    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
         session.setAttribute("cityNull", "No hay ciudad");
         fails++;
     }
-    if (postalCode == null || postalCode.trim().isEmpty()) {
+    if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
         session.setAttribute("postalCodeNull", "No hay código postal");
         fails++;
     }

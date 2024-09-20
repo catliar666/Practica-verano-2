@@ -1,5 +1,6 @@
 <%@ page import="appcontroller.AppController" %>
-<%@ page import="models.User" %><%--
+<%@ page import="models.User" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 03/09/2024
@@ -14,9 +15,19 @@
 <body>
 <%
     AppController controller = new AppController();
-    if (request.getParameter("token") != null) {
-        int token = Integer.parseInt(request.getParameter("token"));
-        User user = controller.validateAccountToken(token);
+    String token = request.getParameter("token");
+    if (token == null || token.trim().isEmpty() || Utils.VerEtiquetas(token)) {
+        session.setAttribute("tokenNull", "Se debe crear un token");
+        response.sendRedirect("error.jsp");
+        return;
+    }
+        int tokenNum = Integer.parseInt(token);
+    if (tokenNum <=0) {
+        session.setAttribute("tokenNull", "Se debe crear un token");
+        response.sendRedirect("error.jsp");
+        return;
+    }
+        User user = controller.validateAccountToken(tokenNum);
         if (user != null) {
             session.removeAttribute("usuarioLogueado");
             session.setAttribute("usuarioLogueado", user);
@@ -24,7 +35,6 @@
             return;
         } else {
             response.sendRedirect("error.jsp");
-        }
     }
 %>
 </body>

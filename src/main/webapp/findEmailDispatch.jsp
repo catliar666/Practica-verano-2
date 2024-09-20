@@ -1,6 +1,7 @@
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="models.User" %>
-<%@ page import="comunication.ValidarCorreo" %><%--
+<%@ page import="comunication.ValidarCorreo" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 09/07/2024
@@ -22,7 +23,7 @@
     boolean emailUse = true;
     AppController controller = new AppController();
 
-    if (emailRegister == null) {
+    if (emailRegister == null || emailRegister.trim().isEmpty() || Utils.VerEtiquetas(emailRegister)) {
         session.setAttribute("emailNull", "Email no introducido");
         response.sendRedirect("findEmail.jsp");
         return;

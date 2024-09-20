@@ -545,38 +545,110 @@
         %>
         <form method="post" action="changeInfoAccountUser.jsp" class="all-change-container">
             <div class="info-container">
+                <%
+                    if (session.getAttribute("emailNull") != null) {
+                        session.removeAttribute("emailNull");
+                %>
+                <p class="fail">Debes introducir un email</p>
+                <%
+                    }
+                %>
                 <h3>Email:</h3>
                 <input type="text" name="emailNew" value="<%=user.getEmail()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("phoneNull") != null) {
+                        session.removeAttribute("phoneNull");
+                %>
+                <p class="fail">Debes introducir un número de teléfono</p>
+                <%
+                    }
+                %>
                 <h3>Número de telefono:</h3>
                 <input type="number" name="phoneNew" value="<%=user.getPhone()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("nameNull") != null) {
+                        session.removeAttribute("nameNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Nombre:</h3>
                 <input type="text" name="nameNew" value="<%=user.getName()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("surnameNull") != null) {
+                        session.removeAttribute("surnameNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Apellidos:</h3>
                 <input type="text" name="surnameNew" value="<%=user.getSurname()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("streetNull") != null) {
+                        session.removeAttribute("streetNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Dirección:</h3>
                 <input type="text" name="streetNew" value="<%=user.getStreet()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("numNull") != null) {
+                        session.removeAttribute("numNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Número de portal:</h3>
                 <input type="number" name="numNew" value="<%=user.getNum()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("cityNull") != null) {
+                        session.removeAttribute("cityNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Ciudad:</h3>
                 <input type="text" name="cityNew" value="<%=user.getCity()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("postalCodeNull") != null) {
+                        session.removeAttribute("postalCodeNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Código postal:</h3>
                 <input type="number" name="postalNew" value="<%=user.getPostalCode()%>">
             </div>
             <div class="info-container">
+                <%
+                    if (session.getAttribute("provinceNull") != null) {
+                        session.removeAttribute("provinceNull");
+                %>
+                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <%
+                    }
+                %>
                 <h3>Provincia:</h3>
                 <input type="text" name="stateNew" value="<%=user.getState()%>">
             </div>

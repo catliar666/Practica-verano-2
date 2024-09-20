@@ -1,5 +1,6 @@
 <%@ page import="appcontroller.AppController" %>
-<%@ page import="models.Driver" %><%--
+<%@ page import="models.Driver" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 10/09/2024
@@ -21,11 +22,11 @@
 
     int fails = 0;
 
-    if (name == null || name.trim().isEmpty()) {
+    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name)) {
         session.setAttribute("nameNull", "No hay nombre");
         fails++;
     }
-    if (email == null || email.trim().isEmpty()) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }

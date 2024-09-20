@@ -1,5 +1,6 @@
 <%@ page import="appcontroller.AppController" %>
-<%@ page import="models.User" %><%--
+<%@ page import="models.User" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 27/08/2024
@@ -16,7 +17,7 @@
     String email = request.getParameter("email");
     AppController controller = new AppController();
 try {
-    if (email == null || email.trim().isEmpty()) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
         session.setAttribute("emailNull", email);
         response.sendRedirect("accountUser.jsp");
         return;

@@ -1,5 +1,6 @@
 <%@ page import="appcontroller.AppController" %>
-<%@ page import="models.Shipment" %><%--
+<%@ page import="models.Shipment" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 10/09/2024
@@ -15,8 +16,12 @@
 <%
     AppController controller = new AppController();
     String idPackage = request.getParameter("idPackage");
+    if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage)) {
+        session.setAttribute("idNull", "Debe introducir un identificador");
+        response.sendRedirect("accountUser.jsp");
+        return;
+    }
     try {
-        if (idPackage != null) {
             int id = Integer.parseInt(idPackage);
             Shipment shipment = controller.searchShipmentById(id);
             if (shipment == null) {
@@ -26,9 +31,7 @@
             session.setAttribute("shipmentFound", shipment);
             response.sendRedirect("accountUser.jsp");
             return;
-        }
-        session.setAttribute("idNull", "Debe introducir un identificador");
-        response.sendRedirect("accountUser.jsp");
+
     }catch (NumberFormatException e){
         session.setAttribute("numError", "Debe introducir un número");
         response.sendRedirect("accountUser.jsp");

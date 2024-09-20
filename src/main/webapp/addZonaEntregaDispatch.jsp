@@ -1,5 +1,6 @@
 <%@ page import="models.Driver" %>
 <%@ page import="appcontroller.AppController" %>
+<%@ page import="utils.Utils" %>
 <%
     AppController controller = new AppController();
     Driver driver = (Driver) session.getAttribute("usuarioLogueado");
@@ -8,7 +9,7 @@
 
         String newPostal = request.getParameter("zonaEntregaNew");
 
-        if (newPostal == null || newPostal.trim().isEmpty()) {
+        if (newPostal == null || newPostal.trim().isEmpty() || Utils.VerEtiquetas(newPostal)) {
             session.setAttribute("postalNull", "No ha introducido un codigo postal nuevo");
             response.sendRedirect("accountDriver.jsp");
             return;

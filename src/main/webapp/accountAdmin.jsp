@@ -97,14 +97,8 @@
 
     <section class="info-perfil" id="infoPerfil">
         <h2>Datos del perfil</h2>
-        <p class="info-extra">Actualmente tienes <%=controller.numShipmentsPendings()%> envíos pendientes de
-            entrega.</p>
-        <p class="info-extra">La siguiente información ha sido proporcionada por la empresa FernanPaaq al momento de crear su cuenta.
-            Este conjunto de datos refleja los detalles iniciales que hemos registrado para usted.
-            Si considera que es necesario realizar alguna modificación o actualización en la información aquí presentada,
-            le invitamos a que dirija su atención a la pestaña correspondiente en nuestro sistema.
-            Si necesita asistencia adicional o tiene alguna consulta específica, no dude en contactar con nuestro equipo de soporte
-            para recibir la ayuda que requiera.</p>
+        <p class="info-extra">Actualmente usted ha iniciado sesión en una cuenta administradora, por lo tanto, cualquier cambio
+        podrá realizarlo aquí.</p>
         <div class="all-info-container">
             <div class="info-container">
                 <h3>Información de contacto:</h3>
@@ -124,36 +118,50 @@
             </div>
             <div class="info-container">
                 <h3>Número de identificación:</h3>
-                <span>C/<%=admin.getId()%></span>
+                <span><%=admin.getId()%></span>
                 <a class="edit-item" id="street-num" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
                 </a>
             </div>
-            <div class="info-container">
-                <h3>Zonas de entrega asignadas</h3>
-                <%
-                    String zonas;/* = admin.getDeliveryZoneToString();*/
-                %>
-                <span></span>
-                <a class="edit-item" id="city-state-postalCode" href="#"></a>
-            </div>
         </div>
     </section>
 
     <section class="info-empresa" id="infoEmpresa">
-        <%
-            ArrayList<Message> messages = new ArrayList<>();/* = controller.messageForPackageDriver(driver.getId());*/
-            if (messages == null || messages.isEmpty()) {
-        %>
-        <p class="not-info">No tienes chats abiertos actualmente</p>
-        <%
-        } else {
-        %>
-        <p>Tienes <%=messages.size()%> mensajes</p>
-        <%
-            }
-        %>
+        <h2>Información de la página web</h2>
+        <p class="info-extra">Este sistema ofrece la capacidad de consultar y gestionar información relevante sobre usuarios, conductores,
+            y envíos.
+            Permite obtener el número total de usuarios registrados, la cantidad de conductores disponibles, y la cantidad de envíos
+            que están pendientes. Además, proporciona detalles sobre envíos que aún no tienen un conductor asignado y aquellos que no
+            tienen un usuario asignado. También calcula el promedio de días necesarios para entregar un paquete, desde su registro hasta
+            la entrega final.
+            Es fundamental tener en cuenta que todos estos datos se actualizan automáticamente en tiempo real.</p>
+        <div class="all-info-container">
+            <div class="info-container">
+                <h3>Número de usuarios:</h3>
+                <span><%=controller.numUsers()%></span>
+            </div>
+            <div class="info-container">
+                <h3>Número de conductores:</h3>
+                <span><%=controller.numDrivers()%></span>
+            </div>
+            <div class="info-container">
+                <h3>Número de envíos pendientes de entrega:</h3>
+                <span><%=controller.numShipmentsPendings()%></span>
+            </div>
+            <div class="info-container">
+                <h3>Número de envios sin conductor:</h3>
+                <span><%=controller.numShipmentsToAssing()%></span>
+            </div>
+            <div class="info-container">
+                <h3>Número de envios con usuarios no registrados:</h3>
+                <span><%=controller.numShipmentsToNoUserRegister()%></span>
+            </div>
+            <div class="info-container">
+                <h3>Promedio de días que tardamos en entregar un paquete:</h3>
+                <span><%=controller.numDaysToDeliver()%></span>
+            </div>
+        </div>
     </section>
 
     <!--SECCIÓN PARA AÑADIR UNA NUEVA ZONA DE ENTREGA-->
@@ -493,7 +501,7 @@
     </div>
 </footer>
 
-<script src="jscript/cuentaDriver.js"></script>
+<script src="jscript/cuentaAdmin.js"></script>
 <%
     }
 %>

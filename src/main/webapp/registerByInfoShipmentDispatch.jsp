@@ -1,6 +1,7 @@
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="models.User" %>
-<%@ page import="comunication.ValidarCorreo" %><%--
+<%@ page import="comunication.ValidarCorreo" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 04/08/2024
@@ -28,23 +29,23 @@
 
     int fails = 0;
 
-    if (pass1 == null || pass1.trim().isEmpty()) {
+    if (pass1 == null || pass1.trim().isEmpty() || Utils.VerEtiquetas(pass1)) {
         session.setAttribute("passNull", "No hay contraseña");
         fails++;
     }
-    if (pass2 == null ||  pass2.trim().isEmpty()) {
+    if (pass2 == null ||  pass2.trim().isEmpty() || Utils.VerEtiquetas(pass2)) {
         session.setAttribute("pass2Null", "No hay segunda contraseña");
         fails++;
     }
-    if (state == null || state.trim().isEmpty()) {
+    if (state == null || state.trim().isEmpty() || Utils.VerEtiquetas(state)) {
         session.setAttribute("stateNull", "No hay provincia");
         fails++;
     }
-    if (email == null || email.trim().isEmpty()) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }
-    if (phone == null || phone.trim().isEmpty()) {
+    if (phone == null || phone.trim().isEmpty() || Utils.VerEtiquetas(phone)) {
         session.setAttribute("phoneNull", "No hay email");
         fails++;
     }

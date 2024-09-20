@@ -1,7 +1,9 @@
 <%@ page import="models.User" %>
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="persistence.Config" %>
-<%@ page import="models.Shipment" %><%--
+<%@ page import="models.Shipment" %>
+<%@ page import="jdk.jshell.execution.Util" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 27/08/2024
@@ -32,23 +34,23 @@
 
         int fails = 0;
 
-        if (email == null || email.trim().isEmpty()) {
+        if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
             fails++;
             session.setAttribute("emailNull", "Email null");
         }
-        if (street == null || street.trim().isEmpty()) {
+        if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
             fails++;
             session.setAttribute("streetNull", "Street null");
         }
-        if (city == null || city.trim().isEmpty()) {
+        if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
             fails++;
             session.setAttribute("cityNull", "City null");
         }
-        if (postalCode == null || postalCode.trim().isEmpty()) {
+        if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
             fails++;
             session.setAttribute("postalNull", "postal null");
         }
-        if (nameReciever == null || nameReciever.trim().isEmpty()) {
+        if (nameReciever == null || nameReciever.trim().isEmpty() || Utils.VerEtiquetas(nameReciever)) {
             fails++;
             session.setAttribute("nameNull", "Name null");
         }

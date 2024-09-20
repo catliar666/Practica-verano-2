@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
     public static void clickToContinue(){
@@ -70,4 +72,20 @@ public class Utils {
         if (fecha != null) return fecha.format(f);
         return "No hay datos disponibles";
     }
+
+
+
+    public static boolean VerEtiquetas(String mensaje) {
+        if (mensaje == null) return false;
+
+        // Regex para buscar etiquetas HTML
+        String regex = "<[^>]*>|&[a-zA-Z0-9#]+;";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(mensaje);
+
+        // Comprobar si hay al menos una coincidencia
+        return matcher.find();
+    }
+
+
 }

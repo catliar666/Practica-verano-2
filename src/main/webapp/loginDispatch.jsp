@@ -9,11 +9,28 @@
 <%@ page import="models.User" %>
 <%@ page import="models.Driver" %>
 <%@ page import="models.Admin" %>
+<%@ page import="utils.Utils" %>
 
 <%
     String email = request.getParameter("emailText");
     String pass = request.getParameter("passText");
     AppController controller = new AppController();
+
+
+    int fails = 0;
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+        session.setAttribute("emailNull", "Debes introducir un email");
+        fails++;
+    }
+    if (pass == null || pass.trim().isEmpty() || Utils.VerEtiquetas(pass)) {
+        session.setAttribute("passNull", "Debes introducir un pass");
+        fails++;
+    }
+    if (fails > 0) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
     Object user = controller.login(email, pass);
 
     if (user == null) {

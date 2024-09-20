@@ -1,6 +1,8 @@
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="models.Driver" %>
-<%@ page import="models.Shipment" %><%
+<%@ page import="models.Shipment" %>
+<%@ page import="utils.Utils" %>
+<%
     AppController controller = new AppController();
     Driver driver = (Driver) session.getAttribute("usuarioLogueado");
 
@@ -9,7 +11,7 @@
     }
     String idPackage = request.getParameter("idPackage");
 
-    if (idPackage == null) {
+    if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage)) {
         session.setAttribute("idNull", "Identificacion del paquete no introducida");
         response.sendRedirect("accountDriver.jsp");
         return;

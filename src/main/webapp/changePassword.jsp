@@ -1,7 +1,8 @@
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="models.Driver" %>
 <%@ page import="models.User" %>
-<%@ page import="models.Admin" %><%--
+<%@ page import="models.Admin" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 10/09/2024
@@ -43,15 +44,15 @@
     String passOld = request.getParameter("passOld");
 
     int fails = 0;
-    if (passOld == null || passOld.trim().isEmpty()) {
+    if (passOld == null || passOld.trim().isEmpty() || Utils.VerEtiquetas(passOld)) {
         session.setAttribute("passOldNull", "Debes introducir la contraseña antigua");
         fails++;
     }
-    if (pass == null || pass.trim().isEmpty()) {
+    if (pass == null || pass.trim().isEmpty() || Utils.VerEtiquetas(pass)) {
         session.setAttribute("passNull", "Debes introducir una contraseña");
         fails++;
     }
-    if (pass2 == null || pass2.trim().isEmpty()) {
+    if (pass2 == null || pass2.trim().isEmpty() || Utils.VerEtiquetas(pass2)) {
         session.setAttribute("pass2Null", "Debes introducir una confirmación de contraseña");
         fails++;
     }

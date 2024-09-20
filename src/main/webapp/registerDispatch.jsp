@@ -9,6 +9,7 @@
 <%@ page import="models.User" %>
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="comunication.ValidarCorreo" %>
+<%@ page import="utils.Utils" %>
 <html>
 <head>
     <title>Title</title>
@@ -31,35 +32,35 @@
     String notificationNo = request.getParameter("notification");
 
     // Validación de campos
-    if (name == null || name.trim().isEmpty()) {
+    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name)) {
         session.setAttribute("nameNull", "No hay nombre");
         fails++;
     }
-    if (email == null || email.trim().isEmpty()) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }
-    if (surname == null || surname.trim().isEmpty()) {
+    if (surname == null || surname.trim().isEmpty()|| Utils.VerEtiquetas(surname)) {
         session.setAttribute("surnameNull", "No hay apellidos");
         fails++;
     }
-    if (pass == null || pass.trim().isEmpty()) {
+    if (pass == null || pass.trim().isEmpty()|| Utils.VerEtiquetas(pass)) {
         session.setAttribute("passNull", "No hay contraseña");
         fails++;
     }
-    if (pass2 == null ||  pass2.trim().isEmpty()) {
+    if (pass2 == null ||  pass2.trim().isEmpty()|| Utils.VerEtiquetas(pass2)) {
         session.setAttribute("pass2Null", "No hay segunda contraseña");
         fails++;
     }
-    if (address == null || address.trim().isEmpty()) {
+    if (address == null || address.trim().isEmpty()|| Utils.VerEtiquetas(address)) {
         session.setAttribute("addressNull", "No hay direccion");
         fails++;
     }
-    if (province == null || province.trim().isEmpty()) {
+    if (province == null || province.trim().isEmpty()|| Utils.VerEtiquetas(province)) {
         session.setAttribute("provinceNull", "No hay provincia");
         fails++;
     }
-    if (city == null || city.trim().isEmpty()) {
+    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
         session.setAttribute("cityNull", "No hay ciudad");
         fails++;
     }
