@@ -27,7 +27,8 @@
             phone = request.getParameter("phoneNew"),
             state = request.getParameter("stateNew");
 
-    String notificationNo = request.getParameter("notificationNo"), notificationYes = request.getParameter("notificationYes");
+    String notificationNo = request.getParameter("notificationNoName"),
+            notificationYes = request.getParameter("notificationYesName");
     int fails = 0;
 
     if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name)) {

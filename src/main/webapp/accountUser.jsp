@@ -657,11 +657,11 @@
                 <%
                     if (user.isNotification()) {
                 %>
-                <label class="notification-text">Activadas<input type="checkbox" name="notificationNo" id="notificationNo" value="no"></label>
+                <label class="notification-text">Activadas<input type="checkbox" name="notificationNoName" id="notificationNo" value="no"></label>
                 <%
                     } else {
                 %>
-                <label class="notification-text">Desactivadas<input type="checkbox" name="notificationYes" id="notificationYes" value="yes"></label>
+                <label class="notification-text">Desactivadas<input type="checkbox" name="notificationYesName" id="notificationYes" value="yes"></label>
                 <%
                     }
                 %>
