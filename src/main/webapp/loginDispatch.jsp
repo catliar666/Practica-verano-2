@@ -35,7 +35,8 @@
 
     if (user == null) {
         // Redirigir si las credenciales son incorrectas
-        response.sendRedirect("index.jsp");
+        session.setAttribute("datosIncorrectos", "No se ha encontrado el usuario");
+        response.sendRedirect("login.jsp");
         return;
     }
 

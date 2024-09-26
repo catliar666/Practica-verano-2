@@ -178,8 +178,23 @@ public class Driver implements Serializable {
         return this.pass.equals(passMD);
     }
 
-    public String resumeForAdmin() {
-        return "┌──. ■ .─────────────────────────────────────────────────────────┐\n" +
+    public StringBuilder resumeForAdmin() {
+        StringBuilder results = new StringBuilder();
+        results.append("<div class='card-image'>")
+                // Información restante que se muestra al hacer hover
+                .append("<p class='text-title-hover'>Identificador: ").append("<p class='text-body'>").append(id).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Zona de entrega: ").append("<p class='text-body'>")
+                .append((getDeliveryZoneToString().isEmpty() ? "No hay zonas añadidas" : getDeliveryZoneToString())).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Envios pendientes de entrega: ").append("<p class='text-body'>").append(numShipmentsPendings()).append("</p>").append("</p>")
+                .append("</div>")
+                .append("<div class='card-description'>")
+                // Solo la expedición del paquete y el título con el ID
+                .append("<span class='text-title'>Nombre: ").append(name).append("</span>")
+                .append("<p class='text-body'>Email: ").append(email).append("</p>")
+                // Botón de "Más información"
+                .append("<button class='info-button'>Más información</button>")
+                .append("</div>");
+        /*return "┌──. ■ .─────────────────────────────────────────────────────────┐\n" +
                "                    Informacion del conductor\n" +
                "└─────────────────────────────────────────────────────────. ■ .──┘\n" +
                "█  Número de referencia del conductor: " + id + "\n" +
@@ -187,11 +202,27 @@ public class Driver implements Serializable {
                "█  Email: " + email + "\n" +
                "█  Zonas de entrega asignadas: " + (getDeliveryZoneToString().isEmpty() ? "No hay zonas añadidas" : getDeliveryZoneToString()) + "\n" +
                "█  Envíos pendientes de entrega: " + numShipmentsPendings() + "\n" +
-               "──────────────────────────────────────────────────────────. ■ .──";
+               "──────────────────────────────────────────────────────────. ■ .──";*/
+        return results;
     }
 
-    public String showProfile() {
-        return "┌──. ■ .─────────────────────────────────────────────────────────┐\n" +
+    public StringBuilder showProfile() {
+        StringBuilder results = new StringBuilder();
+        results.append("<div class='card-image'>")
+                // Información restante que se muestra al hacer hover
+                .append("<p class='text-title-hover'>Identificador: ").append("<p class='text-body'>").append(id).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Zona de entrega: ").append("<p class='text-body'>")
+                .append((getDeliveryZoneToString().isEmpty() ? "No hay zonas añadidas" : getDeliveryZoneToString())).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Paquetes asignados: ").append("<p class='text-body'>").append(getShipments().size()).append(")</p>").append("</p>")
+                .append("</div>")
+                .append("<div class='card-description'>")
+                // Solo la expedición del paquete y el título con el ID
+                .append("<span class='text-title'>Nombre: ").append(name).append("</span>")
+                .append("<p class='text-body'>Email: ").append(email).append("</p>")
+                // Botón de "Más información"
+                .append("<button class='info-button'>Más información</button>")
+                .append("</div>");
+        /*return "┌──. ■ .─────────────────────────────────────────────────────────┐\n" +
                "                    Informacion del perfil\n" +
                "└─────────────────────────────────────────────────────────. ■ .──┘\n" +
                "█  Número de referencia del conductor: " + id + "\n" +
@@ -199,6 +230,7 @@ public class Driver implements Serializable {
                "█  Email: " + email + "\n" +
                "█  Zonas de entrega asignadas: " + (getDeliveryZoneToString().isEmpty() ? "No hay zonas añadidas" : getDeliveryZoneToString()) + "\n" +
                "█  Paquetes asignados: " + getShipments().size() + "\n" +
-               "──────────────────────────────────────────────────────────. ■ .──";
+               "──────────────────────────────────────────────────────────. ■ .──";*/
+        return results;
     }
 }

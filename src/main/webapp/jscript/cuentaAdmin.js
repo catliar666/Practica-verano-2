@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     const sections = ["infoPerfil", "modifyPerfil", "infoEmpresa", "sinAsignar",
-        "resumenUsuarios", "resumenConductores", "configProperties", "createAdmin", "createDriver", "copySecurity"];
+        "resumenUsuarios", "resumenConductores", "configProperties", "createCuentas", "copySecurity"];
     const buttons = document.querySelectorAll('.list-vertical .list-button');
 
     function hideAllSections() {
@@ -48,8 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     handleButtonClick("enviosSinAsignar", "sinAsignar");
     handleButtonClick("resumenUsers", "resumenUsuarios");
     handleButtonClick("resumenDriver", "resumenConductores");
-    handleButtonClick("crearDriver", "createDriver");
-    handleButtonClick("crearAdmin", "createAdmin");
+    handleButtonClick("crearCuentas", "createDriver");
     handleButtonClick("configWeb", "configProperties");
     handleButtonClick("modificarPerfil", "modifyPerfil");
     handleButtonClick("copiaSeguridad", "copySecurity");
@@ -78,9 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
             case "resumenConductores":
                 return "resumenDriver";
             case "createDriver":
-                return "crearDriver";
-            case "createAdmin":
-                return "crearAdmin";
+                return "crearCuentas";
             case "configProperties":
                 return "configWeb";
             case "modifyPerfil":

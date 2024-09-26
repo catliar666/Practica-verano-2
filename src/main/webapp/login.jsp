@@ -14,6 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styleLogin.css" rel="stylesheet">
+    <link href="css/styleFails.css" rel="stylesheet">
     <title>Login FernanPaaq</title>
     <!-- BOXICONS -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -73,12 +74,30 @@
                 <div class="form-title">
                     <span>Inicia sesión</span>
                 </div>
+                <%
+                    if (session.getAttribute("datosIncorrectos") != null) {
+                        session.removeAttribute("datosIncorrectos");
+                %>
+                <p class="text-red">Los datos introducidos son incorrectos</p>
+                <%}%>
                 <div class="form-inputs">
                     <div class="input-box">
+                        <%
+                            if (session.getAttribute("emailNull") != null) {
+                                session.removeAttribute("emailNull");
+                        %>
+                        <p class="text-red">Debes introducir un email</p>
+                        <%}%>
                     <input type="text" name="emailText" class="input-field" placeholder="Introduce tu email" required>
                     <i class="bx bx-envelope icon"></i>
                     </div>
                     <div class="input-box">
+                        <%
+                            if (session.getAttribute("passNull") != null) {
+                                session.removeAttribute("passNull");
+                        %>
+                        <p class="text-red">Debes introducir tu contraseña</p>
+                        <%}%>
                         <input type="password" name="passText" class="input-field" placeholder="Introduce tu contraseña" required>
                         <i class="bx bx-lock-alt icon"></i>
                     </div>

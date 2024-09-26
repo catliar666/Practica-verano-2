@@ -245,26 +245,23 @@ public class User implements Serializable {
 
     public StringBuilder resumeForAdmin() {
         StringBuilder results = new StringBuilder();
-        results.append("<div class='card'>")
-                .append("<div class='card-front'>")
-                .append("<p class'tittle'>").append(name).append(" ").append(surname).append("</p>")
-                .append("<p class='subtitle'>").append(email).append("</p>")
+        results.append("<div class='card-image'>")
+                // Información restante que se muestra al hacer hover
+                .append("<p class='text-title-hover'>Identificador: ").append("<p class='text-body'>").append(id).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Apellidos: ").append("<p class='text-body'>").append(surname).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Teléfono: ").append("<p class='text-body'>").append(phone).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Dirección: ").append("<p class='text-body'>").append(street).append(", ").append(city).append(" (").append(postalCode).append(")</p>").append("</p>")
+                .append("<p class='text-title-hover'>¿Notificaciones? ").append("<p class='text-body'>").append(((notification) ? "Sí" : "No")).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Envios pendientes: ").append("<p class='text-body'>").append(numDeliveriesPendingToDeliver()).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>¿Cuenta validada? ").append("<p class='text-body'>")
+                .append(((validate) ? "Realizada" : "No realizada")).append("</p>").append("</p>")
                 .append("</div>")
-                .append("<div class='card-back'>")
-                .append("<p class='title-back'>Identificador").append("</p>")
-                .append("<p class='text-back'>").append(id).append("</p>")
-                .append("<p class='title-back'>Dirección").append("</p>")
-                .append("<p class='text-back'>").append(street + " " + num + ", " + city + ", " + state + "(" + postalCode + ")")
-                .append("</p>")
-                .append("<p class='title-back'>Validación cuenta").append("</p>")
-                .append("<p class='text-back'>").append(((validate) ? "Realizada" : "No realizada")).append("</p>")
-                .append("<p class='title-back'>Notificaciones").append("</p>")
-                .append("<p class='text-back'>").append(((notification) ? "Sí" : "No")).append("</p>")
-                .append("<p class='title-back'>Teléfono").append("</p>")
-                .append("<p class='text-back'>").append(phone).append("</p>")
-                .append("<p class='title-back'>Envios pendientes").append("</p>")
-                .append("<p class='text-back'>").append(numDeliveriesPendingToDeliver()).append("</p>")
-                .append("</div")
+                .append("<div class='card-description'>")
+                // Solo la expedición del paquete y el título con el ID
+                .append("<span class='text-title'>Nombre: ").append(name).append("</span>")
+                .append("<p class='text-body'>Email: ").append(email).append("</p>")
+                // Botón de "Más información"
+                .append("<button class='info-button'>Más información</button>")
                 .append("</div>");
 
         /*return "──────. ■ .──────────────────────────────────────────────────────\n" +

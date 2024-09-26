@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/styleAccountDriver.css" rel="stylesheet">
+    <link href="css/styleAccountAdmin.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
     <link href="css/styleFails.css" rel="stylesheet">
     <link href="css/styleFooterWhite.css" rel="stylesheet">
@@ -78,10 +78,7 @@
                 <button class="list-button" id="resumenDriver">Resumen de conductores</button>
             </li>
             <li>
-                <button class="list-button" id="crearDriver">Crear cuenta conductor</button>
-            </li>
-            <li>
-                <button class="list-button" id="crearAdmin">Crear cuenta admin</button>
+                <button class="list-button" id="crearCuentas">Crear cuentas</button>
             </li>
             <li>
                 <button class="list-button" id="configWeb">Configuración web</button>
@@ -166,70 +163,27 @@
 
     <!--SECCIÓN PARA AÑADIR UNA NUEVA ZONA DE ENTREGA-->
     <section class="sin-asignar" id="sinAsignar">
-        <h2>Añadir nueva zona de entregas</h2>
+        <h2>Asignar paquetes a un conductor</h2>
         <p class="info-extra">En esta sección, podrá introducir un nuevo código postal para sus áreas de entrega.
             Tenga en cuenta que, al añadir un nuevo código postal, los paquetes futuros que no tengan un conductor asignado se
             asignarán automáticamente al conductor disponible que cubra dicho código postal en nuestra base de datos.</p>
-        <%
-            if (session.getAttribute("addSuccess") == null) {
-        %>
-        <form action="addZonaEntregaDispatch.jsp" method="post" class="all-change-container">
 
-            <label>Introduce un nuevo codigo postal
-                <%
-                    if (session.getAttribute("postalExiste") != null) {
-                        session.removeAttribute("postalExiste");
-                %>
-                <p class="text-red">Este código postal ya existe, introduzca uno nuevo.</p>
-                <%
-                    }
-                %>
-                <%
-                    if (session.getAttribute("postalNull") != null) {
-                        session.removeAttribute("postalNull");
-                %>
-                <p class="text-red">No has introducido nada, por favor, añade un código postal</p>
-                <%
-                    }
-                %>
-                <input type="number" placeholder="Introduce un código postal" name="zonaEntregaNew">
-            </label>
-            <div class="button-form">
-                <button type="submit">Añadir</button>
-            </div>
-        </form>
-        <%
-        } else {
-        %>
-        <div class="successAdd">
-            <h2>Zona de entrega añadida correctamente</h2>
-            <p class="info-extra">Se ha añadido una nueva zona de entrega a su perfil.
-                A partir de ahora, la eliminación de zonas de entrega solo podrá ser realizada por un administrador.
-                Si ha cometido un error al añadir esta zona, le solicitamos que se comunique con un superior para que
-                pueda asistirle con la corrección.</p>
-            <div class="button-form">
-                <a href="borrarDriverDispatch.jsp"><button>Volver atrás</button></a>
-            </div>
-        </div>
-        <%
-            }
-        %>
     </section>
 
 
     <!--SECCION QUE MUESTRA LOS PAQUETES ENVIADOS POR EL USUARIO-->
 
     <section class="resumen-users" id="resumenUsuarios">
-        <h2>Envíos pendientes de entregar</h2>
-        <p class="info-extra">En esta sección, tiene la posibilidad de consultar la información detallada sobre los envíos
-            que aún quedan por entregar. Aquí podrá revisar los detalles específicos de cada paquete pendiente, incluyendo
-            la dirección de entrega, el estado del envío y cualquier otra información relevante para la gestión de sus tareas diarias.</p>
+        <h2>Resumen de usuarios</h2>
+        <p class="info-extra">Esta sección, se encarga de mostrar la información de todos los usuarios
+            que se han registrado en la web. Presenta detalles como nombre, correo electrónico, dirección, etc.
+            Esta funcionalidad permite a los administradores tener un control claro sobre la base de usuarios.</p>
         <div class="card-container">
             <%
                 ArrayList<User> users = controller.getUsers();
-                if (!users.isEmpty()) {
+                if (users.isEmpty()) {
             %>
-            <p class="not-info">No se ha encontrado información sobre envíos pendientes de entregar</p>
+            <p class="not-info">No se ha encontrado información sobre usuarios registrados</p>
             <%
             } else {
                 for (User u : users) {
@@ -260,76 +214,197 @@
 
             if (drivers.isEmpty()) {
         %>
-        <p class="not-info">No se han encontrado envíos para modificar</p>
+        <p class="not-info">No se han encontrado conductores registrados</p>
         <%
-            }
-            Shipment shipmentFound = (Shipment) session.getAttribute("shipmentFound");
-            if (shipmentFound == null && session.getAttribute("packageUpdateState") == null) {
-        %>
-        <div class="form-change">
-            <form method="post" action="findPackageDriver.jsp">
-                <label>Id del envío a modificar:</label>
-                <%
-                    String fails = (String) session.getAttribute("idNull");
-
-                    if (fails != null) {
-                        session.removeAttribute("idNull");
-                %>
-                <p class="text-red">Debes introducir un id</p>
-                <%
-                    }
-                %>
-                <%
-                    String notFound = (String) session.getAttribute("shipmentNotFound");
-
-                    if (notFound != null) {
-                        session.removeAttribute("shipmentNotFound");
-                %>
-                <p class="text-red">No se han encontrado el envio para modificar</p>
-                <%
-                    }
-                %>
-                <input type="text" name="idPackage" placeholder="Introduce número identificativo del paquete">
-                <button class="button-form">Modificar</button>
-            </form>
-        </div>
-        <%
-            for (Driver s : drivers) {
+            } else {
+                for (Driver d : drivers) {
         %>
         <div class="target-package">
-            <%=s.resumeForAdmin()%>
+            <%=d.resumeForAdmin()%>
         </div>
         <%
-            }
-        } else if (shipmentFound != null && session.getAttribute("packageUpdateState") == null) {
-        %>
-        <h3>Selecciona el estado del envío haciendo clic en la opción deseada.</h3>
-        <div class="option-status">
-            <div class="options">
-                <a href="changeStatus.jsp?status=1">En oficina de origen</a>
-                <a href="changeStatus.jsp?status=2">En almacén</a>
-                <a href="changeStatus.jsp?status=3">En reparto</a>
-                <a href="changeStatus.jsp?status=4">Entregado</a>
-            </div>
-        </div>
-        <%
-            }
-            if (session.getAttribute("packageUpdateState") != null) {
-                session.removeAttribute("packageUpdateState");
-        %>
-        <div class="finished-container">
-            <h2>Envío actualizado con exito</h2>
-            <p class="info-extra">Te informamos que el estado del envío ha sido actualizado exitosamente
-                Si tienes alguna pregunta o necesitas más detalles sobre este envío, no dudes en ponerte en contacto con
-                nuestro equipo de soporte. Tu atención al detalle y dedicación en la gestión de los envíos son cruciales
-                para ofrecer un servicio de calidad a nuestros clientes.</p>
-            <!--CREAR EL BORRARDISPATCH PARA QUE FUNCIONE AQUI-->
-            <a href="borrarDriverDispatch.jsp"><button>Volver atrás</button></a>
-        </div>
-        <%
+                }
             }
         %>
 
+    </section>
+
+    <!--SECCION QUE SIRVE PARA CREAR CUENTAS TANTO DE ADMINISTRADOR COMO DE CONDUCTOR-->
+    <section class="crear-cuentas" id="createDriver">
+        <h2>Crear cuentas de conductor o administrador</h2>
+        <p class="info-extra">Aquí podrás crear las cuentas de conductor y de administrador según las preferencias del administrador.</p>
+
+        <div class="btn-box">
+            <button class="btn btn-1" id="crearConductor">Crear Conductor</button>
+            <button class="btn btn-2" id="crearAdministrador">Crear Administrador</button>
+        </div>
+
+        <div class="driver-container" id="drivercontainer">
+            <%
+                String email = (String) session.getAttribute("emailNoRegisterDriver");
+                if (email == null) {
+            %>
+            <form method="post" action="findEmailDispatch.jsp?accountAdmin=driver">
+                <div class="input-box">
+                    <%
+                        if (session.getAttribute("emailUse") != null) {
+                            session.removeAttribute("emailUse");
+                    %>
+                    <p class="text-red">El email introducido ya está en uso</p>
+                    <%
+                        }
+                    %>
+                    <input type="email" name="registerEmail" class="input-field" placeholder="Introduce tu email" required>
+                    <i class="bx bx-envelope icon"></i>
+                </div>
+                <div class="button-form">
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+            <%
+            } else {
+            %>
+            <form method="post" action="createDriverDispatch.jsp">
+                <div class="all-make-container makePackage">
+                    <div class="make-container">
+                        <label>Introduce un email:</label>
+                        <%
+                            if (session.getAttribute("emailNull") != null) {
+                                session.removeAttribute("emailNull");
+                        %>
+                        <p class="fail">Debes introducir un email</p>
+                        <%
+                            }
+                        %>
+                        <input type="email" name="email" placeholder="Introduce un email" value="<%= email %>" pattern="^[^<>]*$" required>
+                    </div>
+
+                    <!-- Otras secciones para capturar la dirección, ciudad, etc. -->
+                    <!-- Ingresar el nombre -->
+                    <div class="make-container">
+                        <label>Introduce un nombre:</label>
+                        <%
+                            if (session.getAttribute("nameNull") != null) {
+                                session.removeAttribute("nameNull");
+                        %>
+                        <p class="fail">Debes introducir un nombre</p>
+                        <%
+                            }
+                        %>
+                        <input type="text" name="name" placeholder="Introduce un nombre" pattern="^[^<>]*$" required>
+                    </div>
+
+                    <!-- Ingresar la contraseña -->
+                    <div class="make-container">
+                        <label>Introduce una contraseña:</label>
+                        <%
+                            if (session.getAttribute("passNull") != null) {
+                                session.removeAttribute("passNull");
+                        %>
+                        <p class="fail">Debes introducir una contraseña</p>
+                        <%
+                            }
+                        %>
+                        <input type="password" name="pass" placeholder="Introduce una contraseña" pattern="^[^<>]*$" required>
+                    </div>
+                    <div class="button-form">
+                        <button type="submit">Enviar</button>
+                    </div>
+                </div>
+            </form>
+            <%
+                }
+            %>
+        </div>
+
+        <div class="admin-container" id="admincontainer">
+            <%
+                String emailAdmin = (String) session.getAttribute("emailNoRegisterAdmin");
+                if (emailAdmin == null) {
+            %>
+            <form method="post" action="findEmailDispatch.jsp?accountAdmin=admin">
+                <div class="input-box">
+                    <%
+                        if (session.getAttribute("emailUse") != null) {
+                            session.removeAttribute("emailUse");
+                    %>
+                    <p class="text-red">El email introducido ya está en uso</p>
+                    <%
+                        }
+                    %>
+                    <input type="email" name="registerEmail" class="input-field" placeholder="Introduce tu email" required>
+                    <i class="bx bx-envelope icon"></i>
+                </div>
+                <div class="button-form">
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+            <%
+            } else {
+            %>
+            <form method="post" action="createAdminDispatch.jsp">
+                <div class="all-make-container makePackage">
+                    <div class="make-container">
+                        <label>Introduce un email:</label>
+                        <%
+                            if (session.getAttribute("emailNull") != null) {
+                                session.removeAttribute("emailNull");
+                        %>
+                        <p class="fail">Debes introducir un email</p>
+                        <%
+                            }
+                        %>
+                        <input type="email" name="email" placeholder="Introduce un email" value="<%= emailAdmin %>" pattern="^[^<>]*$" required>
+                    </div>
+
+                    <!-- Ingresar el nombre -->
+                    <div class="make-container">
+                        <label>Introduce un nombre:</label>
+                        <%
+                            if (session.getAttribute("nameNull") != null) {
+                                session.removeAttribute("nameNull");
+                        %>
+                        <p class="fail">Debes introducir un nombre</p>
+                        <%
+                            }
+                        %>
+                        <input type="text" name="name" placeholder="Introduce un nombre" pattern="^[^<>]*$" required>
+                    </div>
+
+                    <!-- Ingresar la contraseña -->
+                    <div class="make-container">
+                        <label>Introduce una contraseña:</label>
+                        <%
+                            if (session.getAttribute("passNull") != null) {
+                                session.removeAttribute("passNull");
+                        %>
+                        <p class="fail">Debes introducir una contraseña</p>
+                        <%
+                            }
+                        %>
+                        <input type="password" name="pass" placeholder="Introduce una contraseña" pattern="^[^<>]*$" required>
+                    </div>
+                    <div class="button-form">
+                        <button type="submit">Enviar</button>
+                    </div>
+                </div>
+            </form>
+            <%
+                if (session.getAttribute("register") != null) {
+                    session.removeAttribute("register");
+            %>
+            <p class="successAdd">Administrador registrado con éxito</p>
+            <%
+                }
+                if (session.getAttribute("fail") != null) {
+                    session.removeAttribute("fail");
+            %>
+            <p class="fail">No se ha podido registrar al administrador</p>
+            <%
+                    }
+                }
+            %>
+        </div>
     </section>
 
     <!--SECCION QUE VEO SOLO LA INFORMACION DE LOS PAQUETES QUE YA HE RECIBIDO Y QUE RECIBIRÉ-->
@@ -337,17 +412,9 @@
     <!--tengo que hacer dos secciones dentro de esto, que estén separadas por botones, si pulso el botón de "Entregados" debo mostrar
     los envios que ya me han sido entregados, si pulso el botón de "En curso" me mostrara la información de los paquetes
     que todavia no me han entregado y siguen siendo despachados por la empresa-->
-    <section class="envios-finished" id="configProperties">
+    <section class="config-properties" id="configProperties">
         <h2>Envíos que me han realizado</h2>
-        <p class="info-extra">Esta opción permite al usuario ver todos los paquetes que le han enviado a través del
-            sistema.
-            Aquí se muestra un listado detallado de cada envío, incluyendo información como la fecha de expedición, la
-            entrega estimada,
-            el estado actual del paquete, la dirección de destino, el remitente y el destinatario. Esta sección
-            proporciona una
-            forma rápida y sencilla de gestionar y hacer
-            seguimiento de todos los paquetes, manteniendo al usuario informado en todo momento sobre el estado de los
-            paquetes.</p>
+        <p class="info-extra">Configuración properties muajaja</p>
 
         <!--MODIFICAR EL JAVASCRIPT PARA MOSTRAR LOS PEDIDOS ORDENADOS POR, ENTREGADOS O NO ENTREGADOS-->
         <div class="card-container-finished" id="card-container-finished">
@@ -490,6 +557,10 @@
             }
         %>
     </section>
+
+    <section class="copy-security" id="copySecurity">
+
+    </section>
 </main>
 
 
@@ -502,6 +573,7 @@
 </footer>
 
 <script src="jscript/cuentaAdmin.js"></script>
+<script src="jscript/opcionCrearMostrar.js"></script>
 <%
     }
 %>
