@@ -1,12 +1,7 @@
 package DAO;
 
-import models.Driver;
 import models.Message;
-import models.Shipment;
-import persistence.PersistenceData;
-
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -38,13 +33,14 @@ public class DaoMessageSQL implements DaoMessage {
         sentencia = "UPDATE message SET idPackage = " + message.getIdPackage() +
                     ", idReciever = " + message.getIdReceiver() +
                     ", idSender = " + message.getIdSender() +
-                    ",message = '" + message.getMessage() +
+                    ", message = '" + message.getMessage() +
                     "', dateSend = '" + message.getDateSend() +
-                    "',view =" + message.isView() +
-                    ", edit =" + message.isEdit() +
+                    "', view = " + message.isView() +
+                    ", edit = " + message.isEdit() +
                     ", deleteSender = " + message.isDeleteSender() +
-                    ",deleteReciever = " + message.isDeleteReciever() +
-                    "WHERE id = " + message.getId();
+                    ", deleteReciever = " + message.isDeleteReciever() +
+                    " WHERE id = " + message.getId();  // Espacio añadido aquí
+
         try (Statement stmt = dao.getConn().createStatement()) {
             stmt.executeUpdate(sentencia);
             return true;
@@ -110,15 +106,14 @@ public class DaoMessageSQL implements DaoMessage {
                     }
                     message = new Message(rs.getInt("id"),
                             rs.getInt("idReciever"),
-                            rs.getInt("idPackage"),
                             rs.getInt("idSender"),
+                            rs.getInt("idPackage"),
                             rs.getString("message"),
                             fecha,
                             rs.getBoolean("view"),
                             rs.getBoolean("edit"),
                             rs.getBoolean("deleteSender"),
-                            rs.getBoolean("deleteReciever")
-                            );
+                            rs.getBoolean("deleteReciever"));
                 }
             }
         } catch (SQLException e) {
@@ -146,15 +141,14 @@ public class DaoMessageSQL implements DaoMessage {
                     }
                     message = new Message(rs.getInt("id"),
                             rs.getInt("idReciever"),
-                            rs.getInt("idPackage"),
                             rs.getInt("idSender"),
+                            rs.getInt("idPackage"),
                             rs.getString("message"),
                             fecha,
                             rs.getBoolean("view"),
                             rs.getBoolean("edit"),
                             rs.getBoolean("deleteSender"),
-                            rs.getBoolean("deleteReciever")
-                    );
+                            rs.getBoolean("deleteReciever"));
                 }
             }
         } catch (SQLException e) {
@@ -181,8 +175,8 @@ public class DaoMessageSQL implements DaoMessage {
                     }
                     messages.add(new Message(rs.getInt("id"),
                             rs.getInt("idReciever"),
-                            rs.getInt("idPackage"),
                             rs.getInt("idSender"),
+                            rs.getInt("idPackage"),
                             rs.getString("message"),
                             fecha,
                             rs.getBoolean("view"),
@@ -214,8 +208,8 @@ public class DaoMessageSQL implements DaoMessage {
                     }
                     messages.add(new Message(rs.getInt("id"),
                             rs.getInt("idReciever"),
-                            rs.getInt("idPackage"),
                             rs.getInt("idSender"),
+                            rs.getInt("idPackage"),
                             rs.getString("message"),
                             fecha,
                             rs.getBoolean("view"),
@@ -234,7 +228,7 @@ public class DaoMessageSQL implements DaoMessage {
     public ArrayList<Message> searchMessageByIdUser(int idUser, DAOManager dao) {
         ArrayList<Message> messages = new ArrayList<>();
         String sentencia;
-        sentencia = "SELECT * FROM message WHERE view IS NOT TRUE AND idReciever = ? OR idSender = ?";
+        sentencia = "SELECT * FROM message WHERE idReciever = ? OR idSender = ?";
         try(PreparedStatement ps = dao.getConn().prepareStatement(sentencia)) {
             ps.setInt(1, idUser);
             ps.setInt(2, idUser);
@@ -248,8 +242,8 @@ public class DaoMessageSQL implements DaoMessage {
                     }
                     messages.add(new Message(rs.getInt("id"),
                             rs.getInt("idReciever"),
-                            rs.getInt("idPackage"),
                             rs.getInt("idSender"),
+                            rs.getInt("idPackage"),
                             rs.getString("message"),
                             fecha,
                             rs.getBoolean("view"),
@@ -263,5 +257,6 @@ public class DaoMessageSQL implements DaoMessage {
         }
         return messages;
     }
+
 
 }

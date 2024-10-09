@@ -4,6 +4,7 @@ import DAO.*;
 import comunication.AsignacionCorreo;
 import comunication.MensajeTelegram;
 import comunication.Mensajes;
+import dataclass.InfoChats;
 import models.*;
 import persistence.Config;
 import dataclass.InfoShipmentDataClass;
@@ -1151,7 +1152,6 @@ public class AppController implements Serializable {
             DAO.open();
             DaoMessageSQL daoMessageSQL = new DaoMessageSQL();
             send = daoMessageSQL.insert(new Message(generateIdMessage(), idReceiver, idSender, idPackage, text), DAO);
-            DAO.close();
         } catch (Exception e) {
             return false;
         }
@@ -1236,7 +1236,6 @@ public class AppController implements Serializable {
             DAO.open();
             DaoMessageSQL daoMessageSQL = new DaoMessageSQL();
             message = daoMessageSQL.readById(idUnique, DAO);
-            DAO.close();
         } catch (Exception e) {
             return null;
         }
@@ -1244,13 +1243,25 @@ public class AppController implements Serializable {
         return message;
     }
 
-    public ArrayList<Message> messageForPackageUser(int idUser) {
+    public void markReadMessage(ArrayList<Message> messages) {
+        try {
+            DAO.open();
+            DaoMessageSQL daoMessageSQL = new DaoMessageSQL();
+            for (Message m : messages){
+                if (!m.isView()) {
+                    m.setView(true);
+                    daoMessageSQL.update(m, DAO);
+                }
+            }
+        } catch (Exception ignored) {}
+    }
+
+    public ArrayList<Message> messageForUserAll(int idUser) {
         ArrayList<Message> messages;
         try {
             DAO.open();
             DaoMessageSQL daoMessageSQL = new DaoMessageSQL();
             messages = daoMessageSQL.searchMessageByIdUser(idUser, DAO);
-            DAO.close();
         } catch (Exception e) {
             return null;
         }
@@ -1258,17 +1269,91 @@ public class AppController implements Serializable {
 
     }
 
-
-    /*public ArrayList<Message> messageForPackageDriver(int id) {
-        ArrayList<Message> messages;
-        try {
-            DAO.open();
-            DaoMessageSQL daoMessageSQL = new DaoMessageSQL();
-            messages = daoMessageSQL.searchMessageByIdDriver(id, DAO);
-            DAO.close();
-        } catch (Exception e) {
-            return null;
+    public ArrayList<Message> mensajesEnviados(int idPackage, int idSender, ArrayList<Message> messages) {
+        ArrayList<Message> mensajesEnviados = new ArrayList<>();
+        for (Message m : messages) {
+            if (m != null && m.getIdSender() == idSender && m.getIdPackage() == idPackage) {
+                mensajesEnviados.add(m);
+            }
         }
-        return messages;
-    }*/
+        return mensajesEnviados;
+    }
+    public ArrayList<Message> mensajesRecibidos(int idPackage, int idSender, ArrayList<Message> messages) {
+        ArrayList<Message> mensajesRecibidos = new ArrayList<>();
+        for (Message m : messages) {
+            if (m != null && m.getIdReceiver() == idSender && m.getIdPackage() == idPackage) {
+                mensajesRecibidos.add(m);
+            }
+        }
+        return mensajesRecibidos;
+    }
+
+    public static LocalDateTime dateUltimoMensaje(int idPackage, ArrayList<Message> messages) {
+        LocalDateTime lastDate = null;
+
+        for (Message m : messages) {
+            if (m != null && m.getIdPackage() == idPackage) {
+                if (lastDate == null || m.getDateSend().isAfter(lastDate)) {
+                    lastDate = m.getDateSend();
+                }
+            }
+        }
+
+        return lastDate;
+    }
+
+    public boolean chatExiste (int idPackage, ArrayList<InfoChats> chats) {
+        for (InfoChats c : chats) {
+            if (c.getIdChat() == idPackage) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<InfoChats> groupsChats(int idUser, ArrayList<Message> messages) {
+        ArrayList<InfoChats> chats = new ArrayList<>();
+
+        for (Message message : messages) {
+            // Filtrar los mensajes enviados por el idUser
+            if (message.getIdSender() == idUser) {
+                // Mensajes enviados y recibidos relacionados con el idPackage
+                ArrayList<Message> mensajesSender = mensajesEnviados(message.getIdPackage(), idUser, messages);
+                ArrayList<Message> mensajesReciever = mensajesRecibidos(message.getIdPackage(), idUser, messages);
+
+                // Obtener la fecha del último mensaje relacionado con este idPackage
+                LocalDateTime lastDate = dateUltimoMensaje(message.getIdPackage(), messages);
+
+                // Verificar si ya existe un chat con el idPackage
+                if (!chatExiste(message.getIdPackage(), chats)) {
+                    // Si no existe, agregamos un nuevo InfoChats
+                    chats.add(new InfoChats(
+                            message.getIdPackage(),
+                            message.getIdPackage(),
+                            message.getIdSender(),
+                            message.getIdReceiver(),
+                            mensajesSender,
+                            mensajesReciever,
+                            lastDate
+                    ));
+                }
+            }
+        }
+
+        // Ordenamos los chats por la fecha del último mensaje (si es necesario)
+        Collections.sort(chats);
+        return chats;
+    }
+
+
+    public InfoChats searchChat(int idChat, ArrayList<InfoChats> chatsAll) {
+        InfoChats chat = null;
+        for (InfoChats c : chatsAll) {
+            if (c.getIdChat() == idChat) {
+                chat = c;
+                return chat;
+            }
+        }
+        return chat;
+    }
 }

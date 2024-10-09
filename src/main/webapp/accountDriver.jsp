@@ -12,12 +12,14 @@
 <%@ page import="models.Shipment" %>
 <%@ page import="dataclass.InfoShipmentDataClass" %>
 <%@ page import="models.Driver" %>
+<%@ page import="dataclass.InfoChats" %>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styleAccountDriver.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
+    <link href="css/styleMessages.css" rel="stylesheet">
     <link href="css/styleFails.css" rel="stylesheet">
     <link href="css/styleFooterWhite.css" rel="stylesheet">
     <link href="css/styleResponsiveAll.css" rel="stylesheet">
@@ -135,16 +137,27 @@
     </section>
 
     <section class="show-message" id="showMessage">
+        <h2>Chats abiertos</h2>
+        <p class="info-extra">Aquí se muestran todos los chats abiertos entre el conductor del paquete y usted.
+            No se aceptan mensajes de odio, ni spam, por favor, tenga cuidado con lo que envía.</p>
         <%
-            ArrayList<Message> messages = new ArrayList<>();/* = controller.messageForPackageDriver(driver.getId());*/
-            if (messages == null || messages.isEmpty()) {
+            ArrayList<Message> messages = controller.messageForUserAll(driver.getId());
+            ArrayList<InfoChats> chats = controller.groupsChats(driver.getId(), messages);
+            if (chats == null || chats.isEmpty()) {
         %>
         <p class="not-info">No tienes chats abiertos actualmente</p>
         <%
         } else {
+            for (InfoChats chat : chats) {
         %>
-        <p>Tienes <%=messages.size()%> mensajes</p>
+        <div class="container-chats">
+            <div class="card">
+                <%=chat.showUserView()%>
+            </div>
+        </div>
+
         <%
+                }
             }
         %>
     </section>

@@ -130,6 +130,6 @@ public class Message implements Comparable<Message>{
     //Comparo las fechas de los mensajes según del más antiguo al más nuevo
     @Override
     public int compareTo(Message other) {
-        return other.getDateSend().compareTo(this.dateSend);
+        return this.dateSend.compareTo(other.getDateSend());
     }
 }

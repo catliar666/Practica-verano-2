@@ -752,6 +752,25 @@ section:not(.list-vertical):not(.packageNotUser) {
     font-size: 1.3rem;
 }
 
+/*Estilo basico de los mensajes*/
+.show-message{
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.show-message .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.show-message h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+
+
 
 
 

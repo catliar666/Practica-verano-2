@@ -258,8 +258,21 @@ section:not(.list-vertical) {
 
 /*Estilo para mostrar los mensajes*/
 
-.show-message p {
-    color: #FAFBFF;
+/*Estilo basico de los mensajes*/
+.show-message{
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.show-message .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.show-message h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
 }
 
 /*Fin del estilo para mostrar los mensajes*/

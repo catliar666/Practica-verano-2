@@ -13,7 +13,7 @@ a {
 body:not(.no-grid-layout){
     min-height: 100dvh;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto auto;
 }
 
 .header {
