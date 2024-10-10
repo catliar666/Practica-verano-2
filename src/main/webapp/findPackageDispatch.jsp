@@ -16,9 +16,11 @@
 <%
     AppController controller = new AppController();
     String idPackage = request.getParameter("idPackage");
+    boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
     if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage)) {
         session.setAttribute("idNull", "Debe introducir un identificador");
-        response.sendRedirect("accountUser.jsp");
+        if (admin) response.sendRedirect("accountAdmin.jsp");
+        else response.sendRedirect("accountUser.jsp");
         return;
     }
     try {
@@ -26,15 +28,18 @@
             Shipment shipment = controller.searchShipmentById(id);
             if (shipment == null) {
                 session.setAttribute("shipmentNotFound", "No encontrado");
-                response.sendRedirect("accountUser.jsp");
+                if (admin) response.sendRedirect("accountAdmin.jsp");
+                else response.sendRedirect("accountUser.jsp");
             }
             session.setAttribute("shipmentFound", shipment);
-            response.sendRedirect("accountUser.jsp");
+            if (admin) response.sendRedirect("accountAdmin.jsp");
+            else response.sendRedirect("accountUser.jsp");
             return;
 
     }catch (NumberFormatException e){
         session.setAttribute("numError", "Debe introducir un número");
-        response.sendRedirect("accountUser.jsp");
+        if (admin) response.sendRedirect("accountAdmin.jsp");
+        else response.sendRedirect("accountUser.jsp");
     }
 %>
 </body>

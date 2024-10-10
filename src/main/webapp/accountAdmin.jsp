@@ -20,9 +20,11 @@
     <link href="css/styleFooterWhite.css" rel="stylesheet">
     <link href="css/styleResponsiveAll.css" rel="stylesheet">
 
+
+
     <!--Links iconos-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <title>Cuenta de conductor</title>
+    <title>Cuenta de Administrador</title>
 </head>
 <body>
 
@@ -164,11 +166,106 @@
     <!--SECCIÓN PARA AÑADIR UNA NUEVA ZONA DE ENTREGA-->
     <section class="sin-asignar" id="sinAsignar">
         <h2>Asignar paquetes a un conductor</h2>
-        <p class="info-extra">En esta sección, podrá introducir un nuevo código postal para sus áreas de entrega.
-            Tenga en cuenta que, al añadir un nuevo código postal, los paquetes futuros que no tengan un conductor asignado se
-            asignarán automáticamente al conductor disponible que cubra dicho código postal en nuestra base de datos.</p>
+        <p class="info-extra">En esta sección, podrá ver todos los paquetes que todavía no tienen repartidor
+            y asignarle uno que esté disponible para que lo entregue.</p>
 
+        <%
+            ArrayList<InfoShipmentDataClass> shipmentsNotAsign = controller.getShipmentsUnassigned();
+            if (session.getAttribute("driverAdded") == null) {
+                if (shipmentsNotAsign.isEmpty()) {
+        %>
+        <p class="not-info">No se han encontrado paquetes sin asignar</p>
+        <%
+        } else {
+            Shipment shipmentFound = (Shipment) session.getAttribute("shipmentFound");
+            if (shipmentFound == null) {
+        %>
+        <!-- Formulario para buscar paquetes -->
+        <form method="post" action="findPackageDispatch.jsp?admin=true">
+            <%
+                if (session.getAttribute("idPackageNull") != null){
+                    session.removeAttribute("idPackageNull");
+            %>
+            <p class="text-red">Debes introducir un identificador</p>
+            <%
+                }
+            %>
+            <label>Introduce el identificador del paquete</label><input type="number" name="idPackage">
+            <div class="button-form">
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Lista de paquetes sin asignar -->
+        <div class="card-container">
+            <%
+                for (InfoShipmentDataClass d : shipmentsNotAsign) {
+            %>
+            <div class="target-package">
+                <%=d.forAdminUnassigned()%>
+            </div>
+            <%
+                }
+            %>
+        </div>
+
+        <%
+        } else {
+            // Si se ha encontrado el paquete
+            if (session.getAttribute("shipmentNotFound") != null){
+                session.removeAttribute("shipmentNotFound");
+        %>
+        <p class="not-info">No se ha encontrado ningún paquete</p>
+        <%
+        } else {
+            ArrayList<Driver> drivers = controller.getDrivers();
+            if (drivers.isEmpty()) {
+        %>
+        <p class="not-info">No se han encontrado conductores registrados</p>
+        <%
+        } else {
+        %>
+        <!-- Formulario para asignar conductor -->
+        <form method="post" action="asignarConductorDispatch.jsp?idPackage=<%=shipmentFound.getId()%>">
+            <%
+                if (session.getAttribute("idConductorNull") != null){
+                    session.removeAttribute("idConductorNull");
+            %>
+            <p class="text-red">Debes introducir un identificador</p>
+            <%
+                }
+            %>
+            <label>Introduce el identificador conductor</label><input type="number" name="idConductor">
+            <div class="button-form">
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Lista de conductores disponibles -->
+        <div class="card-container">
+            <%
+                for (Driver di : drivers) {
+            %>
+            <div class="target-package">
+                <%=di.resumeForAdmin()%>
+            </div>
+            <%
+                }
+            %>
+        </div>
+        <%
+                        }
+                    }
+                }
+            }
+        } else {
+        %>
+        <p class="all-info-container">PAQUETE ASIGNADO CORRECTAMENTE</p>
+        <%
+            }
+        %>
     </section>
+
 
 
     <!--SECCION QUE MUESTRA LOS PAQUETES ENVIADOS POR EL USUARIO-->
@@ -236,10 +333,10 @@
 
         <div class="btn-box">
             <button class="btn btn-1" id="crearConductor">Crear Conductor</button>
-            <button class="btn btn-2" id="crearAdministrador">Crear Administrador</button>
+            <button class="btn btn-2" id="crearAdmin">Crear Administrador</button>
         </div>
 
-        <div class="driver-container" id="drivercontainer">
+        <div class="driver-container" id="driverContainer">
             <%
                 String email = (String) session.getAttribute("emailNoRegisterDriver");
                 if (email == null) {
@@ -254,7 +351,7 @@
                     <%
                         }
                     %>
-                    <input type="email" name="registerEmail" class="input-field" placeholder="Introduce tu email" required>
+                    <label>Introduce un email: </label><input type="email" name="registerEmail" class="input-field" placeholder="Introduce tu email" required>
                     <i class="bx bx-envelope icon"></i>
                 </div>
                 <div class="button-form">
@@ -265,7 +362,7 @@
             } else {
             %>
             <form method="post" action="createDriverDispatch.jsp">
-                <div class="all-make-container makePackage">
+                <div class="all-make-container crearDriver">
                     <div class="make-container">
                         <label>Introduce un email:</label>
                         <%
@@ -317,7 +414,7 @@
             %>
         </div>
 
-        <div class="admin-container" id="admincontainer">
+        <div class="admin-container" id="adminContainer">
             <%
                 String emailAdmin = (String) session.getAttribute("emailNoRegisterAdmin");
                 if (emailAdmin == null) {
@@ -332,7 +429,7 @@
                     <%
                         }
                     %>
-                    <input type="email" name="registerEmail" class="input-field" placeholder="Introduce tu email" required>
+                    <label>Introduce un email: </label><input type="email" name="registerEmail" class="input-field" placeholder="Introduce tu email" required>
                     <i class="bx bx-envelope icon"></i>
                 </div>
                 <div class="button-form">
@@ -343,7 +440,7 @@
             } else {
             %>
             <form method="post" action="createAdminDispatch.jsp">
-                <div class="all-make-container makePackage">
+                <div class="all-make-container crearAdmin">
                     <div class="make-container">
                         <label>Introduce un email:</label>
                         <%
@@ -413,11 +510,12 @@
     los envios que ya me han sido entregados, si pulso el botón de "En curso" me mostrara la información de los paquetes
     que todavia no me han entregado y siguen siendo despachados por la empresa-->
     <section class="config-properties" id="configProperties">
-        <h2>Envíos que me han realizado</h2>
-        <p class="info-extra">Configuración properties muajaja</p>
+        <h2>Propiedades de la web</h2>
+        <p class="info-extra">Si desea modificar algo de lo mostrado aqui ahora, por favor dirigase
+        al archivo config.properties en el servidor donde está alojado esta web.</p>
 
         <!--MODIFICAR EL JAVASCRIPT PARA MOSTRAR LOS PEDIDOS ORDENADOS POR, ENTREGADOS O NO ENTREGADOS-->
-        <div class="card-container-finished" id="card-container-finished">
+        <div class="all-info-container" id="all-info-container">
             <%
                 ArrayList<String> info = controller.getInfoProperties();
 
@@ -428,7 +526,7 @@
             } else {
                 for (String s : info) {
             %>
-            <div class="target-package">
+            <div class="info-container">
                 <%=s%>
             </div>
             <%
@@ -559,8 +657,8 @@
     </section>
 
     <section class="copy-security" id="copySecurity">
-
     </section>
+
 </main>
 
 
@@ -572,11 +670,13 @@
     </div>
 </footer>
 
-<script src="jscript/cuentaAdmin.js"></script>
-<script src="jscript/opcionCrearMostrar.js"></script>
+
 <%
     }
 %>
+<!--SCRIPT FUNCIONALIDADES-->
+<script src="jscript/cuentaAdmin.js"></script>
+<script src="jscript/opcionCrearMostrar.js"></script>
 <!--Fin del footer-->
 </body>
 </html>

@@ -172,13 +172,32 @@ public class InfoShipmentDataClass implements Comparable<InfoShipmentDataClass> 
                 address, city, postalCode, status, receiver);*/
         return results;
     }
-    public String forAdminUnassigned(){
+    public StringBuilder forAdminUnassigned(){
+        StringBuilder results = new StringBuilder();
+        String fechaEstado = (status.equals("4") ? "<p class='text-title-hover'>Entregado el: " : "<p class='text-title-hover'>Entrega estimada: ");
         String dateCreate = createDate.format(formatter);
         String dateExpect = expectDate.format(formatter);
         String dateDelivery = (deliveryDate != null) ? deliveryDate.format(formatter) : "";
         String statusString = (status.equals("1") ? Config.getStatusOne() : (status.equals("2") ? Config.getStatusTwo() :
                 (status.equals("3") ? Config.getStatusThree() : (status.equals("4") ? Config.getStatusFour() : "No hay registros"))));
-        return String.format(
+
+        results.append("<div class='card-image'>")
+                // Información restante que se muestra al hacer hover
+                .append(fechaEstado).append("<p class='text-body'>").append((status.equals("4") ? dateDelivery : dateExpect)).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Expedición: ").append("<p class='text-body'>").append(dateCreate).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Dirección: ").append("<p class='text-body'>").append(address).append(", ").append(city).append(" (").append(postalCode).append(")</p>").append("</p>")
+                .append("<p class='text-title-hover'>Estado: ").append("<p class='text-body'>").append(statusString).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Remitente: ").append("<p class='text-body'>").append(sender).append("</p>").append("</p>")
+                .append("<p class='text-title-hover'>Destinatario: ").append("<p class='text-body'>").append(receiver).append("</p>").append("</p>")
+                .append("</div>")
+                .append("<div class='card-description'>")
+                // Solo la expedición del paquete y el título con el ID
+                .append("<span class='text-title'>Envío: ").append(id).append("</span>")
+                .append("<p class='text-body'>Estado: ").append(statusString).append("</p>")
+                // Botón de "Más información"
+                .append("<button class='info-button'>Más información</button>")
+                .append("</div>");
+        /*return String.format(
                             "┌──. ■ .──────────────────────────┐\n" +
                             "    Envío nº referencia %d\n" +
                             "└──────────────────────────. ■ .──┘\n" +
@@ -191,7 +210,8 @@ public class InfoShipmentDataClass implements Comparable<InfoShipmentDataClass> 
                             "█    Destinatario: %s\n" +
                             "─────────────────────────────────────────────────. ■ .──", id, dateCreate,
                 dateExpect, (deliveryDate != null) ? dateDelivery : "Todavia no se ha entregado",
-                address, city, postalCode, status, sender, receiver);
+                address, city, postalCode, status, sender, receiver);*/
+        return results;
     }
 
     public StringBuilder forReciever(){

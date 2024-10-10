@@ -1,19 +1,18 @@
-document.addEventListener('DOMContentLoaded', function() {
+
     // Obtén referencias a los elementos
     const btnConductor = document.getElementById('crearConductor');
-    const btnAdmin = document.getElementById('crearAdministrador');
-    const containerDriver = document.getElementById('drivercontainer');
-    const containerAdmin = document.getElementById('admincontainer');
+    const btnAdmin = document.getElementById('crearAdmin');
+    const containerDriver = document.getElementById('driverContainer'); // Asegúrate de que el ID sea 'driverContainer'
+    const containerAdmin = document.getElementById('adminContainer');
 
     // Función para manejar el cambio de vista
     function showSection(sectionToShow) {
-        // Mostrar la sección seleccionada
-        if (sectionToShow === 'drivercontainer') {
+        if (sectionToShow === 'driverContainer') {
             containerDriver.style.display = 'block';
             containerAdmin.style.display = 'none';
             btnConductor.classList.add('active');
             btnAdmin.classList.remove('active');
-        } else if (sectionToShow === 'admincontainer') {
+        } else if (sectionToShow === 'adminContainer') {
             containerAdmin.style.display = 'block';
             containerDriver.style.display = 'none';
             btnAdmin.classList.add('active');
@@ -23,13 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Asignar eventos a los botones
     btnConductor.addEventListener('click', function() {
-        showSection('crearConductor');
+        showSection('driverContainer');
     });
 
     btnAdmin.addEventListener('click', function() {
-        showSection('admincontainer');
+        showSection('adminContainer');
     });
 
-    // Mostrar la sección por defecto (puedes cambiar la sección por defecto si lo deseas)
-    showSection('crearConductor');
-});
+    showSection('driverContainer');
+

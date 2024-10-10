@@ -14,7 +14,6 @@ section {
     position: relative;
     margin: 0;
     width: 35%;
-    height: 100%;
     left: 0;
     padding: 10%;
     display: table-row;
@@ -30,16 +29,9 @@ section {
     font-size: 1.5rem;
 }
 
-
-section:not(.list-vertical){
-    padding-top: 10%;
-}
-
-
 /*ESTILO DEL CHAT*/
 .chat-container {
     width: 65%;
-    height: 100%;
     padding-top: 10%;
 }
 
@@ -51,7 +43,7 @@ section:not(.list-vertical){
     display: flex;
     flex-direction: column;
     width: 90%;
-    height: 80%;
+    height: 60%;
 }
 
 .card-header {
@@ -216,5 +208,13 @@ section:not(.list-vertical){
     font-weight: lighter;
     color: #ffffff;
 }
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.material-icons{
+   font-size: 100%;
+    margin-right: 5px;
 
+}
 /*FIN DE LOS ESTILOS DE PREVISUALIZACIÓN DE LOS MENSAJES

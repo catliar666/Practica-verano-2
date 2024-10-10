@@ -192,7 +192,7 @@ public class User implements Serializable {
         for (Shipment s:
              shipments) {
 
-            if (s != null && s.getIdSender() != this.id && !s.getStatus().equals("Entregado")) shipmentDeliverPending++;
+            if (s != null && s.getIdSender() != this.id && !s.getStatus().equals("4")) shipmentDeliverPending++;
         }
         return shipmentDeliverPending;
     }

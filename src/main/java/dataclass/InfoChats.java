@@ -175,7 +175,7 @@ public class InfoChats implements Comparable<InfoChats>{
      */
 
     public StringBuilder showMessageView(int idUser) {
-        String imagenDelete = "<img class='imagenDelete' src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAptJREFUSEuVV1GWwyAIhJM1OVmSk6U9mSuKOgim23xs+xoFZhhGl0keJqJU/uj38mvwPVijS+MPJqakoXUvhLZ77Ps4/2Myi2Nd0PwGE9fvGxO9UkDCQ/4PMb2FwNUjoVfPkVtwftscFQS1n7lhl08gLfDPlnEeRCSfjuqx3PbbEwV7a6tNsJoYxUV0S1IN9NaK5dPlfGSrFl6Lr8EgV/0JH0Eq9MiLM2u80BTozUm+qNdX0uNJXCa6+vBYsG0vv5nSXhf9PkLTWGI9CnTqMROluop3oqT0rrpn4Y1VIT/NIDrDSLX09dbyItEJbUL7FU0JE22J6BWruDvTnvteAGEC6AcLeNv7MVrRiIiIRJTywPuOvgXTd5ZqFMKMeCOmG2rB5JhUEndUvfLhm30fJOAjoyyKtkyo39bRuCdzEIfCgkZSq8mBmOlqxLfCnhC3ejamdBuhj0o80jaIOmtlRH9OPBLMtDt6gzmYejyJS01DmAZx2TBMSdRbhDTRrp4cjFOEGJZ5VbsYvBGlpl5QfVkYqL3r41nVA7H1Vc0QqVdeIfqRfCWuZsMOcbXJSvXY3OlVze/5nG4Hx0bEN6yvyS1bBbEC6/7/VdW5iiMruZ3NezvkIfbCQHrtz+JqJ5MVV2/lkT38Uzw81M9kmQFiNJeFZRZZP10+hrC8AOedyIbma5ZZNxsDGfG+lOCGtiu5FVcuFrMjGsRujqvQ/osdYvcD5oBJMeMGifnIcy63jiLAmEEHzyarhYqtSpvKvU13yASIpY5zA8cJqsM1s1HAoTN0gK2ZrkH93mbWLEZinFHLuzE6BP7HYHCdmYJ+vZ35wltmuWXY59cel92fetNYFeRvmehW/xsnA/BZhx6x+uBqcoOJcUtXsluIhf4AzpcvNQl1zfMAAAAASUVORK5CYII=\"/>";
+        String imagenDelete = "<span class='material-icons'>delete</span>";
         // Combina los mensajes recibidos y enviados en una sola lista
         ArrayList<Message> allMessages = groupAllMessages(mensajesReciever, mensajesSender);
         Collections.sort(allMessages);
@@ -188,15 +188,14 @@ public class InfoChats implements Comparable<InfoChats>{
                 .append("<div class='img-avatar'></div>")
                 .append("<div class='text-chat'>").append("Chat: " + idChat).append("</div>")
                 .append("</div>")
-                .append("<div class='card-body'>")
+                .append("<div class='card-body' id='card-body'>")
                 .append("<div class='messages-container'>");
 
         // Itera sobre todos los mensajes
         for (Message m : allMessages) {
                        if (idUser == m.getIdSender()) {
                 result.append("<div class='message-box right'>")
-                        .append("<p>").append(m.getMessage()).append("</p>")
-                        .append("<a href='borrarMensajeDispatch.jsp?idMensaje=" + m.getId() + "&" + "sender=true'>" + imagenDelete + "</a>")
+                        .append("<p>").append("<a href='borrarMensajeDispatch.jsp?idMensaje=" + m.getId() + "&" + "sender=true'>" + imagenDelete + "</a>" + m.getMessage()).append("</p>")
                         .append("</div>")
                         .append("<span class='state-right'>" + (m.isView() ? "Leído" : "Entregado") + "</span>");
                 } else {

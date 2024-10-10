@@ -13,10 +13,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <!--ESTILOS DE LA PÁGINA-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/styleChatComplete.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
     <link href="css/styleFooterWhite.css" rel="stylesheet">
     <link href="css/styleResponsiveAll.css" rel="stylesheet">
+    <!--SCRIPT FUNCIONALIDADES DE LA PÁGINA-->
+    <script src="jscript/scroll.js"></script>
     <title>Chat FernanPaaq</title>
 </head>
 <body>
@@ -145,5 +149,6 @@
 <%
     }
 %>
+
 </body>
 </html>

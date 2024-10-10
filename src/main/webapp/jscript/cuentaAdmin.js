@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const sections = ["infoPerfil", "modifyPerfil", "infoEmpresa", "sinAsignar",
-        "resumenUsuarios", "resumenConductores", "configProperties", "createCuentas", "copySecurity"];
+    const sections = ["infoPerfil", "infoEmpresa", "sinAsignar",
+        "resumenUsuarios", "resumenConductores", "createDriver", "configProperties", "modifyPerfil", "copySecurity"];
     const buttons = document.querySelectorAll('.list-vertical .list-button');
 
     function hideAllSections() {
@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const section = document.getElementById(sectionId);
             if (section) {
                 section.style.display = "none";
+                console.log(`Mostrando sección: ${sectionId}`);
             }
         });
     }
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const section = document.getElementById(sectionId);
         if (section) {
             section.style.display = "block";
+            console.log(`Mostrando sección: ${sectionId}`);
         }
     }
 
