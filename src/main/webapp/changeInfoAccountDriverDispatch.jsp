@@ -15,7 +15,7 @@
 <body>
 <%
     AppController controller = new AppController();
-    Driver driver = (Driver) session.getAttribute("usuarioLogueado");
+    Object driver = session.getAttribute("usuarioLogueado");
 
     String email = request.getParameter("emailNew"),
             name = request.getParameter("nameNew");
@@ -35,10 +35,10 @@
         return;
     }
 
-    if (driver != null) {
+    if (driver instanceof Driver) {
         try {
-            driver.setEmail(email);
-            driver.setName(name);
+            ((Driver) driver).setEmail(email);
+            ((Driver) driver).setName(name);
             if (controller.updateUser(driver)){
                 session.setAttribute("usuarioLogueado", driver);
                 session.setAttribute("modifySuccess", "Modificado con exito");

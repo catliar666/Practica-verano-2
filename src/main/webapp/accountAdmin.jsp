@@ -29,12 +29,13 @@
 <body>
 
 <%
-    Admin admin = (Admin) session.getAttribute("usuarioLogueado");
+    Object admin = session.getAttribute("usuarioLogueado");
     AppController controller = new AppController();
     if (admin == null) {
         response.sendRedirect("index.jsp");
         return;
     } else {
+        if (admin instanceof Admin) {
 %>
 
 <!-- Comienzo de la barra de navegación -->
@@ -49,7 +50,7 @@
             </li>
 
         </ul>
-        <a class="nav_welcome">Bienvenido <%= admin.getName()%>
+        <a class="nav_welcome">Bienvenido <%= ((Admin) admin).getName()%>
         </a>
     </div>
 </header>
@@ -101,7 +102,7 @@
         <div class="all-info-container">
             <div class="info-container">
                 <h3>Información de contacto:</h3>
-                <span><%=admin.getEmail()%></span>
+                <span><%=((Admin) admin).getEmail()%></span>
                 <a class="edit-item" id="email-phone" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -109,7 +110,7 @@
             </div>
             <div class="info-container">
                 <h3>Nombre:</h3>
-                <span><%=admin.getName()%></span>
+                <span><%=((Admin) admin).getName()%></span>
                 <a class="edit-item" id="name-surname" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -117,7 +118,7 @@
             </div>
             <div class="info-container">
                 <h3>Número de identificación:</h3>
-                <span><%=admin.getId()%></span>
+                <span><%=((Admin) admin).getId()%></span>
                 <a class="edit-item" id="street-num" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -568,24 +569,24 @@
         <%
             }
         %>
-        <form method="post" action="changeInfoAccountDriver.jsp" class="all-change-container">
+        <form method="post" action="changeInfoAccountAdminDispatch.jsp" class="all-change-container">
             <div class="info-container">
                 <h3>Email:</h3>
-                <input type="text" name="emailNew" value="<%=admin.getEmail()%>">
+                <input type="text" name="emailNew" value="<%=((Admin) admin).getEmail()%>">
             </div>
             <div class="info-container">
                 <h3>Nombre:</h3>
-                <input type="text" name="nameNew" value="<%=admin.getName()%>">
+                <input type="text" name="nameNew" value="<%=((Admin) admin).getName()%>">
             </div>
             <div class="button-form">
                 <button type="submit">Modificar</button>
-                <a href="changePassword.jsp">Cambiar contraseña</a>
+                <a href="changePasswordDispatch.jsp">Cambiar contraseña</a>
             </div>
         </form>
         <%
         } else {
         %>
-        <form method="post" action="changePassword.jsp" class="all-change-container">
+        <form method="post" action="changePasswordDispatch.jsp" class="all-change-container">
             <%
                 if (session.getAttribute("passOldNull") != null) {
                     session.removeAttribute("passOldNull");
@@ -672,6 +673,9 @@
 
 
 <%
+        } else {
+            response.sendRedirect("error.jsp");
+        }
     }
 %>
 <!--SCRIPT FUNCIONALIDADES-->

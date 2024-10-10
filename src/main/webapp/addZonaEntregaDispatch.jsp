@@ -3,9 +3,9 @@
 <%@ page import="utils.Utils" %>
 <%
     AppController controller = new AppController();
-    Driver driver = (Driver) session.getAttribute("usuarioLogueado");
+    Object driver = session.getAttribute("usuarioLogueado");
 
-    if (driver != null) {
+    if (driver instanceof Driver) {
 
         String newPostal = request.getParameter("zonaEntregaNew");
 
@@ -21,12 +21,15 @@
                 response.sendRedirect("accountDriver.jsp");
                 return;
             }
-            if (driver.hasPostalCodeZone(postalNum)) {
+            if (((Driver) driver).hasPostalCodeZone(postalNum)) {
                 session.setAttribute("postalExiste", "Ha agregado un codigo postal existente en esta cuenta");
                 response.sendRedirect("accountDriver.jsp");
                 return;
             }
-            if (controller.addZoneToDriver(driver.getId(), postalNum)) {
+            if (controller.addZoneToDriver(((Driver) driver).getId(), postalNum)) {
+                Driver driverActual = controller.searchDriverById(((Driver) driver).getId());
+                session.removeAttribute("usuarioLogueado");
+                session.setAttribute("usuarioLogueado", driverActual);
                 session.setAttribute("addSuccess", "Añadido correctamente");
                 response.sendRedirect("accountDriver.jsp");
                 return;

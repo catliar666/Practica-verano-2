@@ -111,16 +111,17 @@
 %>
     <section class="list-vertical">
         <h2>Todos los chats</h2>
-        <ul>
-            <%
-                for (InfoChats chat : chats) {
-            %>
-            <li><%=chat.showUserView()%>
-            </li>
-            <%
-                }
-            %>
-        </ul>
+        <%
+            for (InfoChats chat : chats) {
+        %>
+        <div class="container-chats">
+            <div class="card">
+                <%=chat.showUserView()%>
+            </div>
+        </div>
+        <%
+            }
+        %>
     </section>
     <div class="chat-container">
         <%

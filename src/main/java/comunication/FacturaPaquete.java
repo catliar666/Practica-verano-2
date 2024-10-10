@@ -1,13 +1,12 @@
 package comunication;
 
-import appcontroller.AppController;
 import persistence.Config;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class AsignacionCorreo {
-    public static String plantillaAsignacion(String nombre, LocalDate fecha, String estadoEnvio, String direccionEntrega, String localidad, String nombreRemitente, String nombreDestinatario){
+public class FacturaPaquete {
+    public static String plantillaFactura(LocalDate fecha, String estadoEnvio, String direccionEntrega, String localidad, String nombreRemitente, String nombreDestinatario){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String statusString = (estadoEnvio.equals("1") ? Config.getStatusOne() : (estadoEnvio.equals("2") ? Config.getStatusTwo() :
                 (estadoEnvio.equals("3") ? Config.getStatusThree() : (estadoEnvio.equals("4") ? Config.getStatusFour() : "No hay registros"))));
@@ -195,11 +194,11 @@ public class AsignacionCorreo {
                "      <td class=\"v-container-padding-padding\" style=\"overflow-wrap:break-word;word-break:break-word;padding:30px 30px 0px;font-family:'Open Sans',sans-serif;\" align=\"left\">\n" +
                "        \n" +
                "  <div class=\"v-line-height v-font-size\" style=\"font-size: 14px; line-height: 160%; text-align: justify; word-wrap: break-word;\">\n" +
-               "    <p style=\"font-size: 14px; line-height: 160%;\"><strong>Hola "+ nombre +"</strong></p>\n" +
+               "    <p style=\"font-size: 14px; line-height: 160%;\"><strong>Hola "+ nombreRemitente +"</strong></p>\n" +
                "<p style=\"font-size: 14px; line-height: 160%;\"> </p>\n" +
-               "<p style=\"font-size: 14px; line-height: 160%;\">Te avisamos de que pronto recibirás un envío, ha sido enviado por "+ nombreRemitente + ", a la dirección "+ direccionEntrega + ", " + localidad + ", su fecha de entrega próxima será el "+ fecha.format(formatter) + " para el destinatario "+ nombreDestinatario +". Actualmente el envio se encuentra '"+ statusString +"'.</p>\n" +
+               "<p style=\"font-size: 14px; line-height: 160%;\">Procedemos a enviarte la factura del envío que ha realizado hoy," + fecha.format(formatter) + ", a la dirección "+ direccionEntrega + ", " + localidad + ", su fecha de entrega próxima será el "+ fecha.format(formatter) + " para el destinatario "+ nombreDestinatario +". Actualmente el envio se encuentra '"+ statusString +"'.</p>\n" +
                "<p style=\"font-size: 14px; line-height: 160%;\"> </p>\n" +
-               "<p style=\"font-size: 14px; line-height: 160%;\">Si necesita hacer alguna modificación no dude en iniciar sesión en nuestra app.</p>\n" +
+               "<p style=\"font-size: 14px; line-height: 160%;\">Si necesita otro documento que acredite su envío, no dude en contactar con el sistema de soporte de FERNANPAAQ.</p>\n" +
                "  </div>\n" +
                "\n" +
                "      </td>\n" +

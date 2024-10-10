@@ -18,71 +18,78 @@
 <body>
 <%
     AppController controller = new AppController();
-    User user = (User) session.getAttribute("usuarioLogueado");
+    Object user = session.getAttribute("usuarioLogueado");
     try {
         if (user == null) {
             response.sendRedirect("index.jsp");
             return;
         }
 
-        String email = request.getParameter("email"),
-                num = request.getParameter("num"),
-                street = request.getParameter("street"),
-                city = request.getParameter("city"),
-                postalCode = request.getParameter("postalCode"),
-                nameReciever = request.getParameter("nameReciever"), nombreArchivo;
+        if (user instanceof User) {
 
-        int fails = 0;
+            String email = request.getParameter("email"),
+                    num = request.getParameter("num"),
+                    street = request.getParameter("street"),
+                    city = request.getParameter("city"),
+                    postalCode = request.getParameter("postalCode"),
+                    nameReciever = request.getParameter("nameReciever"), nombreArchivo;
 
-        if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
-            fails++;
-            session.setAttribute("emailNull", "Email null");
-        }
-        if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
-            fails++;
-            session.setAttribute("streetNull", "Street null");
-        }
-        if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
-            fails++;
-            session.setAttribute("cityNull", "City null");
-        }
-        if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
-            fails++;
-            session.setAttribute("postalNull", "postal null");
-        }
-        if (nameReciever == null || nameReciever.trim().isEmpty() || Utils.VerEtiquetas(nameReciever)) {
-            fails++;
-            session.setAttribute("nameNull", "Name null");
-        }
+            int fails = 0;
 
-        if (fails > 0) {
-            response.sendRedirect("accountUser.jsp");
-            return;
+            if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+                fails++;
+                session.setAttribute("emailNull", "Email null");
+            }
+            if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
+                fails++;
+                session.setAttribute("streetNull", "Street null");
+            }
+            if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
+                fails++;
+                session.setAttribute("cityNull", "City null");
+            }
+            if (num == null || num.trim().isEmpty() || Utils.VerEtiquetas(num)) {
+                fails++;
+                session.setAttribute("numNull", "num null");
+            }
+            if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
+                fails++;
+                session.setAttribute("postalNull", "postal null");
+            }
+            if (nameReciever == null || nameReciever.trim().isEmpty() || Utils.VerEtiquetas(nameReciever)) {
+                fails++;
+                session.setAttribute("nameNull", "Name null");
+            }
+
+            if (fails > 0) {
+                response.sendRedirect("accountUser.jsp");
+                return;
+            }
+
+            int postalCodeNum = Integer.parseInt(postalCode), number = Integer.parseInt(num);
+
+            if (postalCodeNum <= 0 || number <= 0) {
+                session.setAttribute("postalCodeNull", "Postal code null");
+                response.sendRedirect("accountUser.jsp");
+                return;
+            }
+
+            Shipment shipment = controller.addShipmentToNoRegisterUser("1", ((User) user).getId(), email, postalCodeNum, nameReciever, number, true, street, city);
+
+            if (shipment != null) {
+                nombreArchivo = controller.createPdf(shipment, (User) user);
+                controller.sendEmail(shipment, (User) user, nombreArchivo, true);
+                session.setAttribute("packageSuccess", shipment);
+                response.sendRedirect("accountUser.jsp");
+                return;
+            } else {
+                session.setAttribute("errorPackageMake", "Error al crear el paquete");
+                response.sendRedirect("accountUser.jsp");
+            }
         }
-
-        int postalCodeNum = Integer.parseInt(request.getParameter("postalCode")), number = Integer.parseInt(request.getParameter("num"));
-
-        if (postalCodeNum <= 0 || number <= 0) {
-            session.setAttribute("postalCodeNull", "Postal code null");
-            response.sendRedirect("accountUser.jsp");
-            return;
+        } catch(Exception e){
+            response.sendRedirect("error.jsp");
         }
-
-        Shipment shipment = controller.addShipmentToNoRegisterUser("1", user.getId(), email, postalCodeNum, nameReciever, number, true, street, city);
-
-        if (shipment != null) {
-            nombreArchivo = controller.createPdf(shipment, user);
-            controller.sendEmail(shipment, user, nombreArchivo, true);
-            session.setAttribute("packageSuccess", shipment);
-            response.sendRedirect("accountUser.jsp");
-            return;
-        } else {
-            session.setAttribute("errorPackageMake", "Error al crear el paquete");
-            response.sendRedirect("accountUser.jsp");
-        }
-    }catch (Exception e){
-        response.sendRedirect("error.jsp");
-    }
 %>
 </body>
 </html>

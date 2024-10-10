@@ -21,13 +21,13 @@
 <body>
 <%
     AppController controller = new AppController();
-    User user = (User) session.getAttribute("usuarioLogueado");
+    Object user = session.getAttribute("usuarioLogueado");
 
-    if (user != null) {
+    if (user instanceof User) {
         // Obtiene los datos más recientes del usuario desde la base de datos
-        user = controller.searchUserById(user.getId());
+        user = controller.searchUserById(((User) user).getId());
 
-        if (user.isValidate()) {
+        if (((User) user).isValidate()) {
             response.sendRedirect("sucess.jsp");
             return;// Detenemos la ejecución después de redirigir
         } else {

@@ -59,7 +59,7 @@
 
         </ul>
         <div class="nav-icons">
-            <a href="message.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
+            <a href="chatComplete.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
             <a href="accountUser.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
         </div>
     </div>

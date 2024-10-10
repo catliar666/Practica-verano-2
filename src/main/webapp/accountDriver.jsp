@@ -31,12 +31,13 @@
 <body>
 
 <%
-    Driver driver = (Driver) session.getAttribute("usuarioLogueado");
+    Object driver = session.getAttribute("usuarioLogueado");
     AppController controller = new AppController();
     if (driver == null) {
         response.sendRedirect("index.jsp");
         return;
     } else {
+        if (driver instanceof Driver) {
 %>
 
 <!-- Comienzo de la barra de navegación -->
@@ -51,7 +52,7 @@
             </li>
 
         </ul>
-        <a class="nav_welcome">Bienvenido <%= driver.getName()%>
+        <a class="nav_welcome">Bienvenido <%= ((Driver) driver).getName()%>
         </a>
     </div>
 </header>
@@ -92,7 +93,7 @@
 
     <section class="info-perfil" id="infoPerfil">
         <h2>Datos del perfil</h2>
-        <p class="info-extra">Actualmente tienes <%=driver.numShipmentsPendings()%> envíos pendientes de
+        <p class="info-extra">Actualmente tienes <%=((Driver) driver).numShipmentsPendings()%> envíos pendientes de
             entrega.</p>
         <p class="info-extra">La siguiente información ha sido proporcionada por la empresa FernanPaaq al momento de crear su cuenta.
             Este conjunto de datos refleja los detalles iniciales que hemos registrado para usted.
@@ -103,7 +104,7 @@
         <div class="all-info-container">
             <div class="info-container">
                 <h3>Información de contacto:</h3>
-                <span><%=driver.getEmail()%></span>
+                <span><%=((Driver) driver).getEmail()%></span>
                 <a class="edit-item" id="email-phone" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -111,7 +112,7 @@
             </div>
             <div class="info-container">
                 <h3>Nombre:</h3>
-                <span><%=driver.getName()%></span>
+                <span><%=((Driver) driver).getName()%></span>
                 <a class="edit-item" id="name-surname" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -119,7 +120,7 @@
             </div>
             <div class="info-container">
                 <h3>Número de identificación:</h3>
-                <span>C/<%=driver.getId()%></span>
+                <span><%=((Driver) driver).getId()%></span>
                 <a class="edit-item" id="street-num" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -128,7 +129,7 @@
             <div class="info-container">
                 <h3>Zonas de entrega asignadas</h3>
                 <%
-                    String zonas = driver.getDeliveryZoneToString();
+                    String zonas = ((Driver) driver).getDeliveryZoneToString();
                 %>
                 <span><%=zonas%></span>
                 <a class="edit-item" id="city-state-postalCode" href="#"></a>
@@ -141,8 +142,8 @@
         <p class="info-extra">Aquí se muestran todos los chats abiertos entre el conductor del paquete y usted.
             No se aceptan mensajes de odio, ni spam, por favor, tenga cuidado con lo que envía.</p>
         <%
-            ArrayList<Message> messages = controller.messageForUserAll(driver.getId());
-            ArrayList<InfoChats> chats = controller.groupsChats(driver.getId(), messages);
+            ArrayList<Message> messages = controller.messageForUserAll(((Driver) driver).getId());
+            ArrayList<InfoChats> chats = controller.groupsChats(((Driver) driver).getId(), messages);
             if (chats == null || chats.isEmpty()) {
         %>
         <p class="not-info">No tienes chats abiertos actualmente</p>
@@ -224,7 +225,7 @@
             la dirección de entrega, el estado del envío y cualquier otra información relevante para la gestión de sus tareas diarias.</p>
         <div class="card-container">
             <%
-                ArrayList<InfoShipmentDataClass> shipmentsPending = controller.getShipmentsPendingsDriver(driver.getId());
+                ArrayList<InfoShipmentDataClass> shipmentsPending = controller.getShipmentsPendingsDriver(((Driver) driver).getId());
                 if (shipmentsPending.isEmpty()) {
             %>
             <p class="not-info">No se ha encontrado información sobre envíos pendientes de entregar</p>
@@ -254,7 +255,7 @@
         </p>
 
         <%
-            ArrayList<InfoShipmentDataClass> shipmentsChange = controller.getShipmentsPendingsDriver(driver.getId());
+            ArrayList<InfoShipmentDataClass> shipmentsChange = controller.getShipmentsPendingsDriver(((Driver) driver).getId());
 
             if (shipmentsChange.isEmpty()) {
         %>
@@ -265,7 +266,7 @@
             if (shipmentFound == null && session.getAttribute("packageUpdateState") == null) {
         %>
         <div class="form-change">
-            <form method="post" action="findPackageDriver.jsp">
+            <form method="post" action="findPackageDriverDispatch.jsp">
                 <label>Id del envío a modificar:</label>
                 <%
                     String fails = (String) session.getAttribute("idNull");
@@ -291,23 +292,29 @@
                 <button class="button-form">Modificar</button>
             </form>
         </div>
+        <div class="card-container">
         <%
             for (InfoShipmentDataClass s : shipmentsChange) {
         %>
+
         <div class="target-package">
             <%=s.forDriverPending()%>
         </div>
+
         <%
             }
+            %>
+        </div>
+            <%
         } else if (shipmentFound != null && session.getAttribute("packageUpdateState") == null) {
         %>
         <h3>Selecciona el estado del envío haciendo clic en la opción deseada.</h3>
         <div class="option-status">
             <div class="options">
-                <a href="changeStatus.jsp?status=1">En oficina de origen</a>
-                <a href="changeStatus.jsp?status=2">En almacén</a>
-                <a href="changeStatus.jsp?status=3">En reparto</a>
-                <a href="changeStatus.jsp?status=4">Entregado</a>
+                <a href="changeStatusDispatch.jsp?status=1">En oficina de origen</a>
+                <a href="changeStatusDispatch.jsp?status=2">En almacén</a>
+                <a href="changeStatusDispatch.jsp?status=3">En reparto</a>
+                <a href="changeStatusDispatch.jsp?status=4">Entregado</a>
             </div>
         </div>
         <%
@@ -350,7 +357,7 @@
         <!--MODIFICAR EL JAVASCRIPT PARA MOSTRAR LOS PEDIDOS ORDENADOS POR, ENTREGADOS O NO ENTREGADOS-->
         <div class="card-container-finished" id="card-container-finished">
             <%
-                ArrayList<InfoShipmentDataClass> shipmentsFinished = controller.getShipmentsFinishedDriver(driver.getId());
+                ArrayList<InfoShipmentDataClass> shipmentsFinished = controller.getShipmentsFinishedDriver(((Driver) driver).getId());
 
                 if (shipmentsFinished.isEmpty()) {
             %>
@@ -401,24 +408,24 @@
         <%
             }
         %>
-        <form method="post" action="changeInfoAccountDriver.jsp" class="all-change-container">
+        <form method="post" action="changeInfoAccountDriverDispatch.jsp" class="all-change-container">
             <div class="info-container">
                 <h3>Email:</h3>
-                <input type="text" name="emailNew" value="<%=driver.getEmail()%>">
+                <input type="text" name="emailNew" value="<%=((Driver) driver).getEmail()%>">
             </div>
             <div class="info-container">
                 <h3>Nombre:</h3>
-                <input type="text" name="nameNew" value="<%=driver.getName()%>">
+                <input type="text" name="nameNew" value="<%=((Driver) driver).getName()%>">
             </div>
             <div class="button-form">
                 <button type="submit">Modificar</button>
-                <a href="changePassword.jsp">Cambiar contraseña</a>
+                <a href="changePasswordDispatch.jsp">Cambiar contraseña</a>
             </div>
         </form>
         <%
             } else {
         %>
-        <form method="post" action="changePassword.jsp" class="all-change-container">
+        <form method="post" action="changePasswordDispatch.jsp" class="all-change-container">
             <%
                 if (session.getAttribute("passOldNull") != null) {
                     session.removeAttribute("passOldNull");
@@ -501,6 +508,9 @@
 
 <script src="jscript/cuentaDriver.js"></script>
 <%
+        } else {
+            response.sendRedirect("error.jsp");
+        }
     }
 %>
 <!--Fin del footer-->

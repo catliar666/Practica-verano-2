@@ -1,5 +1,7 @@
 package comunication;
 
+import persistence.Config;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,8 +13,10 @@ import java.time.format.DateTimeFormatter;
 public class MensajeTelegram {
     public static String mensajePredeterminado(int numSeguimiento, String estado, String nombreConductor, LocalDate fecha){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return "Buenas " + nombreConductor + " te han asignado el paquete " + numSeguimiento + ", actualmente está " + estado
-                + " la fecha límite de su entrega es " + fecha.format(formatter) + ". Que tenga un buen día.";
+        String statusString = (estado.equals("1") ? Config.getStatusOne() : (estado.equals("2") ? Config.getStatusTwo() :
+                (estado.equals("3") ? Config.getStatusThree() : (estado.equals("4") ? Config.getStatusFour() : "No hay registros"))));
+        return "Buenas " + nombreConductor + " te han asignado el paquete " + numSeguimiento + ", actualmente está '" + statusString
+                + "' la fecha límite de su entrega es " + fecha.format(formatter) + ". Que tenga un buen día.";
 
     }
     public static boolean enviaMensajeTelegram(String mensaje) throws IOException {

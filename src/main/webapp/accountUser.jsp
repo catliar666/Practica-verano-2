@@ -30,16 +30,17 @@
 <body>
 
 <%
-    User user = (User) session.getAttribute("usuarioLogueado");
+    Object user = session.getAttribute("usuarioLogueado");
     AppController controller = new AppController();
     if (user == null) {
         response.sendRedirect("index.jsp");
         return;
     }
-    if (user.isFirst_login() && !user.isValidate()) {
-        response.sendRedirect("questionValidate.jsp");
-        return;
-    } else {
+    if (user instanceof User) {
+        if (((User) user).isFirst_login() && !((User) user).isValidate()) {
+            response.sendRedirect("questionValidate.jsp");
+            return;
+        } else {
 %>
 
 <!-- Comienzo de la barra de navegación -->
@@ -54,7 +55,7 @@
             </li>
 
         </ul>
-        <a class="nav_welcome">Bienvenido <%= user.getName()%>
+        <a class="nav_welcome">Bienvenido <%= ((User) user).getName()%>
         </a>
     </div>
 </header>
@@ -95,7 +96,7 @@
 
     <section class="info-perfil" id="infoPerfil">
         <h2>Datos del perfil</h2>
-        <p class="info-extra">Actualmente tienes <%=user.numDeliveriesPendingToDeliver()%> envíos pendientes de
+        <p class="info-extra">Actualmente tienes <%=((User) user).numDeliveriesPendingToDeliver()%> envíos pendientes de
             entrega.</p>
         <p class="info-extra">FernanPaaq utiliza la información que proporcionas como base para crear
             nuevos paquetes asociados a tu cuenta. El remitente al ingresar tu correo electrónico para crear un paquete,
@@ -104,7 +105,7 @@
         <div class="all-info-container">
             <div class="info-container">
                 <h3>Información de contacto:</h3>
-                <span><%=user.getEmail()%>, <%=user.getPhone()%></span>
+                <span><%=((User) user).getEmail()%>, <%=((User) user).getPhone()%></span>
                 <a class="edit-item" id="email-phone" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -112,7 +113,7 @@
             </div>
             <div class="info-container">
                 <h3>Nombre y apellidos:</h3>
-                <span><%=user.getName()%> <%=user.getSurname()%></span>
+                <span><%=((User) user).getName()%> <%=((User) user).getSurname()%></span>
                 <a class="edit-item" id="name-surname" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -120,7 +121,7 @@
             </div>
             <div class="info-container">
                 <h3>Dirección:</h3>
-                <span>C/<%=user.getStreet()%>, <%=user.getNum()%></span>
+                <span>C/<%=((User) user).getStreet()%>, <%=((User) user).getNum()%></span>
                 <a class="edit-item" id="street-num" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/>
@@ -128,7 +129,7 @@
             </div>
             <div class="info-container">
                 <h3>Ciudad:</h3>
-                <span><%=user.getCity()%>, <%=user.getState()%>, (<%=user.getPostalCode()%>)</span>
+                <span><%=((User) user).getCity()%>, <%=((User) user).getState()%>, (<%=((User) user).getPostalCode()%>)</span>
                 <a class="edit-item" id="city-state-postalCode" href="#">
                     <img alt="edit"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAnJJREFUSEulV1uSxCAIhJNt5mSZnGxzMzcgKC+TVG2+MkZtaJrWQRgPAkKDxr8RQN7ofY7P2etxO2f1Tnv+4/Hhaaj1qE+m/5LHLrDTVuM++8lQkQlvIfvI+13G2xMZJqTTzKV1P4CwQQMaP/q3Z+D9mvZNoD5xS9QXGh6SMYHS+hg0J+iKkPYTJa1wQkAUoGTEYBaUst3MPo7dqsZd2ACfiuognVMmG1CeoQFZ9k4E+OjmaOsuQOObk11BgQxN0FlGVC2ZvlS2mfSUfpNiIYBdXCpfasn0hrgkY9w5+/6RqB8sZlV7F5l6zBkT2N66eukhMCtK/i3LTgAW4FB/p9oXs6baz4lCMiJDJU11rC1lW650rgQcRFaCGq3s1/tXakyCOi5Wzphdp9orbAIHCV91WmQ6/NypWFpNMvXcGuDR4KuMt0tvJBYxB/wiNMpG7bAAxdMYSw9Alf+yxlsD+B2UI1i3ot32S5OD3pkp706B0lqnp1d9bPXH9RO3kqBv6OVQSwZzO9UTdbFVL+25Bp0laELvyjKHRzQ5wuzEKuoOOs2BPNu1THTCqFXfLWwgrFJqSH2if/94c4ADAcS3UysUQdc3kCq7EcPclt9Kcwh9fwPspX0D7LKhVhF6i96YvVOL6007zYM9XQiLmiajaIJsNKNUp4yHJKsjOTpdPSfrI5lVXHh7EbDu84QoEarx+HZKVNeX6BJjturq7u2WFVTnI69Hqb467GclouEB3n46d6QDPY+N6xrQ0Cp6GOQTO/F9G1BlKuXVJ1xELR0FQGJlXfkn52K66hweUGbRHaV6dFr5VFefl3/aPBOrP3ZV0WnlHxB1HDa/ZT6xAAAAAElFTkSuQmCC"/></a>
@@ -142,8 +143,8 @@
         No se aceptan mensajes de odio, ni spam, por favor, tenga cuidado con lo que envía.</p>
         <a href="openNewChat.jsp"><button class="abrirChat">Abrir nuevo chat</button></a>
         <%
-            ArrayList<Message> messages = controller.messageForUserAll(user.getId());
-            ArrayList<InfoChats> chats = controller.groupsChats(user.getId(), messages);
+            ArrayList<Message> messages = controller.messageForUserAll(((User) user).getId());
+            ArrayList<InfoChats> chats = controller.groupsChats(((User) user).getId(), messages);
             if (chats == null || chats.isEmpty()) {
         %>
         <p class="not-info">No tienes chats abiertos actualmente</p>
@@ -282,6 +283,18 @@
                     %>
                     <input type="text" name="street" placeholder="Introduce una dirección" pattern="^[^<>]*$" required>
                 </div>
+                <div class="make-container">
+                    <label>Introduce un número de portal:</label>
+                    <%
+                        if (session.getAttribute("numNull") != null) {
+                            session.removeAttribute("numNull");
+                    %>
+                    <p class="fail">Debes introducir un número de portal</p>
+                    <%
+                        }
+                    %>
+                    <input type="text" name="num" placeholder="Introduce un número de portal" pattern="^[^<>]*$" required>
+                </div>
 
                 <!-- Ingresar la ciudad -->
                 <div class="make-container">
@@ -367,7 +380,7 @@
             de los paquetes.</p>
         <div class="card-container">
             <%
-                ArrayList<InfoShipmentDataClass> shipmentsIMake = controller.getShipmentSendByUser(user.getId());
+                ArrayList<InfoShipmentDataClass> shipmentsIMake = controller.getShipmentSendByUser(((User) user).getId());
                 if (shipmentsIMake.isEmpty()) {
             %>
             <p class="not-info">No se ha encontrado información sobre envíos que haya realizado este usuario</p>
@@ -397,7 +410,7 @@
         </p>
 
         <%
-            ArrayList<InfoShipmentDataClass> shipmentsChange = controller.getShipmentPendingsToUser(user.getId());
+            ArrayList<InfoShipmentDataClass> shipmentsChange = controller.getShipmentPendingsToUser(((User) user).getId());
 
             if (shipmentsChange.isEmpty()) {
         %>
@@ -444,7 +457,7 @@
             }
         } else {
         %>
-        <form method="post" action="changeInfoPackage.jsp?idPackage=<%=shipmentFound.getId()%>" class="all-change-container">
+        <form method="post" action="changeInfoPackageDispatch.jsp?idPackage=<%=shipmentFound.getId()%>" class="all-change-container">
             <div class="info-container">
                 <h3>Dirección y Número de portal:</h3>
                 <input type="text" name="streetNew" value="<%=shipmentFound.getAlternativeAddress()%>">
@@ -487,7 +500,7 @@
         <!--MODIFICAR EL JAVASCRIPT PARA MOSTRAR LOS PEDIDOS ORDENADOS POR, ENTREGADOS O NO ENTREGADOS-->
         <div class="card-container-finished" id="card-container-finished">
             <%
-                ArrayList<InfoShipmentDataClass> shipmentsFinished = controller.getShipmentsFinishedUser(user.getId());
+                ArrayList<InfoShipmentDataClass> shipmentsFinished = controller.getShipmentsFinishedUser(((User) user).getId());
 
                 if (shipmentsFinished.isEmpty()) {
             %>
@@ -506,7 +519,7 @@
         </div>
         <div class="card-container-pendings" id="card-container-pendings">
             <%
-                ArrayList<InfoShipmentDataClass> shipmentPendings = controller.getShipmentPendingsToUser(user.getId());
+                ArrayList<InfoShipmentDataClass> shipmentPendings = controller.getShipmentPendingsToUser(((User) user).getId());
 
                 if (shipmentPendings.isEmpty()) {
             %>
@@ -557,7 +570,7 @@
         <%
             }
         %>
-        <form method="post" action="changeInfoAccountUser.jsp" class="all-change-container">
+        <form method="post" action="changeInfoAccountUserDispatch.jsp" class="all-change-container">
             <div class="info-container">
                 <%
                     if (session.getAttribute("emailNull") != null) {
@@ -568,7 +581,7 @@
                     }
                 %>
                 <h3>Email:</h3>
-                <input type="text" name="emailNew" value="<%=user.getEmail()%>">
+                <input type="text" name="emailNew" value="<%=((User) user).getEmail()%>">
             </div>
             <div class="info-container">
                 <%
@@ -580,7 +593,7 @@
                     }
                 %>
                 <h3>Número de telefono:</h3>
-                <input type="number" name="phoneNew" value="<%=user.getPhone()%>">
+                <input type="number" name="phoneNew" value="<%=((User) user).getPhone()%>">
             </div>
             <div class="info-container">
                 <%
@@ -592,7 +605,7 @@
                     }
                 %>
                 <h3>Nombre:</h3>
-                <input type="text" name="nameNew" value="<%=user.getName()%>">
+                <input type="text" name="nameNew" value="<%=((User) user).getName()%>">
             </div>
             <div class="info-container">
                 <%
@@ -604,7 +617,7 @@
                     }
                 %>
                 <h3>Apellidos:</h3>
-                <input type="text" name="surnameNew" value="<%=user.getSurname()%>">
+                <input type="text" name="surnameNew" value="<%=((User) user).getSurname()%>">
             </div>
             <div class="info-container">
                 <%
@@ -616,7 +629,7 @@
                     }
                 %>
                 <h3>Dirección:</h3>
-                <input type="text" name="streetNew" value="<%=user.getStreet()%>">
+                <input type="text" name="streetNew" value="<%=((User) user).getStreet()%>">
             </div>
             <div class="info-container">
                 <%
@@ -628,7 +641,7 @@
                     }
                 %>
                 <h3>Número de portal:</h3>
-                <input type="number" name="numNew" value="<%=user.getNum()%>">
+                <input type="number" name="numNew" value="<%=((User) user).getNum()%>">
             </div>
             <div class="info-container">
                 <%
@@ -640,7 +653,7 @@
                     }
                 %>
                 <h3>Ciudad:</h3>
-                <input type="text" name="cityNew" value="<%=user.getCity()%>">
+                <input type="text" name="cityNew" value="<%=((User) user).getCity()%>">
             </div>
             <div class="info-container">
                 <%
@@ -652,7 +665,7 @@
                     }
                 %>
                 <h3>Código postal:</h3>
-                <input type="number" name="postalNew" value="<%=user.getPostalCode()%>">
+                <input type="number" name="postalNew" value="<%=((User) user).getPostalCode()%>">
             </div>
             <div class="info-container">
                 <%
@@ -664,12 +677,12 @@
                     }
                 %>
                 <h3>Provincia:</h3>
-                <input type="text" name="stateNew" value="<%=user.getState()%>">
+                <input type="text" name="stateNew" value="<%=((User) user).getState()%>">
             </div>
             <div class="info-container">
                 <h3>Notificaciones:</h3>
                 <%
-                    if (user.isNotification()) {
+                    if (((User) user).isNotification()) {
                 %>
                 <label class="notification-text">Activadas<input type="checkbox" name="notificationNoName" id="notificationNo" value="no"></label>
                 <%
@@ -682,13 +695,13 @@
             </div>
             <div class="button-form">
                 <button type="submit">Modificar</button>
-                <a href="changePassword.jsp">Cambiar contraseña</a>
+                <a href="changePasswordDispatch.jsp">Cambiar contraseña</a>
             </div>
         </form>
         <%
             } else {
         %>
-        <form method="post" action="changePassword.jsp" class="all-change-container">
+        <form method="post" action="changePasswordDispatch.jsp" class="all-change-container">
             <%
                 if (session.getAttribute("passOldNull") != null) {
                     session.removeAttribute("passOldNull");
@@ -772,7 +785,10 @@
 <script src="jscript/modifyNoti.js"></script>
 <!--Fin del footer-->
 <%
-    }
+        }
+    } else {
+        response.sendRedirect("error.jsp");
+        }
 %>
 </body>
 </html>

@@ -2,6 +2,7 @@ package appcontroller;
 
 import DAO.*;
 import comunication.AsignacionCorreo;
+import comunication.FacturaPaquete;
 import comunication.MensajeTelegram;
 import comunication.Mensajes;
 import dataclass.InfoChats;
@@ -886,7 +887,7 @@ public class AppController implements Serializable {
         if (notification)
             Mensajes.enviarMensaje(shipment.getEmailUserNoRegister(), "Asignación de envío", AsignacionCorreo.plantillaAsignacion(shipment.getNameUserNoRegister(), shipment.getExpectDate(),
                     shipment.getStatus(), shipment.getAlternativeAddress(), shipment.getAlternativeCity(), user.getName(), shipment.getNameUserNoRegister()), null);
-        Mensajes.enviarMensaje(user.getEmail(), "Creación de envío y factura", AsignacionCorreo.plantillaAsignacion(shipment.getNameUserNoRegister(), shipment.getExpectDate(),
+        Mensajes.enviarMensaje(user.getEmail(), "Creación de envío y factura", FacturaPaquete.plantillaFactura(shipment.getExpectDate(),
                 shipment.getStatus(), shipment.getAlternativeAddress(), shipment.getAlternativeCity(), user.getName(), shipment.getNameUserNoRegister()), nombreArchivo);
     }
 
