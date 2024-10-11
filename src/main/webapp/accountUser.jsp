@@ -566,7 +566,7 @@
         if (session.getAttribute("fails") != null) {
         session.removeAttribute("fails");
         %>
-        <p class="text-red">Algo ha ido mal</p>
+        <p class="fail">Algo ha ido mal</p>
         <%
             }
         %>

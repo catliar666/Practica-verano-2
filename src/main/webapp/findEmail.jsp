@@ -76,10 +76,20 @@
                     <span>Registra tu cuenta</span>
                 </div>
                 <%
-                    Boolean emailUse = (Boolean) request.getSession().getAttribute("emailUse");
+                   String emailUse = (String) session.getAttribute("emailUse");
                     if (emailUse != null) {
+                        session.removeAttribute("emailUse");
                 %>
                 <p class="text-red text-sm">El email ya existe, inicie sesión o escoja otro email</p>
+                <%
+                    }
+                %>
+                <%
+                    String emailNull = (String) session.getAttribute("emailNull");
+                    if (emailNull != null) {
+                        session.removeAttribute("emailNull");
+                %>
+                <p class="text-red text-sm">Debe introducir un email correcto</p>
                 <%
                     }
                 %>
