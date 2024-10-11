@@ -21,7 +21,8 @@ public class DaoShipmentSQL implements DaoShipment{
                     "'," + fecha +
                     "," + shipment.isNotifications() +
                     ",'" + shipment.getAlternativeAddress() +
-                    "'," + shipment.getAlternativePostalCode() +
+                    "'," + shipment.getNumAlternative() +
+                    "," + shipment.getAlternativePostalCode() +
                     ",'" + shipment.getAlternativeCity() +
                     "','" + shipment.getStatus() +
                     "'," + shipment.getCost() +

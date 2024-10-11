@@ -1,4 +1,5 @@
-<%@ page import="models.User" %><%--
+<%@ page import="models.User" %>
+<%@ page import="models.Driver" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 03/08/2024
@@ -22,7 +23,7 @@
 <body>
 
 <%
-    User user = (User) session.getAttribute("usuarioLogueado");
+    Object user = session.getAttribute("usuarioLogueado");
 
     if (user != null) {
 
@@ -38,8 +39,22 @@
             </li>
         </ul>
         <div class="nav-icons">
-            <a href="message.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
+            <a href="chatComplete.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
+            <%
+                if (user instanceof User) {
+            %>
             <a href="accountUser.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
+            <%
+                } else if (user instanceof Driver) {
+            %>
+            <a href="accountDriver.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
+            <%
+                } else {
+            %>
+            <a href="accountAdmin.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
+            <%
+                }
+            %>
         </div>
     </div>
 </header>
@@ -77,7 +92,6 @@
                 <a href="index.jsp">
                     Pulse aquí para continuar
                 </a>
-
             </div>
         </div>
     </section>

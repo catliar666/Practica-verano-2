@@ -9,7 +9,7 @@
 
         String newPostal = request.getParameter("zonaEntregaNew");
 
-        if (newPostal == null || newPostal.trim().isEmpty() || Utils.VerEtiquetas(newPostal)) {
+        if (newPostal == null || newPostal.trim().isEmpty() || Utils.VerEtiquetas(newPostal) || Utils.VerInyeccionSql(newPostal)) {
             session.setAttribute("postalNull", "No ha introducido un codigo postal nuevo");
             response.sendRedirect("accountDriver.jsp");
             return;

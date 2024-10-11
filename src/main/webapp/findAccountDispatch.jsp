@@ -17,7 +17,7 @@
     String email = request.getParameter("email");
     AppController controller = new AppController();
 try {
-    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
         session.setAttribute("emailNull", email);
         response.sendRedirect("accountUser.jsp");
         return;

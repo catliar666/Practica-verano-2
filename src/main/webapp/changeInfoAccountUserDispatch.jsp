@@ -31,39 +31,39 @@
             notificationYes = request.getParameter("notificationYesName");
     int fails = 0;
 
-    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name)) {
+    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name) || Utils.VerInyeccionSql(name)) {
         session.setAttribute("nameNull", "No hay nombre");
         fails++;
     }
-    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }
-    if (surname == null || surname.trim().isEmpty() || Utils.VerEtiquetas(surname)) {
+    if (surname == null || surname.trim().isEmpty() || Utils.VerEtiquetas(surname) || Utils.VerInyeccionSql(surname)) {
         session.setAttribute("surnameNull", "No hay apellidos");
         fails++;
     }
-    if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
+    if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street) || Utils.VerInyeccionSql(street)) {
         session.setAttribute("streetNull", "No hay direccion");
         fails++;
     }
-    if (state == null || state.trim().isEmpty() || Utils.VerEtiquetas(state)) {
+    if (state == null || state.trim().isEmpty() || Utils.VerEtiquetas(state) || Utils.VerInyeccionSql(state)) {
         session.setAttribute("stateNull", "No hay provincia");
         fails++;
     }
-    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
+    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city) || Utils.VerInyeccionSql(city)) {
         session.setAttribute("cityNull", "No hay ciudad");
         fails++;
     }
-    if (num == null || num.trim().isEmpty() || Utils.VerEtiquetas(num)) {
+    if (num == null || num.trim().isEmpty() || Utils.VerEtiquetas(num) || Utils.VerInyeccionSql(num)) {
         session.setAttribute("numNull", "No hay número de portal");
         fails++;
     }
-    if (phone == null || phone.trim().isEmpty() || Utils.VerEtiquetas(phone)) {
+    if (phone == null || phone.trim().isEmpty() || Utils.VerEtiquetas(phone) || Utils.VerInyeccionSql(phone)) {
         session.setAttribute("phoneNull", "No hay telefono");
         fails++;
     }
-    if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
+    if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode) || Utils.VerInyeccionSql(postalCode)) {
         session.setAttribute("postalCodeNull", "No hay código postal");
         fails++;
     }

@@ -17,7 +17,7 @@
     AppController controller = new AppController();
     String idPackage = request.getParameter("idPackage");
     boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
-    if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage)) {
+    if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage) || Utils.VerInyeccionSql(idPackage)) {
         session.setAttribute("idNull", "Debe introducir un identificador");
         if (admin) response.sendRedirect("accountAdmin.jsp");
         else response.sendRedirect("accountUser.jsp");

@@ -19,7 +19,7 @@
     String numSeguimientoParam = request.getParameter("numSeguimiento");
 
 // Verificar si el parámetro es nulo o vacío
-    if (numSeguimientoParam == null || numSeguimientoParam.isEmpty() || Utils.VerEtiquetas(numSeguimientoParam)) {
+    if (numSeguimientoParam == null || numSeguimientoParam.isEmpty() || Utils.VerEtiquetas(numSeguimientoParam) || Utils.VerInyeccionSql(numSeguimientoParam)) {
         session.setAttribute("numSeguimientoNull", "No introducido");
         response.sendRedirect("seguimientoEnvio.jsp");
         return;

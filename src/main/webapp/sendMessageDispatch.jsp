@@ -33,7 +33,7 @@
             return;
         }
 
-        if (mensaje == null || mensaje.trim().isEmpty() || Utils.VerEtiquetas(mensaje)) {
+        if (mensaje == null || mensaje.trim().isEmpty() || Utils.VerEtiquetas(mensaje) || Utils.VerInyeccionSql(mensaje)) {
             session.setAttribute("ErrorMensaje", "El mensaje no puede estar vacío o contener etiquetas.");
             response.sendRedirect("chatComplete.jsp");
             return;

@@ -24,7 +24,7 @@
     String account = request.getParameter("accountAdmin");
     AppController controller = new AppController();
 
-    if (emailRegister == null || emailRegister.trim().isEmpty() || Utils.VerEtiquetas(emailRegister)) {
+    if (emailRegister == null || emailRegister.trim().isEmpty() || Utils.VerEtiquetas(emailRegister) || Utils.VerInyeccionSql(emailRegister)) {
         session.setAttribute("emailNull", "Email no introducido");
         response.sendRedirect("findEmail.jsp");
         return;
@@ -33,29 +33,33 @@
         if (controller.searchUserByEmail(emailRegister) != null ||
             controller.searchDriverByEmail(emailRegister) != null ||
             controller.searchAdminByEmail(emailRegister) != null) {
-            if (account.equals("driver")) {
-                session.setAttribute("emailUse", emailUse);
-                response.sendRedirect("accountAdmin.jsp");
-                return;
-            } else if (account.equals("admin")) {
-                session.setAttribute("emailUse", emailUse);
-                response.sendRedirect("accountAdmin.jsp");
-                return;
+            if (account != null) {
+                if (account.equals("driver")) {
+                    session.setAttribute("emailUse", emailUse);
+                    response.sendRedirect("accountAdmin.jsp");
+                    return;
+                } else if (account.equals("admin")) {
+                    session.setAttribute("emailUse", emailUse);
+                    response.sendRedirect("accountAdmin.jsp");
+                    return;
+                }
             }
             session.setAttribute("emailUse", emailUse);
                 response.sendRedirect("findEmail.jsp");
                 return;
         }
 
-        if (account.equals("driver")) {
-            session.setAttribute("emailNoRegisterDriver", emailRegister);
-            response.sendRedirect("accountAdmin.jsp");
-            return;
-        }
-        if (account.equals("admin")) {
-            session.setAttribute("emailNoRegisterAdmin", emailRegister);
-            response.sendRedirect("accountAdmin.jsp");
-            return;
+        if (account != null) {
+            if (account.equals("driver")) {
+                session.setAttribute("emailNoRegisterDriver", emailRegister);
+                response.sendRedirect("accountAdmin.jsp");
+                return;
+            }
+            if (account.equals("admin")) {
+                session.setAttribute("emailNoRegisterAdmin", emailRegister);
+                response.sendRedirect("accountAdmin.jsp");
+                return;
+            }
         }
 
         if (!controller.searchShipmentByEmail(emailRegister).isEmpty()) {

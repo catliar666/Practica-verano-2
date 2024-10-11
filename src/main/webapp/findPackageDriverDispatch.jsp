@@ -13,7 +13,7 @@
     if (driver instanceof Driver) {
         String idPackage = request.getParameter("idPackage");
 
-        if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage)) {
+        if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage) || Utils.VerInyeccionSql(idPackage)) {
             session.setAttribute("idNull", "Identificacion del paquete no introducida");
             response.sendRedirect("accountDriver.jsp");
             return;

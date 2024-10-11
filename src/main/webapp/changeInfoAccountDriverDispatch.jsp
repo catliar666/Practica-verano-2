@@ -22,11 +22,11 @@
 
     int fails = 0;
 
-    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name)) {
+    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name) || Utils.VerInyeccionSql(name)) {
         session.setAttribute("nameNull", "No hay nombre");
         fails++;
     }
-    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }

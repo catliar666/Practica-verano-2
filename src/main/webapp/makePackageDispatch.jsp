@@ -36,27 +36,27 @@
 
             int fails = 0;
 
-            if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+            if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
                 fails++;
                 session.setAttribute("emailNull", "Email null");
             }
-            if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
+            if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street) || Utils.VerInyeccionSql(street)) {
                 fails++;
                 session.setAttribute("streetNull", "Street null");
             }
-            if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
+            if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city) || Utils.VerInyeccionSql(city)) {
                 fails++;
                 session.setAttribute("cityNull", "City null");
             }
-            if (num == null || num.trim().isEmpty() || Utils.VerEtiquetas(num)) {
+            if (num == null || num.trim().isEmpty() || Utils.VerEtiquetas(num) || Utils.VerInyeccionSql(num)) {
                 fails++;
                 session.setAttribute("numNull", "num null");
             }
-            if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
+            if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode) || Utils.VerInyeccionSql(postalCode)) {
                 fails++;
                 session.setAttribute("postalNull", "postal null");
             }
-            if (nameReciever == null || nameReciever.trim().isEmpty() || Utils.VerEtiquetas(nameReciever)) {
+            if (nameReciever == null || nameReciever.trim().isEmpty() || Utils.VerEtiquetas(nameReciever) || Utils.VerInyeccionSql(nameReciever)) {
                 fails++;
                 session.setAttribute("nameNull", "Name null");
             }
@@ -73,6 +73,7 @@
                 response.sendRedirect("accountUser.jsp");
                 return;
             }
+
 
             Shipment shipment = controller.addShipmentToNoRegisterUser("1", ((User) user).getId(), email, postalCodeNum, nameReciever, number, true, street, city);
 

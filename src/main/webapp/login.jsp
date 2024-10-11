@@ -101,9 +101,6 @@
                         <input type="password" name="passText" class="input-field" placeholder="Introduce tu contraseña" required>
                         <i class="bx bx-lock-alt icon"></i>
                     </div>
-                    <div class="forgot-pass">
-                        <a href="cambiarContraseña.jsp">¿Has olvidado tu contraseña?</a>
-                    </div>
                     <div class="input-box">
                         <button class="input-submit">
                             <span>Iniciar Sesión</span>

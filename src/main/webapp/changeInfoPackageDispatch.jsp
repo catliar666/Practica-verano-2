@@ -10,15 +10,15 @@
 
     int fails = 0;
 
-    if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street)) {
+    if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street) || Utils.VerInyeccionSql(street)) {
         session.setAttribute("streetNull", "No hay direccion");
         fails++;
     }
-    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
+    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city) || Utils.VerInyeccionSql(city)) {
         session.setAttribute("cityNull", "No hay ciudad");
         fails++;
     }
-    if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode)) {
+    if (postalCode == null || postalCode.trim().isEmpty() || Utils.VerEtiquetas(postalCode) || Utils.VerInyeccionSql(postalCode)) {
         session.setAttribute("postalCodeNull", "No hay código postal");
         fails++;
     }

@@ -40,8 +40,8 @@
         <ul class="nav_items">
             <li class="nav_item">
                 <a href="index.jsp" class="nav_link">Inicio</a>
-                <a href="#" class="nav_link">Sobre nosotros</a>
-                <a href="#" class="nav_link">Contacto</a>
+                <a href="sobreNosotros.html" class="nav_link">Sobre nosotros</a>
+                <a href="sobreNosotros.html" class="nav_link">Contacto</a>
             </li>
 
         </ul>

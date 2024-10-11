@@ -68,7 +68,7 @@
         ArrayList<Message> messages = controller.messageForUserAll(((User) user).getId());
         ArrayList<InfoChats> chats = controller.groupsChats(((User) user).getId(), messages);
         InfoChats chatUser = (InfoChats) session.getAttribute("mostrarChatUser");
-        if (chatUser == null) response.sendRedirect("error.jsp");
+        if (chats == null) response.sendRedirect("accountUser.jsp");
         else {
 %>
 <section class="list-vertical">
@@ -86,7 +86,15 @@
         %>
 </section>
 
-
+<%
+    if (chatUser == null) {
+%>
+    <div class="chat-container">
+        <p class="not-info"> Chat no seleccionado</p>
+    </div>
+    <%
+        } else {
+    %>
 
     <div class="chat-container">
         <%
@@ -101,12 +109,13 @@
         </div>
     </div>
 <%
+            }
     }
 } else if (user instanceof Driver) {
         ArrayList<Message> messages = controller.messageForUserAll(((Driver) user).getId());
         ArrayList<InfoChats> chats = controller.groupsChats(((Driver) user).getId(), messages);
     InfoChats chatDriver = (InfoChats) session.getAttribute("mostrarChatDriver");
-    if (chatDriver == null) response.sendRedirect("error.jsp");
+    if (chats == null) response.sendRedirect("accountDriver.jsp");
     else {
 %>
     <section class="list-vertical">
@@ -123,6 +132,15 @@
             }
         %>
     </section>
+    <%
+        if (chatDriver == null) {
+    %>
+    <div class="chat-container">
+        <p class="info-extra"> Chat no seleccionado</p>
+    </div>
+    <%
+    } else {
+    %>
     <div class="chat-container">
         <%
             controller.markReadMessage(chatDriver.getMensajesReciever());
@@ -136,6 +154,7 @@
 </div>
 </div>
 <%
+            }
             }
         } else {
             response.sendRedirect("error.jsp");

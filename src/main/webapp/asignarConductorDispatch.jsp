@@ -27,11 +27,11 @@
     int fails = 0;
 
     // Validación de campos
-    if (idConductor == null || idConductor.trim().isEmpty() || Utils.VerEtiquetas(idConductor)) {
+    if (idConductor == null || idConductor.trim().isEmpty() || Utils.VerEtiquetas(idConductor) || Utils.VerInyeccionSql(idConductor)) {
         session.setAttribute("idConductorNull", "No hay identificador del conductor");
         fails++;
     }
-    if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage)) {
+    if (idPackage == null || idPackage.trim().isEmpty() || Utils.VerEtiquetas(idPackage) || Utils.VerInyeccionSql(idPackage)) {
         session.setAttribute("idPackageNull", "No hay identificador del paquete");
         fails++;
     }

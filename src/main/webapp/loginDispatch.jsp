@@ -18,11 +18,11 @@
 
 
     int fails = 0;
-    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
         session.setAttribute("emailNull", "Debes introducir un email");
         fails++;
     }
-    if (pass == null || pass.trim().isEmpty() || Utils.VerEtiquetas(pass)) {
+    if (pass == null || pass.trim().isEmpty() || Utils.VerEtiquetas(pass) || Utils.VerInyeccionSql(pass)) {
         session.setAttribute("passNull", "Debes introducir un pass");
         fails++;
     }

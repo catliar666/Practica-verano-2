@@ -29,23 +29,23 @@
 
     int fails = 0;
 
-    if (pass1 == null || pass1.trim().isEmpty() || Utils.VerEtiquetas(pass1)) {
+    if (pass1 == null || pass1.trim().isEmpty() || Utils.VerEtiquetas(pass1) || Utils.VerInyeccionSql(pass1)) {
         session.setAttribute("passNull", "No hay contraseña");
         fails++;
     }
-    if (pass2 == null ||  pass2.trim().isEmpty() || Utils.VerEtiquetas(pass2)) {
+    if (pass2 == null ||  pass2.trim().isEmpty() || Utils.VerEtiquetas(pass2) || Utils.VerInyeccionSql(pass2)) {
         session.setAttribute("pass2Null", "No hay segunda contraseña");
         fails++;
     }
-    if (state == null || state.trim().isEmpty() || Utils.VerEtiquetas(state)) {
+    if (state == null || state.trim().isEmpty() || Utils.VerEtiquetas(state) || Utils.VerInyeccionSql(state)) {
         session.setAttribute("stateNull", "No hay provincia");
         fails++;
     }
-    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }
-    if (phone == null || phone.trim().isEmpty() || Utils.VerEtiquetas(phone)) {
+    if (phone == null || phone.trim().isEmpty() || Utils.VerEtiquetas(phone) || Utils.VerInyeccionSql(phone)) {
         session.setAttribute("phoneNull", "No hay email");
         fails++;
     }

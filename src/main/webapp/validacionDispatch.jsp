@@ -16,7 +16,7 @@
 <%
     AppController controller = new AppController();
     String token = request.getParameter("token");
-    if (token == null || token.trim().isEmpty() || Utils.VerEtiquetas(token)) {
+    if (token == null || token.trim().isEmpty() || Utils.VerEtiquetas(token) || Utils.VerInyeccionSql(token)) {
         session.setAttribute("tokenNull", "Se debe crear un token");
         response.sendRedirect("error.jsp");
         return;

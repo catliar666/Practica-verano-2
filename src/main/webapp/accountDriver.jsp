@@ -36,8 +36,8 @@
     if (driver == null) {
         response.sendRedirect("index.jsp");
         return;
-    } else {
-        if (driver instanceof Driver) {
+    }
+    if (driver instanceof Driver) {
 %>
 
 <!-- Comienzo de la barra de navegación -->
@@ -510,7 +510,6 @@
 <%
         } else {
             response.sendRedirect("error.jsp");
-        }
     }
 %>
 <!--Fin del footer-->

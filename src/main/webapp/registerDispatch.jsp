@@ -32,35 +32,35 @@
     String notificationNo = request.getParameter("notification");
 
     // Validación de campos
-    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name)) {
+    if (name == null || name.trim().isEmpty() || Utils.VerEtiquetas(name) || Utils.VerInyeccionSql(name)) {
         session.setAttribute("nameNull", "No hay nombre");
         fails++;
     }
-    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email)) {
+    if (email == null || email.trim().isEmpty() || Utils.VerEtiquetas(email) || Utils.VerInyeccionSql(email)) {
         session.setAttribute("emailNull", "No hay email");
         fails++;
     }
-    if (surname == null || surname.trim().isEmpty()|| Utils.VerEtiquetas(surname)) {
+    if (surname == null || surname.trim().isEmpty()|| Utils.VerEtiquetas(surname) || Utils.VerInyeccionSql(surname)) {
         session.setAttribute("surnameNull", "No hay apellidos");
         fails++;
     }
-    if (pass == null || pass.trim().isEmpty()|| Utils.VerEtiquetas(pass)) {
+    if (pass == null || pass.trim().isEmpty()|| Utils.VerEtiquetas(pass) || Utils.VerInyeccionSql(pass)) {
         session.setAttribute("passNull", "No hay contraseña");
         fails++;
     }
-    if (pass2 == null ||  pass2.trim().isEmpty()|| Utils.VerEtiquetas(pass2)) {
+    if (pass2 == null ||  pass2.trim().isEmpty()|| Utils.VerEtiquetas(pass2) || Utils.VerInyeccionSql(pass2)) {
         session.setAttribute("pass2Null", "No hay segunda contraseña");
         fails++;
     }
-    if (address == null || address.trim().isEmpty()|| Utils.VerEtiquetas(address)) {
+    if (address == null || address.trim().isEmpty()|| Utils.VerEtiquetas(address) || Utils.VerInyeccionSql(address)) {
         session.setAttribute("addressNull", "No hay direccion");
         fails++;
     }
-    if (province == null || province.trim().isEmpty()|| Utils.VerEtiquetas(province)) {
+    if (province == null || province.trim().isEmpty()|| Utils.VerEtiquetas(province) || Utils.VerInyeccionSql(province)) {
         session.setAttribute("provinceNull", "No hay provincia");
         fails++;
     }
-    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city)) {
+    if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city) || Utils.VerInyeccionSql(city)) {
         session.setAttribute("cityNull", "No hay ciudad");
         fails++;
     }

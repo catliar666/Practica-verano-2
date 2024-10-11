@@ -44,15 +44,15 @@
     String passOld = request.getParameter("passOld");
 
     int fails = 0;
-    if (passOld == null || passOld.trim().isEmpty() || Utils.VerEtiquetas(passOld)) {
+    if (passOld == null || passOld.trim().isEmpty() || Utils.VerEtiquetas(passOld) || Utils.VerInyeccionSql(passOld)) {
         session.setAttribute("passOldNull", "Debes introducir la contraseña antigua");
         fails++;
     }
-    if (pass == null || pass.trim().isEmpty() || Utils.VerEtiquetas(pass)) {
+    if (pass == null || pass.trim().isEmpty() || Utils.VerEtiquetas(pass) || Utils.VerInyeccionSql(pass)) {
         session.setAttribute("passNull", "Debes introducir una contraseña");
         fails++;
     }
-    if (pass2 == null || pass2.trim().isEmpty() || Utils.VerEtiquetas(pass2)) {
+    if (pass2 == null || pass2.trim().isEmpty() || Utils.VerEtiquetas(pass2) || Utils.VerInyeccionSql(pass2)) {
         session.setAttribute("pass2Null", "Debes introducir una confirmación de contraseña");
         fails++;
     }
