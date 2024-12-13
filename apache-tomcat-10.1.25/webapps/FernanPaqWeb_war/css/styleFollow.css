@@ -1,0 +1,299 @@
+main{
+    padding-top: 10%;
+    background-color: #0b0217;
+}
+
+/*Comienzo del estilo del seguimiento*/
+/* Contenedor principal del formulario de seguimiento */
+.follow-container {
+    width: 50%;
+    margin: 30px auto; /* Centra el contenedor horizontalmente */
+    padding: 5%;
+    background: rgba(250, 251, 255, 0.2);
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para efecto de elevación */
+}
+.follow-container h2{
+    color: #a04ae3;
+    font-size: 2rem;
+}
+
+.button-form{
+    display: inline;
+}
+
+.button-form button{
+    padding: 10px;
+    background-color: #a04ae3;
+    color: white;
+    font-size: 1rem;
+    width: 15%;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.button-form button:hover{
+    background-color: #662D91;
+}
+
+.show-package-info{
+    padding: 5%;
+}
+.show-package-info h3{
+    color: white;
+    font-size: 2rem;
+}
+
+/* Estilo para la etiqueta de texto */
+.follow-container label {
+    display: block; /* Alinea la etiqueta en una línea separada */
+    font-size: 1.1rem; /* Tamaño de fuente medio */
+    color: #ffffff; /* Color de texto oscuro */
+    margin-bottom: 10px; /* Espaciado inferior */
+}
+
+/* Estilo para el campo de entrada de texto */
+.follow-container input[type="text"] {
+    width: 80%; /* Ancho del campo de entrada */
+    padding: 10px; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño de fuente del texto */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    margin-bottom: 20px; /* Espaciado inferior */
+    box-sizing: border-box; /* Asegura que el ancho incluya el relleno y el borde */
+    transition: border-color 0.3s; /* Transición suave para cambio de color */
+}
+
+/* Estilo al enfocar el campo de entrada */
+.follow-container input[type="text"]:focus {
+    border-color: #a04ae3; /* Cambia el color del borde al enfocar */
+    outline: none; /* Quita el borde de enfoque predeterminado */
+}
+
+/* Estilo para el botón de envío */
+.follow-container input[type="submit"] {
+    padding: 5% 7%; /* Espaciado interno */
+    background-color: #a04ae3; /* Color de fondo azul */
+    color: #ffffff; /* Color del texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Muestra el cursor como una mano */
+    font-size: 14px; /* Tamaño de fuente del texto */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+
+/* Estilo al pasar el mouse sobre el botón */
+.follow-container input[type="submit"]:hover {
+    background-color: #662D91; /* Oscurece el color de fondo al pasar el mouse */
+}
+
+/*Fin del estilo del seguimiento*/
+
+/*Comienzo del estilo de la informacion del paquete*/
+/* Contenedor principal para la lista de paquetes */
+
+
+.package-item {
+    list-style: none; /* Quita el estilo de lista predeterminado */
+    margin: 20px 0; /* Espaciado superior e inferior */
+    padding: 0;
+    border: 1px solid #ddd; /* Borde del contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Para manejar el contenido que exceda */
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle efecto de elevación */
+    font-family: Arial, sans-serif; /* Fuente predeterminada */
+}
+
+/* Contenedor de información del paquete */
+.package-info {
+    padding: 16px; /* Relleno interno */
+}
+
+/* Contenedor para los títulos de cada columna */
+.package-titulos {
+    display: flex; /* Alinear los títulos horizontalmente */
+    justify-content: space-between; /* Espacio entre títulos */
+    background-color: #f7f7f7; /* Fondo gris claro */
+    padding: 10px; /* Relleno para los títulos */
+    border-bottom: 1px solid #ddd; /* Línea de separación */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color del texto */
+}
+
+/* Estilo para cada etiqueta de título */
+.package-label {
+    flex: 1; /* Todos los títulos ocupan el mismo espacio */
+    text-align: center; /* Centrar el texto */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Contenedor de detalles de paquete */
+.package-detalles {
+    display: flex; /* Alinear los detalles horizontalmente */
+    justify-content: space-between; /* Espacio entre detalles */
+    padding: 10px; /* Relleno para los detalles */
+}
+
+/* Estilo para cada detalle */
+.package-detail {
+    flex: 1; /* Todos los detalles ocupan el mismo espacio */
+    text-align: center; /* Centrar el texto */
+    font-size: 16px; /* Tamaño de fuente */
+    color: #666; /* Color del texto gris */
+}
+
+/* Estilo de animación para los elementos al pasar el mouse */
+.package-item:hover {
+    border-color: #0072ce; /* Cambiar el borde al pasar el mouse */
+    transition: border-color 0.3s ease; /* Animación suave */
+}
+
+/*Fin del estilo de la información del paquete*/
+
+/*Comienzo del estilo de la seccion sobreNosotros*/
+
+:root{
+    --principal-color: #662D91FF;
+    --secundary-color: #A04AE3FF;
+    --white: #fff;
+    --shadow-color: #999999;
+}
+
+.section_container{
+    margin: auto;
+    padding: 10% 1rem;
+}
+img{
+    width: 100%;
+    display: flex;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.header_container{
+    position: relative;
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 2rem;
+}
+
+.header_content{
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+}
+
+.header_content h1{
+    margin-bottom: 1rem;
+    font-size: 4.3rem;
+    font-weight: 700;
+    line-height: 5rem;
+    color: var(--secundary-color)
+}
+
+.header_content h1 span{
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--white);
+}
+
+
+.header_content p{
+    margin-bottom: 2rem;
+    color: var(--white)
+}
+.header_content h4{
+    color: var(--white)
+}
+.header_image{
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.header_image img{
+    mask-image: linear-gradient(black 80%, transparent);
+    width: 100%;
+    -webkit-filter: drop-shadow(0 0 20px var(--secundary-color));
+}
+.sobreNosotros {
+    background: #fff;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 1); !important;
+    padding: 1rem;
+}
+
+.section-title{
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: black;
+}
+
+.sobreNosotros_header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.sobreNosotros_card {
+    padding: 1rem;
+    background-color: var(--secundary-color);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sobreNosotros_card:hover {
+    background-color: var(--principal-color);
+    border-color: #d2c9da;
+    cursor: pointer;
+}
+.sobreNosotros_card:hover *:not(p, img) {
+    text-decoration: underline;
+}
+
+.sobreNosotros_card h4 {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.sobreNosotros_card p {
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.sobreNosotros_card a {
+    color: var(--white);
+    transition: 0.3s;
+}
+/*Fin del estilo de la seccion sobreNosotros*/
+
+/*BOTONES*/
+
+.borrar-form button{
+    padding: 1%;
+    background-color: #a04ae3;
+    color: white;
+    font-size: 1rem;
+    width: 15%;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.borrar-form button:hover{
+    background-color: #662D91;
+}
+
+

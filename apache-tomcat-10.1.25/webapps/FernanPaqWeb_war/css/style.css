@@ -1,0 +1,167 @@
+
+
+/*Comienzo del estilo del cuerpo principal, primera parte, seguimiento de envio*/
+
+:root{
+    --principal-color: #662D91FF;
+    --secundary-color: #A04AE3FF;
+    --white: #fff;
+    --shadow-color: #999999;
+}
+
+.section_container{
+    background-color: #000000;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 1);
+    margin: auto;
+    padding: 10% 1rem;
+}
+
+.btn{
+    padding: 1rem 2rem;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--white);
+    background-color: var(--secundary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn:hover{
+    background-color: var(--principal-color);
+}
+img{
+    width: 100%;
+    display: flex;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.bg_blur{
+    position: absolute;
+    z-index: -1;
+}
+body{
+    background-color: var(--white);
+    font-family: 'Poppins', sans-serif;
+}
+
+.header_container{
+    position: relative;
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 2rem;
+}
+
+.header_blur{
+    bottom: 5rem;
+    right: 0;
+}
+
+.header_content{
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    
+}
+
+.header_content h1{
+    margin-bottom: 1rem;
+    font-size: 4.3rem;
+    font-weight: 700;
+    line-height: 5rem;
+    color: var(--secundary-color)
+}
+
+.header_content h1 span{
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--white);
+}
+
+
+.header_content p{
+    margin-bottom: 2rem;
+    color: var(--white)
+}
+.header_content h4{
+    color: var(--white)
+}
+.header_image{
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.header_image img{
+    mask-image: linear-gradient(black 80%, transparent);
+    width: 100%;
+    -webkit-filter: drop-shadow(0 0 20px var(--secundary-color));
+}
+/*Fin del estilo de seguimiento de envio*/
+
+/*Comienzo del estilo de la seccion sobreNosotros*/
+
+.sobreNosotros {
+    background-color: #fff;
+    padding: 1rem;
+}
+
+.section-title{
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: black;
+}
+
+.sobreNosotros_header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.sobreNosotros_card {
+    padding: 1rem;
+    background-color: var(--secundary-color);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sobreNosotros_card:hover {
+    background-color: var(--principal-color);
+    border-color: #d2c9da;
+    cursor: pointer;
+}
+.sobreNosotros_card:hover *:not(p, img) {
+    text-decoration: underline;
+  }
+
+.sobreNosotros_card h4 {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.sobreNosotros_card p {
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.sobreNosotros_card a {
+    color: var(--white);
+    transition: 0.3s;
+}
+/*Fin del estilo de la seccion sobreNosotros*/
+
+

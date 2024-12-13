@@ -1,0 +1,696 @@
+main {
+    display: flex;
+    column-gap: 0;
+    background-color: #000000;
+}
+
+section {
+    margin: 0;
+    padding: 0;
+}
+
+.list-vertical {
+    position: relative;
+    margin: 0;
+    width: 35%;
+    left: 0;
+    padding: 10%;
+    display: table-row;
+    flex-direction: column;
+    text-align: left;
+}
+
+.list-vertical ul {
+    list-style: none;
+}
+
+.list-vertical h2 {
+    border-bottom: 1px solid rgb(203, 160, 243);
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+
+.list-vertical li {
+    line-height: 2.2rem;
+    font-size: 87%;
+}
+
+.list-vertical .list-button {
+    border: none;
+    color: #fff;
+    font-weight: normal;
+    padding: 5% 5% 5% 0;
+    font-size: 100%;
+    background: none;
+}
+
+.list-vertical .list-button:hover {
+    font-size: 105.5%;
+    color: #CBA0F3FF;
+    text-decoration: underline;
+    text-decoration-color: #CBA0F3FF;
+}
+
+.list-vertical .list-button.active {
+    font-size: 105.5%;
+    color: #CBA0F3FF;
+    text-decoration: underline;
+    text-decoration-color: #CBA0F3FF;
+}
+
+/*Estilos de secciones que se muestran*/
+
+section:not(.list-vertical) {
+    padding-top: 10%;
+}
+
+
+.info-perfil {
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.all-info-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+}
+
+.info-perfil h2 {
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.info-container {
+    padding: 1.5% 1.5% 1.5% 0;
+}
+
+.info-container h3 {
+    display: inline;
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+
+.info-container span {
+    padding: 5px;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+
+.info-perfil .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+
+.edit-item img {
+    width: 2%;
+    margin: 0;
+    padding: 0;
+    filter: invert(100%);
+}
+
+.edit-item a:hover {
+    cursor: pointer;
+}
+
+.edit-item img:hover {
+    cursor: pointer;
+    width: 2.5%;
+}
+
+/*Fin del estilo de la información del perfil*/
+
+/*Estilos de la información de la empresa*/
+
+
+.info-empresa {
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.info-empresa .all-info-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+}
+
+.info-empresa h2 {
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.info-empresa .info-container {
+    padding: 1.5% 1.5% 1.5% 0;
+}
+
+.info-empresa .info-container h3 {
+    display: inline;
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+
+.info-empresa .info-container span {
+    padding: 5px;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+
+.info-empresa .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+
+/*Fin del estilo de la información de la empresa*/
+/*Comienzo del estilo de las tarjetas*/
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas pasen a la siguiente línea si no caben */
+    gap: 35px; /* Espacio entre las tarjetas */
+    padding: 10px; /* Espacio alrededor del contenedor */
+    justify-content: flex-start; /* Alinea las tarjetas al principio de la línea */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+.target-package {
+    margin-top: 5%;
+    height: 354px;
+    width: 290px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: 16px;
+    box-shadow: 0 0 5px 8px #d0d0d0;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+
+/* Información de la tarjeta que se muestra al hacer hover */
+.card-image {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background: linear-gradient(to top, #9A75D8, #CBA0F3FF);
+    padding: 0.7rem;
+    color: #f5f5f5;
+    transform: translateY(100%); /* Oculta la imagen por defecto */
+}
+
+/* Descripción visible por defecto */
+.card-description {
+    display: flex;
+    position: absolute;
+    text-align: center;
+    gap: 0.5em;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    color: #212121;
+    height: 80%;
+    width: 100%;
+    bottom: 0;
+    border-radius: 16px;
+    transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 1rem;
+}
+.card-description .info-button {
+    background-color: #CBA0F3FF; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Título del texto */
+.text-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.text-title-hover{
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* Cuerpo del texto */
+.text-body {
+    font-size: 0.9rem;
+    line-height: 130%;
+}
+
+/* Hover: Mostrar toda la información del paquete */
+.target-package:hover .card-image {
+    transform: translateY(0); /* Muestra la imagen al hacer hover */
+}
+
+.target-package:hover .card-description {
+    transform: translateY(100%); /* Oculta la descripción al hacer hover */
+}
+
+/*Fin del estilo de las tarjetas*/
+/*Comienzo del estilo de modificar datos del perfil*/
+
+/*Fin del estilo de modificar datos del perfil*/
+
+/*Estilo del resumen de usuarios*/
+.resumen-users{
+    width: 65%;
+    margin: 0 auto; /* Esto centra la sección horizontalmente */
+    padding: 2% 2% 2% 0; /* Un poco de espacio dentro de la sección */
+}
+
+.resumen-users h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.resumen-users .info-extra{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.resumen-users .not-info{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    margin-top: 1%;
+    border-radius: 8px;
+
+}
+
+/*Estilo del resumen de conductores*/
+.resumen-driver{
+    width: 65%;
+    margin: 0 auto; /* Esto centra la sección horizontalmente */
+    padding: 2% 2% 2% 0; /* Un poco de espacio dentro de la sección */
+}
+
+.resumen-driver h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.resumen-driver .info-extra{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.resumen-driver .not-info{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    margin-top: 1%;
+    border-radius: 8px;
+
+}
+/*Fin del estilo del resumen de conductores*/
+
+/*ESTILO DE CREAR CUENTAS*/
+
+.crear-cuentas{
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.crear-cuentas h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.crear-cuentas .info-extra{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.btn-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    font-weight: 500;
+    padding: 5px 30px;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: .2s;
+}
+
+/* Estilo específico para el botón de iniciar sesión */
+.btn-1 {
+    background-color: #CBA0F3FF;
+    color: white;
+}
+
+.btn-1:hover {
+    opacity: 0.85;
+}
+
+/* Estilo específico para el botón de registro */
+.btn-2 {
+    background-color: #CBA0F3FF;
+    color: white;
+}
+
+.btn-2:hover {
+    opacity: 0.85;
+}
+
+.btn-box .btn.active {
+    background-color: #7A3CA3; /* Color más oscuro para el botón activo */
+    color: #fff;
+}
+
+.input-box{
+    display: inline;
+}
+
+.driver-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+    margin: 1.5% 1.5% 1.5% 0;
+}
+.driver-container input{
+    width: 45%;
+    background: none;
+    border: none;
+    padding: 1% 1% 1% 0;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+.driver-container label{
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+.driver-container .button-form{
+    display: inline;
+}
+
+.driver-container .button-form button{
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.admin-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+    margin: 1.5% 1.5% 1.5% 0;
+}
+.admin-container input{
+    width: 45%;
+    background: none;
+    border: none;
+    padding: 1% 1% 1% 0;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+.admin-container label{
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+.admin-container .button-form{
+    display: inline;
+}
+
+.admin-container .button-form button{
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.all-maker-container .crearDriver{
+    justify-content: center;
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+}
+.all-maker-container .crearAdmin{
+    justify-content: center;
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+}
+
+.all-maker-container .crearDriver .make-container{
+    display: inline;
+    padding: 1% 1% 1% 0;
+}
+.all-maker-container .crearAdmin .make-container{
+    display: inline;
+    padding: 1% 1% 1% 0;
+}
+
+.make-container label{
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+.make-container input{
+    width: 45%;
+    background: none;
+    border: none;
+    padding: 1% 1% 1% 0;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+
+.make-container .button-form{
+    display: inline;
+}
+
+.make-container .button-form button{
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+/*Fin del estilo de crear cuentas*/
+
+/*ESTILO DE CONFIGURACIÓN DE LA WEB*/
+
+.config-properties{
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.config-properties h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.config-properties .info-extra{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.config-properties .all-info-container{
+    justify-content: center;
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+}
+.config-properties .all-info-container .info-container{
+    color: #fff;
+    padding: 1%;
+}
+
+/*MODIFICAR PERFIL ESTILO*/
+
+/*ESTILO DE MODIFICAR EL PERFIL*/
+
+.modify-perfil {
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.all-change-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    display: grid; /* Utilizar grid para gestionar el diseño en columnas */
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+    padding: 1%;
+}
+
+.modify-perfil h2 {
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.modify-perfil {
+    padding: 1.5% 1.5% 1.5% 0;
+}
+
+.modify-perfil h3 {
+    display: inline;
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+
+.modify-perfil input {
+    width: 90%; /* Para que el input se ajuste al contenido si se establece dinámicamente */
+    padding: 5px;
+    color: #dfdede;
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    display: inline-block; /* Asegura que el tamaño del input sea el del contenido si se usa width: auto */
+}
+
+
+.modify-perfil .info-extra {
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+
+.modify-perfil .all-change-container .button-form{
+    grid-column: span 2; /* Hacer que el botón ocupe toda la fila en el grid */
+    text-align: center;
+}
+
+.modify-perfil .all-change-container .button-form button{
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+.modify-perfil .all-change-container .button-form a{
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.modify-perfil .all-change-container .button-form button:hover{
+    background: #662D91;
+    cursor: pointer;
+}
+.modify-perfil .all-change-container .button-form a:hover{
+    background: #662D91;
+    cursor: pointer;
+}
+
+.modify-perfil .all-change-container input[type="checkbox"] {
+    display: none; /* Oculta el checkbox */
+}
+.modify-perfil .all-change-container .notification-text {
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+
+/*ESTILO DE LA SECCION ENVIOS SIN ASIGNAR*/
+
+.sin-asignar{
+    width: 65%;
+    padding: 5% 5% 5% 0;
+}
+
+.sin-asignar h2{
+    color: #CBA0F3FF;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.sin-asignar .info-extra{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+}
+.sin-asignar .all-info-container {
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #9A75D8;
+    color: white;
+    border-radius: 15px;
+}
+
+.sin-asignar .not-info{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    margin-top: 1%;
+    border-radius: 8px;
+
+}
+.sin-asignar label {
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+
+.sin-asignar input {
+    width: 45%;
+    background: none;
+    border: none;
+    padding: 1% 1% 1% 0;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+.sin-asignar .button-form{
+    display: inline;
+}
+.sin-asignar .button-form a, button {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+.form-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+    margin: 1.5% 1.5% 1.5% 0;
+}
+
+.input-box {
+    display: inline;
+}
