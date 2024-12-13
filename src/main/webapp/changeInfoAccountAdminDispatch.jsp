@@ -14,7 +14,6 @@
 </head>
 <body>
 <%
-<%
     AppController controller = new AppController();
     Object admin = session.getAttribute("usuarioLogueado");
 

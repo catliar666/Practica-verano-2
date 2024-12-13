@@ -143,7 +143,7 @@ public class InfoShipmentDataClass implements Comparable<InfoShipmentDataClass> 
                 (status.equals("3") ? Config.getStatusThree() : (status.equals("4") ? Config.getStatusFour() : "No hay registros"))));
         StringBuilder result = new StringBuilder();
         String dateExpect = expectDate.format(formatter);
-        String dateFinished = deliveryDate.format(formatter);
+        String dateFinished = (deliveryDate != null) ? deliveryDate.format(formatter) : "No hay fecha estimada todavía";
         String fechaEstado = (status.equals("4") ? "<p class='text-title-hover'>Entregado el: " : "<p class='text-title-hover'>Entrega estimada: ");
 
         StringBuilder results = new StringBuilder();
@@ -177,7 +177,7 @@ public class InfoShipmentDataClass implements Comparable<InfoShipmentDataClass> 
         String fechaEstado = (status.equals("4") ? "<p class='text-title-hover'>Entregado el: " : "<p class='text-title-hover'>Entrega estimada: ");
         String dateCreate = createDate.format(formatter);
         String dateExpect = expectDate.format(formatter);
-        String dateDelivery = (deliveryDate != null) ? deliveryDate.format(formatter) : "";
+        String dateDelivery = (deliveryDate != null) ? deliveryDate.format(formatter) : "No hay fecha estimada todavía";
         String statusString = (status.equals("1") ? Config.getStatusOne() : (status.equals("2") ? Config.getStatusTwo() :
                 (status.equals("3") ? Config.getStatusThree() : (status.equals("4") ? Config.getStatusFour() : "No hay registros"))));
 
@@ -217,7 +217,7 @@ public class InfoShipmentDataClass implements Comparable<InfoShipmentDataClass> 
     public StringBuilder forReciever(){
         String dateCreate = createDate.format(formatter);
         String dateExpect = expectDate.format(formatter);
-        String dateFinished = deliveryDate.format(formatter);
+        String dateFinished = (deliveryDate != null) ? deliveryDate.format(formatter) : "No hay fecha estimada todavía";
         String fechaEstado = (status.equals("4") ? "<p class='text-title-hover'>Entregado el: " : "<p class='text-title-hover'>Entrega estimada: ");
         String statusString = (status.equals("1") ? Config.getStatusOne() : (status.equals("2") ? Config.getStatusTwo() :
                 (status.equals("3") ? Config.getStatusThree() : (status.equals("4") ? Config.getStatusFour() : "No hay registros"))));
@@ -291,7 +291,8 @@ public class InfoShipmentDataClass implements Comparable<InfoShipmentDataClass> 
     }
 
     public StringBuilder forDriverFinished() {
-        String dateDelivery = deliveryDate.format(formatter);
+        String dateDelivery = (deliveryDate != null) ? deliveryDate.format(formatter) : "No hay fecha estimada todavía";
+
         String dateCreate = createDate.format(formatter);
         String statusString = (status.equals("1") ? Config.getStatusOne() : (status.equals("2") ? Config.getStatusTwo() :
                 (status.equals("3") ? Config.getStatusThree() : (status.equals("4") ? Config.getStatusFour() : "No hay registros"))));

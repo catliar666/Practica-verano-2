@@ -64,6 +64,8 @@
         return;
     }
 
+
+
     if (!pass.equals(pass2)) {
         session.setAttribute("passNotEqual", "Las dos contraseñas deben ser iguales");
         response.sendRedirect(user instanceof Driver ? "accountDriver.jsp" :
@@ -72,21 +74,39 @@
         return;
     }
 
-    // Comparar la nueva contraseña con la antigua almacenada
     if (user instanceof User && !((User) user).checkPass(passOld)) {
-        session.setAttribute("passEquals", "La contraseña antigua no es correcta");
+        session.setAttribute("passNotCorrect", "La contraseña antigua no es correcta");
         response.sendRedirect("accountUser.jsp");
         return;
     }
 
     if (user instanceof Driver && !((Driver) user).checkPass(passOld)) {
-        session.setAttribute("passEquals", "La contraseña antigua no es correcta");
+        session.setAttribute("passNotCorrect", "La contraseña antigua no es correcta");
         response.sendRedirect("accountDriver.jsp");
         return;
     }
 
     if (user instanceof Admin && !((Admin) user).checkPass(passOld)) {
-        session.setAttribute("passEquals", "La contraseña antigua no es correcta");
+        session.setAttribute("passNotCorrect", "La contraseña antigua no es correcta");
+        response.sendRedirect("accountAdmin.jsp");
+        return;
+    }
+
+    // Comparar la nueva contraseña con la antigua almacenada
+    if (user instanceof User && ((User) user).checkPass(pass)) {
+        session.setAttribute("passEquals", "Contraseña duplicada");
+        response.sendRedirect("accountUser.jsp");
+        return;
+    }
+
+    if (user instanceof Driver && ((Driver) user).checkPass(pass)) {
+        session.setAttribute("passEquals", "Contraseña duplicada");
+        response.sendRedirect("accountDriver.jsp");
+        return;
+    }
+
+    if (user instanceof Admin && ((Admin) user).checkPass(pass)) {
+        session.setAttribute("passEquals", "Contraseña duplicada");
         response.sendRedirect("accountAdmin.jsp");
         return;
     }

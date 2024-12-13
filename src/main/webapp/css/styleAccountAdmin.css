@@ -639,3 +639,58 @@ section:not(.list-vertical) {
     font-weight: inherit;
     color: #dfdede;
 }
+.sin-asignar .all-info-container {
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #9A75D8;
+    color: white;
+    border-radius: 15px;
+}
+
+.sin-asignar .not-info{
+    padding: 1% 1% 1% 0;
+    font-weight: inherit;
+    color: #dfdede;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    margin-top: 1%;
+    border-radius: 8px;
+
+}
+.sin-asignar label {
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 5px;
+}
+
+.sin-asignar input {
+    width: 45%;
+    background: none;
+    border: none;
+    padding: 1% 1% 1% 0;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+.sin-asignar .button-form{
+    display: inline;
+}
+.sin-asignar .button-form a, button {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+.form-container {
+    background: rgba(250, 251, 255, 0.2);
+    border-radius: 15px;
+    padding: 1%;
+    margin: 1.5% 1.5% 1.5% 0;
+}
+
+.input-box {
+    display: inline;
+}

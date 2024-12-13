@@ -135,29 +135,39 @@ public class DaoDriverSQL implements DaoDriver {
     @Override
     public Driver readByEmail(String email, DAOManager dao) {
         Driver driver = null;
-        String sentencia;
-        sentencia = "SELECT * FROM driver WHERE email = ?";
+        String sentencia = "SELECT * FROM driver WHERE email = ?";
         try (PreparedStatement ps = dao.getConn().prepareStatement(sentencia)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
-                DaoShipmentSQL daoShipmentSQL = new DaoShipmentSQL();
-                ArrayList<Integer> deliveryZones = readDeliveryZones(rs.getInt("id"), dao);
-                ArrayList<Shipment> shipments = daoShipmentSQL.readAllShipmentDriver(rs.getInt("id"), dao);
-                driver = new Driver(rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("pass"),
-                        rs.getString("email"),
-                        rs.getBoolean("validate"), deliveryZones, shipments);
+                while (rs.next()) { // Mover el puntero al primer registro
+                    DaoShipmentSQL daoShipmentSQL = new DaoShipmentSQL();
+                    ArrayList<Integer> deliveryZones = readDeliveryZones(rs.getInt("id"), dao);
+                    ArrayList<Shipment> shipments = daoShipmentSQL.readAllShipmentDriver(rs.getInt("id"), dao);
+                    driver = new Driver(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("pass"),
+                            rs.getString("email"),
+                            rs.getBoolean("validate"),
+                            deliveryZones,
+                            shipments
+                    );
+                }
             }
         } catch (SQLException e) {
-            return null;
+            e.printStackTrace(); // Para depuración, considera registrar el error
         }
-        return driver;
+        return driver; // Devuelve null si no se encuentra el registro
     }
+
 
     @Override
     public Driver readByIdShipment(int id, DAOManager dao) {
-        return null;
+        Driver driver = null;
+        DaoShipmentSQL daoShipmentSQL = new DaoShipmentSQL();
+        int idDriver = daoShipmentSQL.readIdDriverByIdShipment(id, dao);
+        driver = readById(idDriver, dao);
+        return driver;
     }
 
     public Driver readByEmailAndPass(String email, String pass, DAOManager dao) {

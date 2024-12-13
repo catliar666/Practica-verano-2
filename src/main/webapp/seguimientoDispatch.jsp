@@ -1,7 +1,8 @@
 <%@ page import="appcontroller.AppController" %>
 <%@ page import="dataclass.InfoShipmentDataClass" %>
 <%@ page import="models.Shipment" %>
-<%@ page import="utils.Utils" %><%--
+<%@ page import="utils.Utils" %>
+<%@ page import="javax.naming.CommunicationException" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 28/08/2024
@@ -42,6 +43,9 @@
     }catch (NumberFormatException e) {
         session.setAttribute("error", "Debe introducir un número");
         response.sendRedirect("seguimientoEnvio.jsp");
+    } catch (Exception e) {
+        session.setAttribute("error", "Error en la comunicacion a la base de datos");
+        response.sendRedirect("error.jsp");
     }
 %>
 </body>

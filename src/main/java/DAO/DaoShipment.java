@@ -13,6 +13,7 @@ public interface DaoShipment {
     boolean updateAddress(Shipment shipment, DAOManager dao);
     ArrayList<Shipment> readAll(DAOManager dao);
     Shipment readById(int id, DAOManager dao);
+    int readIdDriverByIdShipment(int id, DAOManager dao);
 
     ArrayList<Shipment> readShipmentByIdSender(int idUser, DAOManager dao);
     ArrayList<Shipment> readShipmentByIdReciever(int idUser, DAOManager dao);

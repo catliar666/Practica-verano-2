@@ -1,0 +1,24 @@
+/* Estilo del círculo de notificación */
+.notification-badge {
+    position: absolute;            /* Asegura que el círculo se posicione respecto al contenedor */
+    top: 0px;                      /* Ajusta la posición en la parte superior */
+    right: 0px;                    /* Ajusta la posición en la parte derecha */
+    transform: translate(50%, -50%);/* Centra el círculo respecto al botón */
+    width: 20px;                   /* Tamaño del círculo (ajustalo como prefieras) */
+    height: 20px;                  /* Tamaño del círculo (ajustalo como prefieras) */
+    background-color: #d80606;         /* Color del círculo (puedes cambiarlo) */
+    border-radius: 50%;            /* Hace el círculo redondeado */
+    color: white;                  /* Color del texto dentro del círculo */
+    font-size: 12px;               /* Tamaño de la fuente para el número dentro del círculo */
+    display: flex;                 /* Usa Flexbox para centrar el número */
+    justify-content: center;       /* Centrado horizontal */
+    align-items: center;           /* Centrado vertical */
+    z-index: 10;                   /* Asegura que el círculo esté por encima de otros elementos */
+    visibility: visible;           /* Asegura que el círculo sea visible todo el tiempo */
+}
+
+/* Asegúrate de que el botón no oculte el círculo */
+.button {
+    position: relative;  /* Necesario para que los elementos dentro se posicionen correctamente */
+}
+

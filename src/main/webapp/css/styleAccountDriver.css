@@ -310,14 +310,21 @@ section:not(.list-vertical) {
 }
 
 /* Estilo de las tarjetas de información de los paquetes */
-.card-container {
-    display: flex;
+.card-container{
+    display: flex;!important;
     flex-wrap: wrap; /* Permite que las tarjetas pasen a la siguiente línea si no caben */
     gap: 35px; /* Espacio entre las tarjetas */
     padding: 10px; /* Espacio alrededor del contenedor */
     justify-content: flex-start; /* Alinea las tarjetas al principio de la línea */
     width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
     box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+
+
+.target-button {
+    display: flex; /* Hace que los elementos dentro de cada tarjeta estén alineados horizontalmente */
+    flex-direction: column; /* Si quieres que los botones y el paquete estén en una columna dentro de la tarjeta */
 }
 .target-package {
     margin-top: 5%;
@@ -657,6 +664,19 @@ section:not(.list-vertical) {
 .modify-perfil .all-change-container .notification-text {
     color: #dfdede;
     font-size: 1.3rem;
+}
+
+.abrirChat{
+    background: #9A75D8;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 1%;
+}
+.abrirChat:hover{
+    cursor: pointer;
+    background: #906dca;
 }
 
 

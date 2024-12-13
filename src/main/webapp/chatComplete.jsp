@@ -27,6 +27,7 @@
 <%
     AppController controller = new AppController();
     Object user = session.getAttribute("usuarioLogueado");
+    boolean contMensajesSinLeer;
 
     if (user == null) response.sendRedirect("index.jsp");
     else {
@@ -43,14 +44,41 @@
 
         </ul>
         <div class="nav-icons">
-            <a href="chatComplete.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
             <%
                 if (user instanceof User) {
+                    contMensajesSinLeer = controller.mensajesSinLeer(((User) user).getId());
             %>
+            <a href="chatComplete.jsp" class="nav_link">
+                <button class="button position-relative">
+                    <i class="fa-solid fa-message"></i>
+                    <%
+                        if (contMensajesSinLeer) {
+                    %>
+                    <!-- Círculo de notificación -->
+                    <span class="notification-badge"></span>
+                    <%
+                        }
+                    %>
+                </button>
+            </a>
             <a href="accountUser.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
                     <%
             } else {
+                 contMensajesSinLeer = controller.mensajesSinLeer(((Driver) user).getId());
             %>
+            <a href="chatComplete.jsp" class="nav_link">
+                <button class="button position-relative">
+                    <i class="fa-solid fa-message"></i>
+                    <%
+                        if (contMensajesSinLeer) {
+                    %>
+                    <!-- Círculo de notificación -->
+                    <span class="notification-badge"></span>
+                    <%
+                        }
+                    %>
+                </button>
+            </a>
             <a href="accountDriver.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
                     <%
                         }
@@ -74,6 +102,11 @@
 <section class="list-vertical">
     <h2>Todos los chats</h2>
         <%
+            if (chats.isEmpty()) {
+                %>
+    <p>No hay chats para mostrar</p>
+    <%
+        }
             for (InfoChats chat : chats) {
         %>
     <div class="container-chats">
@@ -98,9 +131,13 @@
 
     <div class="chat-container">
         <%
-            controller.markReadMessage(chatUser.getMensajesReciever());
+            if (chatUser.getMensajesReciever() != null) {
+                controller.markReadMessage(chatUser.getMensajesReciever());
         %>
         <%=chatUser.showMessageView(((User) user).getId())%>
+        <%
+            }
+        %>
         <div class="message-input">
             <form method="post" action="sendMessageDispatch.jsp?idSender=<%=((User) user).getId()%>&idReciever=<%=chatUser.getIdReciever()%>&idChat=<%=chatUser.getIdChat()%>">
                 <input type="text" name="mensajeUsuario" placeholder="Escribe tu mensaje aquí" class="message-send">
@@ -121,6 +158,11 @@
     <section class="list-vertical">
         <h2>Todos los chats</h2>
         <%
+            if (chats.isEmpty()) {
+        %>
+        <p>No hay chats para mostrar</p>
+        <%
+            }
             for (InfoChats chat : chats) {
         %>
         <div class="container-chats">
@@ -143,9 +185,13 @@
     %>
     <div class="chat-container">
         <%
-            controller.markReadMessage(chatDriver.getMensajesReciever());
+            if (chatDriver.getMensajesReciever() != null) {
+                controller.markReadMessage(chatDriver.getMensajesReciever());
         %>
-    <%=chatDriver.showMessageView(((Driver) user).getId())%>
+        <%=chatDriver.showMessageView(((Driver) user).getId())%>
+        <%
+            }
+        %>
     <div class="message-input">
     <form method="post" action="sendMessageDispatch.jsp?idSender=<%=((Driver) user).getId()%>&idReciever=<%=chatDriver.getIdReciever()%>&idChat=<%=chatDriver.getIdChat()%>">
         <input type="text" name="mensajeUsuario" placeholder="Escribe tu mensaje aquí" class="message-send">

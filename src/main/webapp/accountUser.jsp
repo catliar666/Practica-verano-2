@@ -18,6 +18,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styleAccount.css" rel="stylesheet">
+    <link href="css/styleFails.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
     <link href="css/styleMessages.css" rel="stylesheet">
     <link href="css/styleFooterWhite.css" rel="stylesheet">
@@ -141,7 +142,6 @@
         <h2>Chats abiertos</h2>
         <p class="info-extra">Aquí se muestran todos los chats abiertos entre el conductor del paquete y usted.
         No se aceptan mensajes de odio, ni spam, por favor, tenga cuidado con lo que envía.</p>
-        <a href="openNewChat.jsp"><button class="abrirChat">Abrir nuevo chat</button></a>
         <%
             ArrayList<Message> messages = controller.messageForUserAll(((User) user).getId());
             ArrayList<InfoChats> chats = controller.groupsChats(((User) user).getId(), messages);
@@ -498,7 +498,7 @@
         </div>
 
         <!--MODIFICAR EL JAVASCRIPT PARA MOSTRAR LOS PEDIDOS ORDENADOS POR, ENTREGADOS O NO ENTREGADOS-->
-        <div class="card-container-finished" id="card-container-finished">
+        <div class="card-container card-container-finished" id="card-container-finished">
             <%
                 ArrayList<InfoShipmentDataClass> shipmentsFinished = controller.getShipmentsFinishedUser(((User) user).getId());
 
@@ -509,15 +509,20 @@
             } else {
                 for (InfoShipmentDataClass s : shipmentsFinished) {
             %>
+
+            <div class="target-button">
+            <a class="enlace" href='openNewChatDispatch.jsp?idPackage=<%=s.getId()%>&amp;user=<%=((User) user).getId()%>'>
+                <button class='abrirChat'>Abrir chat <%=s.getId()%></button></a>;
             <div class="target-package">
                 <%=s.forReciever()%>
+            </div>
             </div>
             <%
                     }
                 }
             %>
         </div>
-        <div class="card-container-pendings" id="card-container-pendings">
+        <div class="card-container card-container-pendings" id="card-container-pendings">
             <%
                 ArrayList<InfoShipmentDataClass> shipmentPendings = controller.getShipmentPendingsToUser(((User) user).getId());
 
@@ -528,8 +533,13 @@
             } else {
                 for (InfoShipmentDataClass s : shipmentPendings) {
             %>
+
+            <div class="target-button">
+            <a class="enlace" href='openNewChatDispatch.jsp?idPackage=<%=s.getId()%>&amp;user=<%=((User) user).getId()%>'>
+                <button class='abrirChat'>Abrir chat <%=s.getId()%></button></a>
             <div class="target-package">
                 <%=s.forReciever()%>
+            </div>
             </div>
             <%
                     }
@@ -566,7 +576,7 @@
         if (session.getAttribute("fails") != null) {
         session.removeAttribute("fails");
         %>
-        <p class="fail">Algo ha ido mal</p>
+        <p class="text-red">Algo ha ido mal</p>
         <%
             }
         %>
@@ -576,7 +586,7 @@
                     if (session.getAttribute("emailNull") != null) {
                         session.removeAttribute("emailNull");
                 %>
-                <p class="fail">Debes introducir un email</p>
+                <p class="text-red">Debes introducir un email</p>
                 <%
                     }
                 %>
@@ -588,7 +598,7 @@
                     if (session.getAttribute("phoneNull") != null) {
                         session.removeAttribute("phoneNull");
                 %>
-                <p class="fail">Debes introducir un número de teléfono</p>
+                <p class="text-red">Debes introducir un número de teléfono</p>
                 <%
                     }
                 %>
@@ -600,7 +610,7 @@
                     if (session.getAttribute("nameNull") != null) {
                         session.removeAttribute("nameNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-red">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -612,7 +622,7 @@
                     if (session.getAttribute("surnameNull") != null) {
                         session.removeAttribute("surnameNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-red">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -624,7 +634,7 @@
                     if (session.getAttribute("streetNull") != null) {
                         session.removeAttribute("streetNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-red">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -636,7 +646,7 @@
                     if (session.getAttribute("numNull") != null) {
                         session.removeAttribute("numNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-red">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -648,7 +658,7 @@
                     if (session.getAttribute("cityNull") != null) {
                         session.removeAttribute("cityNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-red">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -660,7 +670,7 @@
                     if (session.getAttribute("postalCodeNull") != null) {
                         session.removeAttribute("postalCodeNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-red">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -672,7 +682,7 @@
                     if (session.getAttribute("provinceNull") != null) {
                         session.removeAttribute("provinceNull");
                 %>
-                <p class="fail">Debes introducir el nombre del destinatario</p>
+                <p class="text-redl">Debes introducir el nombre del destinatario</p>
                 <%
                     }
                 %>
@@ -701,63 +711,74 @@
         <%
             } else {
         %>
+        <%
+            if (session.getAttribute("passOldNull") != null) {
+                session.removeAttribute("passOldNull");
+        %>
+        <p class="text-red">Debes introducir la contraseña antigua</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("passEquals") != null) {
+                session.removeAttribute("passEquals");
+        %>
+        <p class="text-red">La nueva contraseña no debe ser igual a la anterior</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("passNotCorrect") != null) {
+                session.removeAttribute("passNotCorrect");
+        %>
+        <p class="text-red">Debes introducir la contraseña antigua para cambiarla</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("passUpdate") != null) {
+                session.removeAttribute("passUpdate");
+        %>
+        <p class="text-red">Contraseña actualizada con éxito</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("passNull") != null) {
+                session.removeAttribute("passNull");
+        %>
+        <p class="text-red">Debes introducir la nueva contraseña</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("passNull") != null) {
+                session.removeAttribute("passNull");
+        %>
+        <p class="text-red">Debes introducir la nueva contraseña</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("passNotEqual") != null) {
+                session.removeAttribute("passNotEqual");
+        %>
+        <p class="text-red">La nueva contraseña debe ser igual en el campo anterior</p>
+        <%
+            }
+        %>
         <form method="post" action="changePasswordDispatch.jsp" class="all-change-container">
-            <%
-                if (session.getAttribute("passOldNull") != null) {
-                    session.removeAttribute("passOldNull");
-            %>
-            <p class="text-red">Debes introducir la contraseña antigua</p>
-            <%
-                }
-            %>
-            <%
-                if (session.getAttribute("passEquals") != null) {
-                    session.removeAttribute("passEquals");
-            %>
-            <p class="text-red">La nueva contraseña no debe ser igual a la anterior</p>
-            <%
-                }
-            %>
-            <%
-                if (session.getAttribute("passUpdate") != null) {
-                    session.removeAttribute("passUpdate");
-            %>
-            <p class="text-red">Contraseña actualizada con éxito</p>
-            <%
-                }
-            %>
+
             <div class="info-container">
                 <h3>Contraseña antigua</h3>
                 <input type="password" name="passOld" placeholder="Introduzca la antigua contraseña">
             </div>
-            <%
-                if (session.getAttribute("passNull") != null) {
-                    session.removeAttribute("passNull");
-            %>
-            <p class="text-red">Debes introducir la nueva contraseña</p>
-            <%
-                }
-            %>
+
             <div class="info-container">
                 <h3>Nueva contraseña</h3>
                 <input type="password" name="passChange" placeholder="Introduzca la nueva contraseña">
             </div>
-            <%
-                if (session.getAttribute("passNull") != null) {
-                    session.removeAttribute("passNull");
-            %>
-            <p class="text-red">Debes introducir la nueva contraseña</p>
-            <%
-                }
-            %>
-            <%
-                if (session.getAttribute("passNotEqual") != null) {
-                    session.removeAttribute("passNotEqual");
-            %>
-            <p class="text-red">La nueva contraseña debe ser igual en el campo anterior</p>
-            <%
-                }
-            %>
+
             <div class="info-container">
                 <h3>Repite la nueva contraseña</h3>
                 <input type="password" name="pass2Change" placeholder="Repita la nueva contraseña">

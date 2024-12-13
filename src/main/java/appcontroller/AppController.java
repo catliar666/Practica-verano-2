@@ -527,7 +527,7 @@ public class AppController implements Serializable {
         }
     }
 
-    private Driver searchDriverByIdShipment(int idShipment) {
+    public Driver searchDriverByIdShipment(int idShipment) {
         try {
             DAO.open();
             DaoDriverSQL daoDriverSQL = new DaoDriverSQL();
@@ -1270,6 +1270,16 @@ public class AppController implements Serializable {
 
     }
 
+    public boolean mensajesSinLeer(int idUser) {
+        ArrayList<Message> messages = messageForUserAll(idUser);
+        int cont = 0;
+        for (Message m : messages) {
+            if (m.getIdReceiver() == idUser && !m.isView()) return true;
+        }
+        return false;
+
+    }
+
     public ArrayList<Message> mensajesEnviados(int idPackage, int idSender, ArrayList<Message> messages) {
         ArrayList<Message> mensajesEnviados = new ArrayList<>();
         for (Message m : messages) {
@@ -1317,7 +1327,7 @@ public class AppController implements Serializable {
 
         for (Message message : messages) {
             // Filtrar los mensajes enviados por el idUser
-            if (message.getIdSender() == idUser) {
+            if (message.getIdSender() == idUser || message.getIdReceiver() == idUser) {
                 // Mensajes enviados y recibidos relacionados con el idPackage
                 ArrayList<Message> mensajesSender = mensajesEnviados(message.getIdPackage(), idUser, messages);
                 ArrayList<Message> mensajesReciever = mensajesRecibidos(message.getIdPackage(), idUser, messages);
@@ -1331,8 +1341,8 @@ public class AppController implements Serializable {
                     chats.add(new InfoChats(
                             message.getIdPackage(),
                             message.getIdPackage(),
-                            message.getIdSender(),
-                            message.getIdReceiver(),
+                            mensajesSender.get(0).getIdSender(),
+                            mensajesSender.get(0).getIdReceiver(),
                             mensajesSender,
                             mensajesReciever,
                             lastDate

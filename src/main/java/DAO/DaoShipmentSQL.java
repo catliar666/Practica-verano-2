@@ -152,6 +152,24 @@ public class DaoShipmentSQL implements DaoShipment{
         return shipment;
     }
 
+    @Override
+    public int readIdDriverByIdShipment(int id, DAOManager dao) {
+        int idDriver = -1;
+        String sentencia;
+        sentencia = "SELECT idDriver FROM shipment WHERE id = ?";
+        try (PreparedStatement ps = dao.getConn().prepareStatement(sentencia)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    idDriver = rs.getInt("idDriver");
+                }
+            }
+        } catch (SQLException e) {
+            return -1;
+        }
+        return idDriver;
+    }
+
     public ArrayList<Shipment> readAllShipmentPendings(DAOManager dao) {
         ArrayList<Shipment> shipments = new ArrayList<>();
         String sentencia;

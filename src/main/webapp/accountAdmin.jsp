@@ -86,9 +86,9 @@
             <li>
                 <button class="list-button" id="configWeb">Configuración web</button>
             </li>
-            <li>
+            <!--<li>
                 <button class="list-button" id="copiaSeguridad">Copia de seguridad</button>
-            </li>
+            </li>-->
             <li><a href="closeSessionDispatch.jsp">
                 <button class="list-button" id="cerrarSesion">Cerrar Sesión</button>
             </a></li>
@@ -175,27 +175,41 @@
             if (session.getAttribute("driverAdded") == null) {
                 if (shipmentsNotAsign.isEmpty()) {
         %>
-        <p class="not-info">No se han encontrado paquetes sin asignar</p>
+        <p class="not-info">No se han encontrado paquetes sin asignar o conductores disponibles</p>
         <%
         } else {
             Shipment shipmentFound = (Shipment) session.getAttribute("shipmentFound");
             if (shipmentFound == null) {
         %>
         <!-- Formulario para buscar paquetes -->
+        <%
+            if (session.getAttribute("idNull") != null){
+                session.removeAttribute("idNull");
+        %>
+        <p class="text-red">Debes introducir un identificador</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("shipmentNotFound") != null){
+                session.removeAttribute("shipmentNotFound");
+        %>
+        <p class="text-red">Paquete no encontrado</p>
+        <%
+            }
+        %>
+        <div class="form-container">
         <form method="post" action="findPackageDispatch.jsp?admin=true">
-            <%
-                if (session.getAttribute("idPackageNull") != null){
-                    session.removeAttribute("idPackageNull");
-            %>
-            <p class="text-red">Debes introducir un identificador</p>
-            <%
-                }
-            %>
-            <label>Introduce el identificador del paquete</label><input type="number" name="idPackage">
+            <div class="input-box">
+            <label>Introduce el identificador del paquete</label>
+                <input type="number" name="idPackage">
+            </div>
             <div class="button-form">
                 <button type="submit">Buscar</button>
             </div>
+
         </form>
+        </div>
 
         <!-- Lista de paquetes sin asignar -->
         <div class="card-container">
@@ -227,20 +241,30 @@
         } else {
         %>
         <!-- Formulario para asignar conductor -->
+        <%
+            if (session.getAttribute("idConductorNull") != null){
+                session.removeAttribute("idConductorNull");
+        %>
+        <p class="text-red">Debes introducir un identificador</p>
+        <%
+            }
+        %>
+        <%
+            if (session.getAttribute("noValido") != null){
+                session.removeAttribute("noValido");
+        %>
+        <p class="text-red">No nos intenter trolear</p>
+        <%
+            }
+        %>
+        <div class="form-container">
         <form method="post" action="asignarConductorDispatch.jsp?idPackage=<%=shipmentFound.getId()%>">
-            <%
-                if (session.getAttribute("idConductorNull") != null){
-                    session.removeAttribute("idConductorNull");
-            %>
-            <p class="text-red">Debes introducir un identificador</p>
-            <%
-                }
-            %>
             <label>Introduce el identificador conductor</label><input type="number" name="idConductor">
             <div class="button-form">
                 <button type="submit">Buscar</button>
             </div>
         </form>
+        </div>
 
         <!-- Lista de conductores disponibles -->
         <div class="card-container">
@@ -262,6 +286,9 @@
         } else {
         %>
         <p class="all-info-container">PAQUETE ASIGNADO CORRECTAMENTE</p>
+        <div class="button-form">
+            <a href="borrarAdminDispatch.jsp">Volver</a>
+        </div>
         <%
             }
         %>
@@ -361,6 +388,7 @@
             </form>
             <%
             } else {
+ if (session.getAttribute("registerDriver") == null) {
             %>
             <form method="post" action="createDriverDispatch.jsp">
                 <div class="all-make-container crearDriver">
@@ -411,7 +439,25 @@
                 </div>
             </form>
             <%
+                } else {
+                    session.removeAttribute("registerDriver");
+            %>
+            <p class="successAdd">Conductor registrado con éxito</p>
+            <div class="button-form">
+                <a href="borrarAdminDispatch.jsp">Volver</a>
+            </div>
+            <%
                 }
+                if (session.getAttribute("fail") != null) {
+                    session.removeAttribute("fail");
+            %>
+            <p class="fail">No se ha podido registrar al conductor</p>
+            <div class="button-form">
+                <a href="borrarAdminDispatch.jsp">Volver</a>
+            </div>
+            <%
+                        }
+                    }
             %>
         </div>
 
@@ -439,9 +485,10 @@
             </form>
             <%
             } else {
+                if (session.getAttribute("registerAdmin") == null) {
             %>
-            <form method="post" action="createAdminDispatch.jsp">
-                <div class="all-make-container crearAdmin">
+            <form method="post" action="createDriverDispatch.jsp">
+                <div class="all-make-container crearDriver">
                     <div class="make-container">
                         <label>Introduce un email:</label>
                         <%
@@ -452,9 +499,10 @@
                         <%
                             }
                         %>
-                        <input type="email" name="email" placeholder="Introduce un email" value="<%= emailAdmin %>" pattern="^[^<>]*$" required>
+                        <input type="email" name="email" placeholder="Introduce un email" value="<%= email %>" pattern="^[^<>]*$" required>
                     </div>
 
+                    <!-- Otras secciones para capturar la dirección, ciudad, etc. -->
                     <!-- Ingresar el nombre -->
                     <div class="make-container">
                         <label>Introduce un nombre:</label>
@@ -488,16 +536,22 @@
                 </div>
             </form>
             <%
-                if (session.getAttribute("register") != null) {
-                    session.removeAttribute("register");
+            } else {
+                session.removeAttribute("registerAdmin");
             %>
             <p class="successAdd">Administrador registrado con éxito</p>
+            <div class="button-form">
+                <a href="borrarAdminDispatch.jsp">Volver</a>
+            </div>
             <%
                 }
                 if (session.getAttribute("fail") != null) {
                     session.removeAttribute("fail");
             %>
             <p class="fail">No se ha podido registrar al administrador</p>
+            <div class="button-form">
+                <a href="borrarAdminDispatch.jsp">Volver</a>
+            </div>
             <%
                     }
                 }
@@ -649,7 +703,7 @@
             </div>
             <div class="button-form">
                 <button type="submit">Modificar</button>
-                <a href="borrarDriverDispatch.jsp">Volver atrás</a>
+                <a href="borrarAdminDispatch.jsp">Volver atrás</a>
             </div>
         </form>
         <%
@@ -657,8 +711,8 @@
         %>
     </section>
 
-    <section class="copy-security" id="copySecurity">
-    </section>
+   <!-- <section class="copy-security" id="copySecurity">
+    </section>-->
 
 </main>
 

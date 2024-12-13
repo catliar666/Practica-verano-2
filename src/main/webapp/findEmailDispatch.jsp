@@ -14,7 +14,7 @@
     // Verificamos si hay algún usuario logueado
     Object userLogin = session.getAttribute("usuarioLogueado");
 
-    if (userLogin != null) {
+    if (userLogin == null) {
         response.sendRedirect("index.jsp");
         return;
     }

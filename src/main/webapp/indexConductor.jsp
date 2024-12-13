@@ -1,4 +1,5 @@
-<%@ page import="models.Driver" %><%--
+<%@ page import="models.Driver" %>
+<%@ page import="appcontroller.AppController" %><%--
   Created by IntelliJ IDEA.
   User: Maria
   Date: 03/08/2024
@@ -10,9 +11,10 @@
 <head>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
+    <link href="css/styleNotification.css" rel="stylesheet">
     <link href="css/styleFooter.css" rel="stylesheet">
     <link href="css/styleResponsiveAll.css" rel="stylesheet">
-    <title>Title</title>
+    <title>FernanPaaq</title>
 </head>
 <body>
 <%
@@ -22,6 +24,8 @@
         response.sendRedirect("index.jsp");
     }
     if (user instanceof Driver){
+        AppController controller = new AppController();
+        boolean contMensajesSinLeer = controller.mensajesSinLeer(((Driver) user).getId());
 %>
 
 
@@ -38,7 +42,19 @@
 
         </ul>
         <div class="nav-icons">
-            <a href="chatComplete.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
+            <a href="chatComplete.jsp" class="nav_link">
+                <button class="button position-relative">
+                    <i class="fa-solid fa-message"></i>
+                    <%
+                        if (contMensajesSinLeer) {
+                    %>
+                    <!-- Círculo de notificación -->
+                    <span class="notification-badge"></span>
+                    <%
+                        }
+                    %>
+                </button>
+            </a>
             <a href="accountDriver.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
         </div>
     </div>

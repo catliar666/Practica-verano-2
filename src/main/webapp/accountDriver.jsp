@@ -18,14 +18,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styleAccountDriver.css" rel="stylesheet">
+    <link href="css/styleFails.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
     <link href="css/styleMessages.css" rel="stylesheet">
-    <link href="css/styleFails.css" rel="stylesheet">
     <link href="css/styleFooterWhite.css" rel="stylesheet">
     <link href="css/styleResponsiveAll.css" rel="stylesheet">
 
     <!--Links iconos-->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+   <!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
     <title>Cuenta de conductor</title>
 </head>
 <body>
@@ -233,8 +234,11 @@
             } else {
                 for (InfoShipmentDataClass s : shipmentsPending) {
             %>
+            <div class="target-button">
+            <a href='openNewChatDispatch.jsp?idPackage=<%=s.getId()%>&amp;user=<%=((Driver) driver).getId()%>'><button class='abrirChat'>Abrir chat <%=s.getId()%></button></a>
             <div class="target-package">
                 <%=s.forDriverPending()%>
+            </div>
             </div>
             <%
                     }
@@ -355,7 +359,7 @@
             paquetes.</p>
 
         <!--MODIFICAR EL JAVASCRIPT PARA MOSTRAR LOS PEDIDOS ORDENADOS POR, ENTREGADOS O NO ENTREGADOS-->
-        <div class="card-container-finished" id="card-container-finished">
+        <div class="card-container card-container-finished" id="card-container-finished">
             <%
                 ArrayList<InfoShipmentDataClass> shipmentsFinished = controller.getShipmentsFinishedDriver(((Driver) driver).getId());
 

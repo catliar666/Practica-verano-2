@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     const sections = ["infoPerfil", "infoEmpresa", "sinAsignar",
-        "resumenUsuarios", "resumenConductores", "createDriver", "configProperties", "modifyPerfil", "copySecurity"];
+        "resumenUsuarios", "resumenConductores", "createDriver", "configProperties", "modifyPerfil"];
     const buttons = document.querySelectorAll('.list-vertical .list-button');
 
     function hideAllSections() {
@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
     handleButtonClick("crearCuentas", "createDriver");
     handleButtonClick("configWeb", "configProperties");
     handleButtonClick("modificarPerfil", "modifyPerfil");
-    handleButtonClick("copiaSeguridad", "copySecurity");
 
     // Restore the active section when the page loads
     const activeSection = sessionStorage.getItem('activeSection');
@@ -84,8 +83,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 return "configWeb";
             case "modifyPerfil":
                 return "modificarPerfil";
-            case "copySecurity":
-                return "copiaSeguridad";
             default:
                 return "";
         }

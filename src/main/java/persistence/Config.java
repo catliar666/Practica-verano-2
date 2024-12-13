@@ -4,6 +4,7 @@ import comunication.ErroresAdmin;
 import utils.Utils;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -269,7 +270,7 @@ public class Config {
         Properties p = new Properties();
         try {
             p.load(new FileReader(PATH));
-            return p.getProperty("urlValidation", "http://192.168.7.20:8080/FernanPaqWeb_war_exploded/esperaValidacion.jsp");
+            return p.getProperty("urlValidation", "http://" + InetAddress.getLocalHost() + ":8080/FernanPaqWeb_war_exploded/esperaValidacion.jsp");
         } catch (IOException e) {
             String mensaje = ErroresAdmin.mensajePredeterminado(e, "Url Validation Not Found", LocalDateTime.now());
             try {

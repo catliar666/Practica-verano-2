@@ -45,7 +45,7 @@
     try {
         boolean register = controller.addAdmin(name, email, pass);
         if (register){
-            session.setAttribute("register", "Se ha registrado con éxito");
+            session.setAttribute("registerAdmin", "Se ha registrado con éxito");
             response.sendRedirect("accountAdmin.jsp");
             return;
         }

@@ -193,23 +193,29 @@ public class InfoChats implements Comparable<InfoChats>{
 
         // Itera sobre todos los mensajes
         for (Message m : allMessages) {
-                       if (idUser == m.getIdSender()) {
+            // Verifica si el mensaje pertenece al usuario que está visualizando
+            if (idUser == m.getIdSender()) {
                 result.append("<div class='message-box right'>")
                         .append("<p>").append("<a href='borrarMensajeDispatch.jsp?idMensaje=" + m.getId() + "&" + "sender=true'>" + imagenDelete + "</a>" + m.getMessage()).append("</p>")
-                        .append("</div>")
-                        .append("<span class='state-right'>" + (m.isView() ? "Leído" : "Entregado") + "</span>");
-                } else {
-                    // Si el usuario no es el remitente, entonces el mensaje es recibido y va a la izquierda
-                    result.append("<div class='message-box left'>")
-                            .append("<p>").append(m.getMessage()).append("</p>")
-                            .append("</div>");
-                }
+                        .append("</div>");
+
+                // Asegúrate de que solo se marque como "Leído" cuando se haya visualizado correctamente
+                result.append("<span class='state-right'>" + (m.isView() ? "Leído" : "Entregado") + "</span>");
+            } else {
+                // Si el usuario no es el remitente, el mensaje es recibido
+                result.append("<div class='message-box left'>")
+                        .append("<p>").append(m.getMessage()).append("</p>")
+                        .append("</div>");
+
+                // Aquí no es necesario mostrar "Leído" ni "Entregado" para el receptor, puedes ajustarlo si es necesario
+            }
         }
 
         result.append("</div>"); // Cierra la card-body y messages-container
 
         return result; // Retorna el HTML generado
     }
+
 
 
     private ArrayList<Message> groupAllMessages(ArrayList<Message> mensajesReciever, ArrayList<Message> mensajesSender) {

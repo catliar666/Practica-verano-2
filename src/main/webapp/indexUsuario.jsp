@@ -12,13 +12,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/styleNotification.css" rel="stylesheet">
     <link href="css/styleHeader.css" rel="stylesheet">
     <link href="css/styleFooter.css" rel="stylesheet">
     <link href="css/styleResponsiveAll.css" rel="stylesheet">
 
     <!--Links iconos-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <title>Title</title>
+    <title>FernanPaaq</title>
 </head>
 <body>
 
@@ -31,6 +32,10 @@
             return;
         }
     }
+
+    if (user instanceof User){
+        AppController controller = new AppController();
+        boolean contMensajesSinLeer = controller.mensajesSinLeer(((User) user).getId());
 %>
 
 
@@ -47,7 +52,19 @@
 
         </ul>
         <div class="nav-icons">
-        <a href="chatComplete.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-message"></i></button></a>
+            <a href="chatComplete.jsp" class="nav_link">
+                <button class="button position-relative">
+                    <i class="fa-solid fa-message"></i>
+                    <%
+                        if (contMensajesSinLeer) {
+                    %>
+                    <!-- Círculo de notificación -->
+                    <span class="notification-badge"></span>
+                    <%
+                        }
+                    %>
+                </button>
+            </a>
         <a href="accountUser.jsp" class="nav_link"><button class="button"><i class="fa-solid fa-user"></i></button></a>
         </div>
     </div>
@@ -134,7 +151,9 @@
         <p>&copy; 2024 FernanPaaq. Todos los derechos reservados.</p>
     </div>
 </footer>
-
+<%
+    }
+%>
 <!--Fin del footer-->
 
 <!-- End Example Code -->

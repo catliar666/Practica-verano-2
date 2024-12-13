@@ -9,12 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function showSection(sectionToShow) {
         // Mostrar la sección seleccionada
         if (sectionToShow === 'card-container-pendings') {
-            containerPendings.style.display = 'block';
+            containerPendings.style.display = 'flex';
             containerFinished.style.display = 'none';
             btnEncurso.classList.add('active');
             btnEntregados.classList.remove('active');
         } else if (sectionToShow === 'card-container-finished') {
-            containerFinished.style.display = 'block';
+            containerFinished.style.display = 'flex';
             containerPendings.style.display = 'none';
             btnEntregados.classList.add('active');
             btnEncurso.classList.remove('active');
