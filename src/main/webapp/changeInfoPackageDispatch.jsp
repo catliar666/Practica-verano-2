@@ -5,6 +5,7 @@
     AppController controller = new AppController();
     String idPackage = request.getParameter("idPackage"),
     street = request.getParameter("streetNew"),
+            num = request.getParameter("numNew"),
     city = request.getParameter("cityNew"),
     postalCode = request.getParameter("postalNew");
 
@@ -12,6 +13,10 @@
 
     if (street == null || street.trim().isEmpty() || Utils.VerEtiquetas(street) || Utils.VerInyeccionSql(street)) {
         session.setAttribute("streetNull", "No hay direccion");
+        fails++;
+    }
+    if (num == null || num.trim().isEmpty() || Utils.VerEtiquetas(num) || Utils.VerInyeccionSql(num)) {
+        session.setAttribute("numNull", "No hay número");
         fails++;
     }
     if (city == null || city.trim().isEmpty() || Utils.VerEtiquetas(city) || Utils.VerInyeccionSql(city)) {
@@ -29,9 +34,9 @@
     try {
 
         if (idPackage != null) {
-            int postalNum = Integer.parseInt(postalCode), idNum = Integer.parseInt(idPackage);
+            int postalNum = Integer.parseInt(postalCode), idNum = Integer.parseInt(idPackage), numAlternative = Integer.parseInt(num);
 
-            if (controller.changeDeliveryData(idNum, street, postalNum, city)) {
+            if (controller.changeDeliveryData(idNum, street, postalNum, city, numAlternative)) {
                 session.setAttribute("modifySuccess", "Paquete actualizado correctamente");
                 response.sendRedirect("accountUser.jsp");
                 return;
@@ -40,7 +45,7 @@
             response.sendRedirect("accountUser.jsp");
             return;
         }
-        session.setAttribute("NotFound", "Paquete no encontrado");
+        session.setAttribute("shipmentNotFound", "Paquete no encontrado");
         response.sendRedirect("accountUser.jsp");
     }catch (NumberFormatException e){
         session.setAttribute("error", "Ha ocurrido un error");

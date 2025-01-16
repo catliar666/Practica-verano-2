@@ -288,6 +288,7 @@ section:not(.list-vertical) {
     padding: 2% 2% 2% 0; /* Un poco de espacio dentro de la sección */
 }
 
+
 .envios-pending h2{
     color: #CBA0F3FF;
     font-weight: normal;
@@ -307,6 +308,10 @@ section:not(.list-vertical) {
     margin-top: 1%;
     border-radius: 8px;
 
+}
+
+.show-message .not-info{
+    color:white;
 }
 
 /* Estilo de las tarjetas de información de los paquetes */

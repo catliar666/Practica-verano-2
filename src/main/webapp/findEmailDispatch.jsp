@@ -30,7 +30,7 @@
             controller.searchAdminByEmail(emailRegister) != null) {
             if (account != null) {
                 if (account.equals("driver")) {
-                    session.setAttribute("emailUse", emailUse);
+                    session.setAttribute("emailUse", "Email ya existente");
                     response.sendRedirect("accountAdmin.jsp");
                     return;
                 } else if (account.equals("admin")) {

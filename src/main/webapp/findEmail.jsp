@@ -76,7 +76,7 @@
                     <span>Registra tu cuenta</span>
                 </div>
                 <%
-                   String emailUse = (String) session.getAttribute("emailUse");
+                   Object emailUse = session.getAttribute("emailUse");
                     if (emailUse != null) {
                         session.removeAttribute("emailUse");
                 %>

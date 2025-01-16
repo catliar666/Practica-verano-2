@@ -658,8 +658,62 @@ section:not(.list-vertical):not(.packageNotUser) {
     border-radius: 5px;
     padding: 1%;
 }
+.show-message .not-info{
+    color:white;
+}
 
 .modify-envio .form-change .button-form button {
+    font-size: 1.5rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+    margin-top: 0.5%;
+    width: 20%;
+}
+
+.modify-envio .all-change-container {
+    padding: 1% 1% 1% 0;
+    width: auto;
+    font-weight: inherit;
+    color: #dfdede;
+    background: rgba(255, 255, 255, 0.2);
+    margin-top: 1%;
+    border-radius: 8px;
+}
+
+.modify-envio .all-change-container .info-container h3{
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #CBA0F3FF;
+    padding: 1%;
+}
+
+.modify-envio .all-change-container .info-container input{
+    width: 45%;
+    background: none;
+    border: none;
+    padding: 1% 1% 1% 0;
+    color: #dfdede;
+    font-size: 1.3rem;
+}
+.modify-envio .all-change-container .info-container input:hover {
+    background: none;
+    color: #dfdede;
+    border-bottom: #CBA0F3FF;
+}
+
+.modify-envio .all-change-container .button-form {
+    font-size: 1rem;
+    color: #fff;
+    background: #a04ae3;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.modify-envio .all-change-container .button-form button {
     font-size: 1.5rem;
     color: #fff;
     background: #a04ae3;

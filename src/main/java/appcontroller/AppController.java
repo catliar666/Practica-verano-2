@@ -510,13 +510,14 @@ public class AppController implements Serializable {
 
     /*Cambia la informacion de un envio seleccionado, cambia toda la direccion*/
     /*Change the information of a selected shipment, change the entire address*/
-    public boolean changeDeliveryData(int idShipment, String address, int postalCode, String city) {
+    public boolean changeDeliveryData(int idShipment, String address, int postalCode, String city, int num) {
         try {
             DAO.open();
             DaoShipmentSQL daoShipmentSQL = new DaoShipmentSQL();
             Shipment shipment = daoShipmentSQL.readById(idShipment, DAO);
             shipment.setAlternativeAddress(address);
             shipment.setAlternativePostalCode(postalCode);
+            shipment.setNumAlternative(num);
             shipment.setAlternativeCity(city);
             PersistenceDisk.recordUpdateShipment(shipment, LocalDateTime.now());
             boolean change = daoShipmentSQL.updateAddress(shipment, DAO);
@@ -1337,16 +1338,28 @@ public class AppController implements Serializable {
 
                 // Verificar si ya existe un chat con el idPackage
                 if (!chatExiste(message.getIdPackage(), chats)) {
-                    // Si no existe, agregamos un nuevo InfoChats
-                    chats.add(new InfoChats(
-                            message.getIdPackage(),
-                            message.getIdPackage(),
-                            mensajesSender.get(0).getIdSender(),
-                            mensajesSender.get(0).getIdReceiver(),
-                            mensajesSender,
-                            mensajesReciever,
-                            lastDate
-                    ));
+                    if (!mensajesSender.isEmpty()) {
+                        // Si no existe, agregamos un nuevo InfoChats
+                        chats.add(new InfoChats(
+                                message.getIdPackage(),
+                                message.getIdPackage(),
+                                mensajesSender.get(0).getIdSender(),
+                                mensajesSender.get(0).getIdReceiver(),
+                                mensajesSender,
+                                mensajesReciever,
+                                lastDate
+                        ));
+                    } else {
+                        chats.add(new InfoChats(
+                                message.getIdPackage(),
+                                message.getIdPackage(),
+                                mensajesReciever.get(0).getIdReceiver(),
+                                mensajesReciever.get(0).getIdSender(),
+                                mensajesSender,
+                                mensajesReciever,
+                                lastDate
+                        ));
+                    }
                 }
             }
         }

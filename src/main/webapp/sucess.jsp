@@ -89,7 +89,7 @@
         <div class="info-box">
             <h3>Acción realizada correctamente</h3>
             <div class="option-container">
-                <a href="index.jsp">
+                <a href="reloadUser.jsp">
                     Pulse aquí para continuar
                 </a>
             </div>

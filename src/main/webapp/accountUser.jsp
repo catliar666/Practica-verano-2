@@ -435,7 +435,6 @@
                 %>
                 <%
                     String notFound = (String) session.getAttribute("shipmentNotFound");
-
                     if (notFound != null) {
                         session.removeAttribute("shipmentNotFound");
                 %>
@@ -457,20 +456,61 @@
             }
         } else {
         %>
-        <form method="post" action="changeInfoPackageDispatch.jsp?idPackage=<%=shipmentFound.getId()%>" class="all-change-container">
+        <div class="all-change-container">
+        <form method="post" action="changeInfoPackageDispatch.jsp?idPackage=<%=shipmentFound.getId()%>" >
             <div class="info-container">
-                <h3>Dirección y Número de portal:</h3>
+                <h3>Dirección:</h3>
+                <%
+                    if (session.getAttribute("streetNull") != null) {
+                        session.removeAttribute("streetNull");
+                %>
+                <p class="fail">Debes introducir una dirección</p>
+                <%
+                    }
+                %>
                 <input type="text" name="streetNew" value="<%=shipmentFound.getAlternativeAddress()%>">
             </div>
             <div class="info-container">
+                <h3>Número de portal:</h3>
+                <%
+                    if (session.getAttribute("numNull") != null) {
+                        session.removeAttribute("numNull");
+                %>
+                <p class="fail">Debes introducir un número de portal</p>
+                <%
+                    }
+                %>
+                <input type="text" name="numNew" value="<%=shipmentFound.getNumAlternative()%>">
+            </div>
+            <div class="info-container">
                 <h3>Ciudad:</h3>
-                <input type="number" name="cityNew" value="<%=shipmentFound.getAlternativeCity()%>">
+                <%
+                    if (session.getAttribute("cityNull") != null) {
+                        session.removeAttribute("cityNull");
+                %>
+                <p class="fail">Debes introducir una ciudad</p>
+                <%
+                    }
+                %>
+                <input type="text" name="cityNew" value="<%=shipmentFound.getAlternativeCity()%>">
             </div>
             <div class="info-container">
                 <h3>Código postal:</h3>
-                <input type="text" name="postalNew" value="<%=shipmentFound.getAlternativePostalCode()%>">
+                <%
+                    if (session.getAttribute("postalCodeNull") != null) {
+                        session.removeAttribute("postalCodeNull");
+                %>
+                <p class="fail">Debes introducir un codigo postal</p>
+                <%
+                    }
+                %>
+                <input type="number" name="postalNew" value="<%=shipmentFound.getAlternativePostalCode()%>">
+            </div>
+            <div class="button-form">
+                <button type="submit">Modificar</button>
             </div>
         </form>
+        </div>
         <%
             }
         %>

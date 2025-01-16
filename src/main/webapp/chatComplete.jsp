@@ -83,7 +83,7 @@
                     <%
                         }
                     %>
-                </a>
+            </a>
 
         </div>
     </div>
@@ -104,7 +104,7 @@
         <%
             if (chats.isEmpty()) {
                 %>
-    <p>No hay chats para mostrar</p>
+    <p class="not-info">No hay chats para mostrar</p>
     <%
         }
             for (InfoChats chat : chats) {
@@ -160,7 +160,7 @@
         <%
             if (chats.isEmpty()) {
         %>
-        <p>No hay chats para mostrar</p>
+        <p class="not-info">No hay chats para mostrar</p>
         <%
             }
             for (InfoChats chat : chats) {
@@ -178,7 +178,7 @@
         if (chatDriver == null) {
     %>
     <div class="chat-container">
-        <p class="info-extra"> Chat no seleccionado</p>
+        <p class="not-info"> Chat no seleccionado</p>
     </div>
     <%
     } else {
